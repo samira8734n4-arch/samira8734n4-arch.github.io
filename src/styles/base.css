@@ -1,0 +1,425 @@
+/* Base + components. Tokens: tokens.css — never hardcode a value here.
+   Direction: warm, playful, card-led. Heavy display type, generous rounding,
+   pastel surfaces. Restraint lives only in the reading columns. */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--color-action); color: var(--color-action-text); }
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-black);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  margin: 0;
+  text-wrap: balance;
+}
+
+p, li { text-wrap: pretty; }
+p { margin: 0 0 var(--space-4); }
+
+a { color: var(--color-action); text-underline-offset: 0.2em; }
+a:hover { color: var(--color-action-hover); }
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-sm);
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+/* LAYOUT */
+.wrap {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.prose { max-width: var(--measure); }
+.section { padding-block: var(--space-8) var(--spacing-section); }
+
+.eyebrow {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-tertiary);
+  margin: 0 0 var(--space-4);
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-action);
+  color: var(--color-action-text);
+  border-radius: var(--radius-full);
+}
+.skip:focus { left: var(--gutter); top: var(--space-3); z-index: 20; }
+
+/* NAV — one floating pill. */
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-6);
+  align-items: center;
+  margin-block: var(--space-6);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-subtle);
+}
+.nav a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-full);
+}
+.nav a:hover { color: var(--color-text-primary); background: var(--color-action-tint); }
+.nav a[aria-current] { color: var(--color-action-text); background: var(--color-action); }
+.nav .home {
+  margin-inline-end: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+  letter-spacing: var(--tracking-tight);
+}
+.nav .home:hover, .nav .home[aria-current] { background: none; color: var(--color-text-primary); }
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--fill-mint);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: var(--weight-black);
+  font-size: var(--text-base);
+  color: var(--color-action);
+  flex: none;
+}
+.theme-toggle {
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-secondary);
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: var(--space-2) var(--space-4);
+  cursor: pointer;
+}
+.theme-toggle:hover { color: var(--color-text-primary); border-color: var(--color-border-strong); }
+
+/* Narrow: the name takes its own row, then the links and the toggle share the
+   next one rather than the toggle stranding on a third. */
+@media (max-width: 40rem) {
+  .nav { border-radius: var(--radius-lg); gap: var(--space-2); }
+  .nav .home { flex: 1 0 100%; margin-inline-end: 0; }
+  .nav a { padding: var(--space-2); }
+  .theme-toggle { padding: var(--space-2) var(--space-3); }
+}
+
+/* HERO */
+.hero { padding-block: var(--space-12) var(--space-8); position: relative; }
+.hero h1 {
+  font-size: var(--text-4xl);
+  max-width: 14ch;
+  color: var(--color-action);
+}
+.hero .lede {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  max-width: var(--measure);
+  margin-top: var(--space-6);
+  font-weight: var(--weight-medium);
+}
+
+/* Badge — the little "@ company" tag. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--fill-butter);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-full);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  margin-bottom: var(--space-6);
+  box-shadow: var(--shadow-subtle);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  margin-top: var(--space-8);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+.meta > span {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: var(--space-2) var(--space-4);
+}
+.meta strong { color: var(--color-text-primary); font-weight: var(--weight-bold); }
+
+/* PROMO CARDS — the three big coloured blocks under the hero. */
+.promos { display: grid; gap: var(--space-6); margin: 0; padding: 0; list-style: none; }
+@media (min-width: 52rem) { .promos { grid-template-columns: repeat(3, 1fr); } }
+
+.promo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-8);
+  border-radius: var(--radius-lg);
+  min-height: 15rem;
+  transition: transform var(--duration-base) var(--ease);
+}
+.promo:hover { transform: translateY(-4px); }
+.promo:nth-child(1) { background: var(--fill-peach); }
+.promo:nth-child(2) { background: var(--fill-lavender); }
+.promo:nth-child(3) { background: var(--fill-mint); }
+.promo h2 { font-size: var(--text-2xl); }
+.promo p { color: var(--color-text-secondary); margin: 0; }
+.promo .go {
+  margin-top: auto;
+  align-self: flex-start;
+  background: var(--color-text-primary);
+  color: var(--color-background);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-full);
+}
+.promo .go:hover { background: var(--color-action); color: var(--color-action-text); }
+
+/* WORK — grouped by year, one big card each. */
+.year {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-black);
+  color: var(--color-text-tertiary);
+  margin: var(--space-12) 0 var(--space-6);
+}
+.cards { display: grid; gap: var(--space-6); margin: 0; padding: 0; list-style: none; }
+
+.card {
+  position: relative;
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-8);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-subtle);
+  transition: transform var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease);
+}
+.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-medium); }
+.card:nth-child(odd) { background: var(--color-surface); }
+
+.card h3 { font-size: var(--text-2xl); }
+.card h3 a { color: inherit; text-decoration: none; }
+.card h3 a::after { content: ""; position: absolute; inset: 0; }
+
+.card .domain {
+  display: inline-block;
+  justify-self: start;
+  background: var(--fill-sky);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-full);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+}
+.card .outcome { color: var(--color-text-secondary); margin: 0; max-width: var(--measure); }
+.card .outcome::after {
+  content: " →";
+  display: inline-block;
+  color: var(--color-action);
+  transition: transform var(--duration-base) var(--ease);
+}
+.card:hover .outcome::after { transform: translateX(4px); }
+
+/* STATS */
+.stats {
+  display: grid;
+  gap: var(--space-6);
+  margin-block: var(--space-12);
+  padding: var(--space-8);
+  background: var(--fill-lavender);
+  border-radius: var(--radius-lg);
+}
+@media (min-width: 40rem) { .stats { grid-template-columns: repeat(3, 1fr); } }
+.stat-value {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-black);
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  display: block;
+}
+.stat-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-3);
+  display: block;
+}
+
+/* SUMMARY BLOCK */
+.summary {
+  display: grid;
+  gap: var(--space-6);
+  padding: var(--space-8);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  margin-block: var(--space-8);
+}
+@media (min-width: 40rem) { .summary { grid-template-columns: repeat(3, 1fr); } }
+.summary div { margin: 0; }
+.summary dt {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-tertiary);
+  font-weight: var(--weight-bold);
+}
+.summary dd { margin: var(--space-2) 0 0; font-size: var(--text-sm); }
+
+h2.rule {
+  font-size: var(--text-2xl);
+  margin-top: var(--space-16);
+  margin-bottom: var(--space-6);
+}
+h2.rule .n {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-action);
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+figure { margin: var(--space-12) 0; }
+figcaption {
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
+  margin-top: var(--space-4);
+  max-width: var(--measure);
+}
+.shot {
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-medium);
+}
+
+/* CHIPS — the 17 other projects, as tappable tags rather than a list. */
+.chips { display: flex; flex-wrap: wrap; gap: var(--space-3); list-style: none; margin: 0; padding: 0; }
+.chips li {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+.chips li .where { color: var(--color-text-tertiary); }
+.chips li:nth-child(5n+1) { background: var(--fill-peach); border-color: transparent; }
+.chips li:nth-child(5n+2) { background: var(--fill-lavender); border-color: transparent; }
+.chips li:nth-child(5n+3) { background: var(--fill-mint); border-color: transparent; }
+.chips li:nth-child(5n+4) { background: var(--fill-butter); border-color: transparent; }
+.chips li:nth-child(5n+5) { background: var(--fill-sky); border-color: transparent; }
+
+/* NOTE — the handwritten-letter block. */
+.note {
+  background: var(--fill-butter);
+  border-radius: var(--radius-lg);
+  padding: var(--space-12);
+  max-width: var(--measure);
+  box-shadow: var(--shadow-medium);
+  transform: rotate(-1deg);
+}
+.note p { color: var(--color-text-primary); }
+.note p:last-child { margin-bottom: 0; }
+.note .sign { font-family: var(--font-display); font-weight: var(--weight-bold); }
+
+/* CTA */
+.cta {
+  margin-top: var(--spacing-section);
+  padding: var(--spacing-section) var(--space-8);
+  background: var(--color-action);
+  color: var(--color-action-text);
+  border-radius: var(--radius-xl);
+}
+.cta h2 { font-size: var(--text-3xl); max-width: 16ch; color: var(--color-action-text); }
+.cta p { margin-top: var(--space-6); color: var(--color-action-text); opacity: 0.85; }
+.cta a { color: var(--color-action-text); }
+
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+.btn {
+  display: inline-block;
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  font-family: inherit;
+  font-weight: var(--weight-bold);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.btn:hover { background: var(--color-surface); color: var(--color-text-primary); }
+.btn-ghost {
+  background: transparent;
+  color: var(--color-action-text);
+  border-color: currentColor;
+}
+.btn-ghost:hover { background: rgb(255 255 255 / 0.12); color: var(--color-action-text); }
+
+.foot {
+  padding-block: var(--space-12);
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
+}
+.foot p { margin: 0; }
+
+/* TODO markers — deliberately loud so they cannot ship unnoticed.
+   Delete this rule once every placeholder is filled. */
+.todo {
+  background: #fde68a;
+  color: #713f12;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-sm);
+  font-weight: var(--weight-bold);
+  font-family: var(--font-body);
+}
