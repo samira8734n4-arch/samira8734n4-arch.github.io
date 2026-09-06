@@ -34,11 +34,22 @@
   if (items.length < 2) return;
 
   var i = 0;
+  var EXIT = 620; // must match the transform duration in base.css
+
   setInterval(function () {
-    items[i].classList.remove('is-active');
+    var outgoing = items[i];
     i = (i + 1) % items.length;
+
+    // Outgoing leaves upward while the incoming rises into place, so the two
+    // move together instead of both drifting the same way.
+    outgoing.classList.remove('is-active');
+    outgoing.classList.add('is-leaving');
     items[i].classList.add('is-active');
-  }, 2600);
+
+    setTimeout(function () {
+      outgoing.classList.remove('is-leaving');
+    }, EXIT);
+  }, 3000);
 })();
 
 // Copy-to-clipboard for the email. Falls back to leaving the mailto link as the

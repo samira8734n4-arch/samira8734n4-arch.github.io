@@ -179,14 +179,23 @@ img { max-width: 100%; height: auto; display: block; }
 /* ROTATING ROLES — all three stacked in one grid cell, so the line never
    reflows as they swap and the widest one sets the width. */
 .roles { display: inline-grid; vertical-align: top; }
+
+/* Three states, so the swap reads as one movement rather than two fades:
+   waiting (below, invisible) → active (in place) → leaving (up and out).
+   A plain ease-out, not the springy token — overshoot on large text reads as
+   a wobble. */
 .role {
   grid-area: 1 / 1;
   opacity: 0;
-  transform: translateY(0.22em);
-  transition: opacity var(--duration-base) ease,
-    transform var(--duration-base) var(--ease);
+  transform: translateY(0.45em);
+  filter: blur(4px);
+  transition: opacity 520ms ease,
+    transform 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 520ms ease;
+  will-change: transform, opacity;
 }
-.role.is-active { opacity: 1; transform: none; }
+.role.is-active { opacity: 1; transform: none; filter: blur(0); }
+.role.is-leaving { opacity: 0; transform: translateY(-0.45em); filter: blur(4px); }
 
 /* Reduced motion: no rotation at all. Show the three as static lines rather
    than stranding the reader on whichever one happened to be first. */
