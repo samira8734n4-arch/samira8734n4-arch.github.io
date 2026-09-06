@@ -144,12 +144,56 @@ img { max-width: 100%; height: auto; display: block; }
   .theme-toggle { padding: var(--space-2) var(--space-3); }
 }
 
-/* HERO */
+/* Screen-reader-only text. Used to give the rotating headline a stable,
+   complete reading, since the visible rotator is aria-hidden. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* HERO — faint dot grid behind it. */
 .hero { padding-block: var(--space-12) var(--space-8); position: relative; }
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(var(--color-border-strong) 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: 0.5;
+  mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+}
 .hero h1 {
   font-size: var(--text-4xl);
-  max-width: 14ch;
   color: var(--color-action);
+}
+
+/* ROTATING ROLES — all three stacked in one grid cell, so the line never
+   reflows as they swap and the widest one sets the width. */
+.roles { display: inline-grid; vertical-align: top; }
+.role {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateY(0.22em);
+  transition: opacity var(--duration-base) ease,
+    transform var(--duration-base) var(--ease);
+}
+.role.is-active { opacity: 1; transform: none; }
+
+/* Reduced motion: no rotation at all. Show the three as static lines rather
+   than stranding the reader on whichever one happened to be first. */
+@media (prefers-reduced-motion: reduce) {
+  .roles { display: block; }
+  .role { opacity: 1; transform: none; }
+  .role + .role { display: block; }
 }
 .hero .lede {
   font-size: var(--text-lg);

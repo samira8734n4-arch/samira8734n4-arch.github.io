@@ -23,6 +23,24 @@
   });
 })();
 
+// Rotating headline roles. The visible rotator is aria-hidden and a static
+// sr-only line carries the full text, so this never announces or re-announces.
+(function () {
+  var box = document.querySelector('[data-roles]');
+  if (!box) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var items = box.querySelectorAll('.role');
+  if (items.length < 2) return;
+
+  var i = 0;
+  setInterval(function () {
+    items[i].classList.remove('is-active');
+    i = (i + 1) % items.length;
+    items[i].classList.add('is-active');
+  }, 2600);
+})();
+
 // Copy-to-clipboard for the email. Falls back to leaving the mailto link as the
 // route if the clipboard API is unavailable or blocked.
 (function () {
