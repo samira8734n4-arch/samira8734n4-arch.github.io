@@ -276,23 +276,169 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .meta strong { color: var(--color-text-primary); font-weight: var(--weight-bold); }
 
-/* PROMO CARDS — the three big coloured blocks under the hero. */
-.promos { display: grid; gap: var(--space-6); margin: 0; padding: 0; list-style: none; }
-@media (min-width: 52rem) { .promos { grid-template-columns: repeat(3, 1fr); } }
+/* PROMO CARDS — the coloured blocks under the hero.
+   4rem of top padding reserves room for the thumbnails that fan out above the
+   first and last cards on hover; without it they collide with the hero. */
+.promos {
+  display: grid;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 4rem 0 0;
+  list-style: none;
+}
+@media (min-width: 64rem) {
+  .promos { grid-template-columns: 1fr 0.72fr 1fr 1fr; align-items: stretch; }
+}
 
 .promo {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
   padding: var(--space-8);
   border-radius: var(--radius-lg);
   min-height: 15rem;
-  transition: transform var(--duration-base) var(--ease);
+  transition: transform var(--duration-slow) var(--ease-smooth),
+    box-shadow var(--duration-slow) var(--ease-smooth);
 }
 .promo:hover { transform: translateY(-4px); }
 .promo:nth-child(1) { background: var(--fill-peach); }
 .promo:nth-child(2) { background: var(--fill-lavender); }
 .promo:nth-child(3) { background: var(--fill-mint); }
+.promo:nth-child(4) { background: var(--fill-sky); }
+
+/* Fanned angles. Static rotation, animated straightening — reduced-motion
+   users keep the layout and lose only the movement. */
+@media (min-width: 64rem) {
+  /* Each card's angle lives in a variable so the sideways shift composes with
+     the rotation instead of overwriting it. */
+  .promo:nth-child(1) { --rot: -3.5deg; }
+  .promo:nth-child(2) { --rot: 2deg; z-index: 2; }
+  .promo:nth-child(3) { --rot: -1.5deg; }
+  .promo:nth-child(4) { --rot: 3deg; }
+
+  .promo { transform: rotate(var(--rot, 0deg)) translateX(var(--shift, 0px)); }
+
+  /* Static overlap. Previously the spread was animated with margins — but a
+     margin sits inside the grid track, so growing it shrank the card's own
+     width on hover. Transforms don't affect layout, so nothing resizes. */
+  .promos > * + * { margin-left: -1.5rem; }
+
+  /* Neighbours slide clear of the hovered card. :has() handles the ones to
+     its left; without :has() support only the right-hand cards move, which
+     still reads as deliberate. */
+  .promos > .promo:hover ~ .promo,
+  .promos > .promo:focus-within ~ .promo { --shift: 1.75rem; }
+  .promos > .promo:has(~ .promo:hover),
+  .promos > .promo:has(~ .promo:focus-within) { --shift: -1.75rem; }
+
+  /* Hovering any card recedes the others, so the hovered one reads as
+     selected rather than merely lifted. The dimmed text drops below AA
+     contrast, which is acceptable for a transient hover state nobody is
+     reading — raise to 0.7 if strict compliance is wanted throughout. */
+  .promos:hover .promo,
+  .promos:focus-within .promo {
+    opacity: 0.5;
+    transition: opacity var(--duration-slow) ease,
+      transform var(--duration-slow) var(--ease-smooth),
+      box-shadow var(--duration-slow) var(--ease-smooth);
+  }
+  .promos:hover .promo:hover,
+  .promos:focus-within .promo:focus-within { opacity: 1; }
+
+  /* Hovered card: larger, straight, lifted. No ring — an outline reads as a
+     focus state, and that meaning is reserved for :focus-visible below. */
+  .promo:hover, .promo:focus-within {
+    transform: rotate(0deg) scale(1.09);
+    z-index: 5;
+    box-shadow: var(--shadow-high);
+  }
+  .promo:focus-within { outline: 2px solid var(--color-action); outline-offset: 6px; }
+}
+
+/* Photo card — image fills it edge to edge. Its job is to break up a row of
+   text blocks. */
+.promo-photo { padding: 0; overflow: hidden; background: var(--fill-mint); }
+.promo-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Thumbnails tucked behind a card, rising and fanning out on hover.
+   Decorative only — the same projects are real links further down the page,
+   so these are aria-hidden with empty alt and take no pointer events. */
+.peek {
+  position: absolute;
+  top: -3rem;
+  left: var(--space-6);
+  right: var(--space-6);
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+.peek img {
+  width: 40%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 3px solid var(--color-surface);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Hover-only reveal. On touch there is no hover, so they stay visible —
+   otherwise most visitors would never see them at all. */
+@media (hover: hover) {
+  .peek img, .peek .app-icon {
+    opacity: 0;
+    transform: translateY(2.5rem) scale(0.9);
+    transition: transform 420ms var(--ease), opacity 240ms ease;
+  }
+  .promo:hover .peek img, .promo:focus-within .peek img,
+  .promo:hover .peek .app-icon, .promo:focus-within .peek .app-icon { opacity: 1; }
+
+  .promo:hover .peek img:nth-child(1),
+  .promo:focus-within .peek img:nth-child(1) {
+    transform: rotate(-9deg) translateX(14%); transition-delay: 0ms;
+  }
+  .promo:hover .peek img:nth-child(2),
+  .promo:focus-within .peek img:nth-child(2) {
+    transform: rotate(-1deg); transition-delay: 70ms;
+  }
+  .promo:hover .peek img:nth-child(3),
+  .promo:focus-within .peek img:nth-child(3) {
+    transform: rotate(8deg) translateX(-14%); transition-delay: 140ms;
+  }
+  .promo:hover .app-icon.behance, .promo:focus-within .app-icon.behance {
+    transform: rotate(-8deg); transition-delay: 0ms;
+  }
+  .promo:hover .app-icon.linkedin, .promo:focus-within .app-icon.linkedin {
+    transform: rotate(6deg); transition-delay: 70ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .peek img, .peek .app-icon { transition: none; }
+}
+
+/* Social card — icon tiles built from letterforms, so no image files needed. */
+.peek-icons { top: -2.25rem; justify-content: flex-start; gap: var(--space-2); }
+.app-icon {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 1rem;
+  border: 3px solid var(--color-surface);
+  box-shadow: var(--shadow-medium);
+  font-family: var(--font-display);
+  font-weight: var(--weight-black);
+  font-size: var(--text-lg);
+  color: #fff;
+}
+.app-icon.behance { background: #1769ff; }
+.app-icon.linkedin { background: #0a66c2; }
+
+.promo-links { margin-top: auto; display: flex; gap: var(--space-3); flex-wrap: wrap; }
+.promo-links .go { margin-top: 0; }
+.go-alt { background: var(--color-surface); color: var(--color-text-primary); }
+.go-alt:hover { background: var(--color-action); color: var(--color-action-text); }
 .promo h2 { font-size: var(--text-2xl); }
 .promo p { color: var(--color-text-secondary); margin: 0; }
 .promo .go {
@@ -355,6 +501,200 @@ img { max-width: 100%; height: auto; display: block; }
   transition: transform var(--duration-base) var(--ease);
 }
 .card:hover .outcome::after { transform: translateX(4px); }
+
+/* ABOUT STATEMENT — one large centred sentence with the portrait, the year
+   and the icons set inline, so it reads as a line of writing rather than a
+   block with decoration bolted on. */
+.statement-section { text-align: center; }
+.statement-section .eyebrow { color: var(--color-action); letter-spacing: 0.14em; text-transform: uppercase; }
+.statement-section h2 { font-size: var(--text-2xl); margin-bottom: var(--space-12); }
+.statement {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  line-height: 1.4;
+  letter-spacing: var(--tracking-tight);
+  max-width: 54ch;
+  margin-inline: auto;
+  text-wrap: balance;
+}
+/* An inline SVG creates a wrap opportunity after it, which was orphaning the
+   following comma onto the next line. */
+.statement .nb { white-space: nowrap; }
+.statement em { color: var(--color-action); font-style: normal; }
+.inline-avatar {
+  display: inline-block;
+  width: 1.15em;
+  height: 1.15em;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  vertical-align: -0.22em;
+  border: 2px solid var(--color-surface);
+  box-shadow: var(--shadow-subtle);
+}
+.year-pill {
+  display: inline-block;
+  border: 2px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  padding: 0 0.45em;
+  font-size: 0.62em;
+  vertical-align: 0.18em;
+  color: var(--color-text-secondary);
+}
+.ico {
+  width: 0.9em;
+  height: 0.9em;
+  vertical-align: -0.06em;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  color: var(--color-action);
+}
+/* One colour per icon. Saturated rather than the pastel card fills, which are
+   far too light to hold a 2px stroke on the cream ground. */
+.ico-peace { color: #0f5c4c; }
+.ico-pen   { color: #d1531a; }
+.ico-globe { color: #1a6fd4; }
+.ico-mark  { color: #7444cf; }
+.ico-spark { color: #c8890a; }
+
+/* TOOLS — brand marks from Simple Icons (CC0), each tinted to its own brand
+   colour. Circles rather than a list, so the row reads as a texture strip
+   instead of a credentials table. */
+.tools { margin-top: var(--space-16); }
+.tools-label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-6);
+}
+.tool-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.tool {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: grid;
+  place-items: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-subtle);
+  transition: transform var(--duration-base) var(--ease-smooth),
+    box-shadow var(--duration-base) var(--ease-smooth);
+}
+.tool:hover { transform: translateY(-4px); box-shadow: var(--shadow-medium); }
+.tool img { width: 1.5rem; height: 1.5rem; }
+.tool-more {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+}
+.tool-more a { text-decoration: none; color: var(--color-text-secondary); }
+.tool-more a:hover { color: var(--color-action); }
+
+/* WHAT I OFFER — three service cards. Headings centred, card copy left, since
+   centred paragraphs are harder to read at this length. */
+.offer-section { text-align: center; }
+/* The section heading had no size of its own, so it fell back to the browser
+   default and sat smaller than every other heading on the page. */
+.offer-section h2 { font-size: var(--text-3xl); }
+.offer-section .eyebrow {
+  color: var(--color-action);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.offers {
+  display: grid;
+  gap: var(--space-6);
+  list-style: none;
+  margin: var(--space-12) 0 0;
+  padding: 0;
+  text-align: left;
+}
+@media (min-width: 52rem) { .offers { grid-template-columns: repeat(3, 1fr); } }
+.offer {
+  padding: var(--space-8);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: transform var(--duration-base) var(--ease-smooth),
+    box-shadow var(--duration-base) var(--ease-smooth);
+}
+.offer:hover { transform: translateY(-4px); box-shadow: var(--shadow-medium); }
+.offer h3 { font-size: var(--text-xl); margin-bottom: var(--space-3); }
+.offer p { color: var(--color-text-secondary); margin: 0; }
+.offer-ico {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: var(--space-6);
+  border-radius: var(--radius-md);
+}
+.offer-ico svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.offer-ico.ico-1 { background: var(--fill-peach); color: #d1531a; }
+.offer-ico.ico-2 { background: var(--fill-lavender); color: #7444cf; }
+.offer-ico.ico-3 { background: var(--fill-mint); color: #0f5c4c; }
+
+/* Stickers — the actual tools used for each service, tucked behind the card's
+   top edge and dealing out on hover. Springy easing on purpose: overshoot
+   looks lively on small objects, where on card-sized ones it reads as wobble. */
+.stickers {
+  position: absolute;
+  top: -1.5rem;
+  right: 1.25rem;
+  display: flex;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+.sticker {
+  width: 3.25rem;
+  height: 3.25rem;
+  display: grid;
+  place-items: center;
+  background: var(--color-surface);
+  border: 2px solid var(--color-background);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-medium);
+  opacity: 0;
+  transform: translateY(1.1rem) scale(0.8);
+  transition: transform var(--duration-slow) var(--ease),
+    opacity var(--duration-base) ease;
+}
+.sticker img { width: 1.6rem; height: 1.6rem; }
+
+.offer:hover .sticker, .offer:focus-within .sticker { opacity: 1; }
+.offer:hover .sticker:nth-child(1),
+.offer:focus-within .sticker:nth-child(1) { transform: rotate(-13deg); transition-delay: 0ms; }
+.offer:hover .sticker:nth-child(2),
+.offer:focus-within .sticker:nth-child(2) { transform: rotate(3deg) translateY(-0.2rem); transition-delay: 70ms; }
+.offer:hover .sticker:nth-child(3),
+.offer:focus-within .sticker:nth-child(3) { transform: rotate(14deg); transition-delay: 140ms; }
+
+/* The icon tile reacts too, so the whole card feels alive on entry. */
+.offer-ico { transition: transform var(--duration-base) var(--ease); }
+.offer:hover .offer-ico { transform: rotate(-8deg) scale(1.08); }
+
+/* No hover on touch — show them permanently rather than never. */
+@media (hover: none) {
+  .sticker { opacity: 1; transform: none; }
+}
 
 /* STATS */
 .stats {

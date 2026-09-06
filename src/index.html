@@ -15,6 +15,46 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
+<!-- Icon sprite. Drawn rather than using emoji, which render differently on
+     every OS — the flag in an earlier draft came out as the letters "BD" on
+     Windows. Decorative throughout, so every <use> is aria-hidden. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <!-- Feather conventions: 24×24 box, stroke-width 2, round caps and joins —
+       the same geometry react-icons/fi ships, drawn inline since this is
+       plain HTML with no React to import a package into. -->
+  <symbol id="i-peace" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10"/><path d="M12 2v20"/>
+    <path d="M12 12L4.9 19.1"/><path d="M12 12l7.1 7.1"/>
+  </symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24">
+    <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/>
+    <circle cx="11" cy="11" r="2"/>
+  </symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10"/><path d="M2 12h20"/>
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+  </symbol>
+  <symbol id="i-mark" viewBox="0 0 24 24">
+    <path d="M2 13a10 10 0 0 1 20 0"/><path d="M6 14a6 6 0 0 1 12 0"/>
+    <path d="M10 15a2 2 0 0 1 4 0"/>
+  </symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24">
+    <path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/>
+  </symbol>
+  <symbol id="i-code" viewBox="0 0 24 24">
+    <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+  </symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24">
+    <path d="M12 2a10 10 0 1 0 0 20 2 2 0 0 0 2-2v-1a2 2 0 0 1 2-2h2a4 4 0 0 0 4-4A10 10 0 0 0 12 2z"/>
+    <circle cx="7.5" cy="10.5" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="16.5" cy="10.5" r="1"/>
+  </symbol>
+  <symbol id="i-layout" viewBox="0 0 24 24">
+    <rect x="3" y="3" width="18" height="18" rx="2"/>
+    <line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>
+  </symbol>
+</svg>
+
 <div class="wrap">
   <nav class="nav">
     <a class="home" href="index.html"><span class="avatar" aria-hidden="true">SH</span> Samira</a>
@@ -53,29 +93,30 @@
         <dd class="l">Products shipped</dd>
       </div>
       <div>
-        <!-- Needs a real, defensible figure. Frame it as contribution, not
-             ownership: "revenue influenced" is honest, "revenue generated" is
-             not, for a designer on a team. If you cannot attribute a number to
-             this work, delete this whole stat rather than estimate it — an
-             invented figure is the one thing an interviewer can catch you on. -->
-        <dt class="n"><span class="u">$</span><span class="todo">[[?]]</span><span class="u">M</span></dt>
-        <dd class="l"><span class="todo">[[TODO: label]]</span></dd>
+        <dt class="n">3<span class="u">Countries</span></dt>
+        <dd class="l">Worked in</dd>
       </div>
     </dl>
 
-    <p class="meta">
-      <span><strong>Dhaka</strong>, Bangladesh</span>
-      <span>Open to <span class="todo">[[TODO: target role]]</span></span>
-    </p>
   </header>
 
   <section class="wrap section" aria-label="Highlights">
     <ul class="promos">
       <li class="promo">
+        <div class="peek" aria-hidden="true">
+          <img src="assets/ld-tax.jpg" alt="" loading="lazy">
+          <img src="assets/land-revenue.jpg" alt="" loading="lazy">
+          <img src="assets/kazi-resort.jpg" alt="" loading="lazy">
+        </div>
         <h2>Recent work</h2>
         <p>Three case studies on the hardest systems I've shipped — a national
           tax platform, a proptech SaaS, and an HR product.</p>
         <a class="go" href="#work">Read case studies</a>
+      </li>
+      <li class="promo promo-photo">
+        <img src="assets/samira1.jpg"
+             alt="Samira Binte Hamid at her desk at Apex DMIT"
+             width="236" height="236" loading="lazy">
       </li>
       <li class="promo">
         <h2>Government scale</h2>
@@ -83,13 +124,57 @@
           citizens don't get to opt out of, so it has to work.</p>
         <a class="go" href="work/ld-tax.html">See the tax system</a>
       </li>
-      <li class="promo">
-        <h2>Still learning</h2>
-        <p>Studying digital product management and UX strategy. A CS degree
-          underneath it all, which is why engineers and I get along.</p>
-        <a class="go" href="about.html">More about me</a>
+      <li class="promo promo-social">
+        <div class="peek peek-icons" aria-hidden="true">
+          <span class="app-icon behance">Bē</span>
+          <span class="app-icon linkedin">in</span>
+        </div>
+        <h2>Find me elsewhere</h2>
+        <p>Visual work and case study decks on Behance. Roles, dates and
+          recommendations on LinkedIn.</p>
+        <div class="promo-links">
+          <a class="go" href="https://www.behance.net/samira00100"
+             target="_blank" rel="noopener">Behance</a>
+          <a class="go go-alt"
+             href="https://www.linkedin.com/in/samira-binte-hamid-b3a1a0119/"
+             target="_blank" rel="noopener">LinkedIn</a>
+        </div>
       </li>
     </ul>
+  </section>
+
+  <section class="wrap section statement-section" aria-labelledby="about-h">
+    <p class="eyebrow">Who I am</p>
+    <h2 id="about-h">About</h2>
+    <p class="statement">
+      Hi, I am
+      <img class="inline-avatar" src="assets/samira1.jpg" alt="">
+      <em>Samira</em>
+      <span class="nb"><svg class="ico ico-peace" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-peace"/></svg>,</span>
+      specialising in design and development since
+      <span class="year-pill">2021</span>, focused on designing
+      <svg class="ico ico-pen" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pen"/></svg>
+      and developing digital products
+      <span class="nb"><svg class="ico ico-globe" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-globe"/></svg>,</span>
+      brands
+      <svg class="ico ico-mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mark"/></svg>
+      and experiences
+      <span class="nb"><svg class="ico ico-spark" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg>.</span>
+    </p>
+
+    <div class="tools">
+      <p class="tools-label">Expertise in Tools</p>
+      <ul class="tool-list">
+        <li class="tool"><img src="assets/icons/figma.svg" alt="Figma" width="24" height="24" loading="lazy"></li>
+        <li class="tool"><img src="assets/icons/photoshop.svg" alt="Adobe Photoshop" width="24" height="24" loading="lazy"></li>
+        <li class="tool"><img src="assets/icons/illustrator.svg" alt="Adobe Illustrator" width="24" height="24" loading="lazy"></li>
+        <li class="tool"><img src="assets/icons/adobexd.svg" alt="Adobe XD" width="24" height="24" loading="lazy"></li>
+        <li class="tool"><img src="assets/icons/html5.svg" alt="HTML5" width="24" height="24" loading="lazy"></li>
+        <li class="tool"><img src="assets/icons/css3.svg" alt="CSS3" width="24" height="24" loading="lazy"></li>
+        <li class="tool"><img src="assets/icons/bootstrap.svg" alt="Bootstrap" width="24" height="24" loading="lazy"></li>
+        <li class="tool tool-more"><a href="about.html">more</a></li>
+      </ul>
+    </div>
   </section>
 
   <section class="wrap section" id="work" aria-labelledby="work-h">
@@ -152,6 +237,36 @@
     </ul>
   </section>
 
+  <section class="wrap section offer-section" aria-labelledby="offer-h">
+    <p class="eyebrow">What I offer</p>
+    <h2 id="offer-h">Expertise</h2>
+    <ul class="offers">
+      <li class="offer">
+        <div class="stickers" aria-hidden="true"><span class="sticker"><img src="assets/icons/html5.svg" alt=""></span><span class="sticker"><img src="assets/icons/css3.svg" alt=""></span><span class="sticker"><img src="assets/icons/bootstrap.svg" alt=""></span></div>
+        <span class="offer-ico ico-1"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-code"/></svg></span>
+        <h3>Web Development</h3>
+        <p>Building and programming responsive interfaces in HTML, CSS and
+          Bootstrap — working from my own designs, so nothing gets lost between
+          the mockup and the build.</p>
+      </li>
+      <li class="offer">
+        <div class="stickers" aria-hidden="true"><span class="sticker"><img src="assets/icons/photoshop.svg" alt=""></span><span class="sticker"><img src="assets/icons/illustrator.svg" alt=""></span></div>
+        <span class="offer-ico ico-2"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-palette"/></svg></span>
+        <h3>Graphics Design</h3>
+        <p>Creative design solutions that sharpen visual communication — branding,
+          marketing material and the assets that carry a product's identity.</p>
+      </li>
+      <li class="offer">
+        <div class="stickers" aria-hidden="true"><span class="sticker"><img src="assets/icons/figma.svg" alt=""></span><span class="sticker"><img src="assets/icons/adobexd.svg" alt=""></span></div>
+        <span class="offer-ico ico-3"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-layout"/></svg></span>
+        <h3>UI/UX Design</h3>
+        <p>Research, wireframing and prototyping for complex systems. Usability
+          testing and accessibility designed in from the start, not bolted on at
+          the end.</p>
+      </li>
+    </ul>
+  </section>
+
   <section class="wrap section" aria-labelledby="note-h">
     <h2 id="note-h" class="rule">A note for you</h2>
     <div class="note">
@@ -179,7 +294,9 @@
 
 <footer class="wrap foot">
   <p>Samira Binte Hamid · Dhaka, Bangladesh ·
-    <span class="todo">[[TODO: LinkedIn, Behance, Dribbble links]]</span></p>
+    <a href="https://www.linkedin.com/in/samira-binte-hamid-b3a1a0119/">LinkedIn</a> ·
+    <a href="https://www.behance.net/samira00100">Behance</a> ·
+    <a href="cv.pdf">CV</a></p>
 </footer>
 
 <script src="scripts/theme.js" defer></script>
