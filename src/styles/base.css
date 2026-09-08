@@ -64,6 +64,203 @@ img { max-width: 100%; height: auto; display: block; }
   margin: 0 0 var(--space-4);
 }
 
+/* CASE STUDY LAYOUT — heading pinned left, prose scrolling past on the right.
+   Single column below 64rem, where there is no room to pin anything. */
+@media (min-width: 64rem) {
+  .prose-section {
+    display: grid;
+    grid-template-columns: 15rem 1fr;
+    gap: var(--space-12);
+    margin-top: var(--space-24);
+  }
+  .prose-section > h2.rule {
+    position: sticky;
+    top: var(--space-8);
+    align-self: start;
+    margin: 0;
+    font-size: var(--text-xl);
+  }
+  /* Ghost numeral fills the otherwise empty left column. Solid pale colour as
+     the base so it never disappears; outlined where text-stroke is supported. */
+  .prose-section > h2.rule .n {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 4.5rem;
+    line-height: 0.9;
+    font-weight: var(--weight-black);
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-border-strong);
+    margin-bottom: var(--space-4);
+  }
+  @supports (-webkit-text-stroke: 1px currentColor) {
+    .prose-section > h2.rule .n {
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--color-border-strong);
+    }
+  }
+  /* Hairline between the two columns. */
+  .prose-section .body {
+    max-width: var(--measure);
+    border-left: 1px solid var(--color-border);
+    padding-left: var(--space-12);
+  }
+  .prose-section .body > p:first-of-type { font-size: var(--text-lg); }
+}
+
+/* Bulleted points inside a case study section. Custom marker so the bullet
+   picks up the accent colour and lines up with the first line of text. */
+.points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-4);
+}
+.points li {
+  position: relative;
+  padding-left: var(--space-6);
+  color: var(--color-text-secondary);
+}
+.points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-action);
+}
+.points strong { color: var(--color-text-primary); }
+
+/* Reveal on scroll. Hidden only while the observer is live — if JS never runs,
+   nothing is hidden, so the content is never lost. */
+.js [data-reveal] { opacity: 0; transform: translateY(1.5rem); }
+.js [data-reveal].in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 600ms ease, transform 700ms var(--ease-smooth);
+}
+
+/* ON THIS PAGE — a sticky section nav. Hidden below 90rem, where there is no
+   margin to put it in without covering the content. */
+.toc { display: none; }
+@media (min-width: 90rem) {
+  .toc {
+    display: block;
+    position: fixed;
+    left: var(--space-6);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 11.5rem;
+    max-height: 72vh;
+    overflow-y: auto;
+    z-index: 20;
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-subtle);
+  }
+  /* Shift the page across so the nav sits beside the content, not over it. */
+  .has-toc main,
+  .has-toc > body > .wrap { padding-left: 11rem; }
+  .has-toc .foot { padding-left: 11rem; }
+}
+.toc-title {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: var(--weight-bold);
+  color: var(--color-text-tertiary);
+  margin: 0 0 var(--space-4);
+}
+.toc ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-1); }
+.toc a {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  line-height: 1.3;
+}
+.toc a:hover { color: var(--color-text-primary); background: var(--color-background); }
+.toc a.is-current {
+  color: var(--color-action);
+  background: var(--color-action-tint);
+}
+
+/* Reading progress. */
+.progress {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 3px;
+  z-index: 30;
+  background: transparent;
+  pointer-events: none;
+}
+.progress-bar {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--color-action);
+  transition: width 80ms linear;
+}
+
+/* Client logo. Sits on a fixed white chip in both themes — the mark carries
+   its own brand colours, and the dark half of it disappears against a dark
+   background otherwise. */
+.client-logo {
+  /* Block-level flex, not inline-flex — inline made it share a line with the
+     back link and overlap it. */
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  margin: 0 0 var(--space-6);
+  box-shadow: var(--shadow-subtle);
+}
+.client-logo img { height: 1.75rem; width: auto; display: block; }
+/* A square lockup carries its own padding, so it needs more height than a
+   wordmark to read at the same size. */
+.client-logo.is-square img { height: 4rem; }
+.card-logo.is-square img { height: 3rem; }
+/* A three-line lockup (mark, wordmark, strapline) needs more height again than a
+   square mark, or the strapline stops resolving. */
+.client-logo.is-lockup img { height: 5.5rem; }
+.card-logo.is-lockup img { height: 4rem; }
+
+/* Back link on case study pages. The arrow shifts on hover so the direction
+   registers before the label is read. */
+.back {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+.back:hover { color: var(--color-action); }
+.back-ico {
+  width: 1.05rem;
+  height: 1.05rem;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform var(--duration-base) var(--ease);
+}
+.back:hover .back-ico { transform: translateX(-3px); }
+
 .skip {
   position: absolute;
   left: -9999px;
@@ -385,24 +582,27 @@ img { max-width: 100%; height: auto; display: block; }
 /* Hover-only reveal. On touch there is no hover, so they stay visible —
    otherwise most visitors would never see them at all. */
 @media (hover: hover) {
-  .peek img, .peek .app-icon {
+  .peek img, .peek .peek-slot, .peek .app-icon {
     opacity: 0;
     transform: translateY(2.5rem) scale(0.9);
     transition: transform 420ms var(--ease), opacity 240ms ease;
   }
-  .promo:hover .peek img, .promo:focus-within .peek img,
+  :is(.promo, .feature-card):hover .peek img,
+  :is(.promo, .feature-card):focus-within .peek img,
+  :is(.promo, .feature-card):hover .peek .peek-slot,
+  :is(.promo, .feature-card):focus-within .peek .peek-slot,
   .promo:hover .peek .app-icon, .promo:focus-within .peek .app-icon { opacity: 1; }
 
-  .promo:hover .peek img:nth-child(1),
-  .promo:focus-within .peek img:nth-child(1) {
+  :is(.promo, .feature-card):hover .peek :is(img, .peek-slot):nth-child(1),
+  :is(.promo, .feature-card):focus-within .peek :is(img, .peek-slot):nth-child(1) {
     transform: rotate(-9deg) translateX(14%); transition-delay: 0ms;
   }
-  .promo:hover .peek img:nth-child(2),
-  .promo:focus-within .peek img:nth-child(2) {
+  :is(.promo, .feature-card):hover .peek :is(img, .peek-slot):nth-child(2),
+  :is(.promo, .feature-card):focus-within .peek :is(img, .peek-slot):nth-child(2) {
     transform: rotate(-1deg); transition-delay: 70ms;
   }
-  .promo:hover .peek img:nth-child(3),
-  .promo:focus-within .peek img:nth-child(3) {
+  :is(.promo, .feature-card):hover .peek :is(img, .peek-slot):nth-child(3),
+  :is(.promo, .feature-card):focus-within .peek :is(img, .peek-slot):nth-child(3) {
     transform: rotate(8deg) translateX(-14%); transition-delay: 140ms;
   }
   .promo:hover .app-icon.behance, .promo:focus-within .app-icon.behance {
@@ -832,6 +1032,548 @@ figcaption {
 }
 .btn-ghost:hover { background: rgb(255 255 255 / 0.12); color: var(--color-action-text); }
 
+/* FEATURE CARDS — one card per feature on a large system case study. Two up on
+   wide screens; a single column is a very long page with six of them. */
+.feature-grid {
+  display: grid;
+  /* Extra row gap so the peek tiles, which sit above each card, clear the
+     card in the row above. */
+  gap: var(--space-16) var(--space-6);
+  list-style: none;
+  margin: var(--space-12) 0 0;
+  padding: 0;
+}
+@media (min-width: 64rem) { .feature-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.feature-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-8);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: transform var(--duration-slow) var(--ease-smooth),
+    box-shadow var(--duration-slow) var(--ease-smooth);
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-medium);
+}
+.feature-n {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-black);
+  line-height: 1;
+  color: var(--color-text-tertiary);
+}
+.feature-card h3 { font-size: var(--text-xl); }
+.feature-job { color: var(--color-text-secondary); margin: 0; }
+
+/* The button is the card's hit area — its ::after covers the whole card, so
+   the entire card is clickable while remaining a single real button. */
+.feature-card { position: relative; }
+.feature-open {
+  margin-top: auto;
+  align-self: flex-start;
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-action);
+  background: none;
+  border: 0;
+  padding: var(--space-2) 0 0;
+  cursor: pointer;
+  text-align: left;
+}
+.feature-open::after { content: ""; position: absolute; inset: 0; }
+.feature-card:hover .feature-open { text-decoration: underline; }
+
+/* MODAL */
+.modal {
+  width: min(72rem, calc(100vw - 2rem));
+  max-height: 88vh;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-high);
+  overflow: hidden;
+}
+.modal::backdrop { background: rgb(22 35 31 / 0.55); }
+.modal-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding: var(--space-8) var(--space-8) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+.modal-head h2 { font-size: var(--text-2xl); }
+.modal-close {
+  font: inherit;
+  font-size: var(--text-2xl);
+  line-height: 1;
+  color: var(--color-text-secondary);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0 var(--space-2);
+}
+.modal-close:hover { color: var(--color-action); }
+.modal-body {
+  padding: var(--space-8);
+  overflow-y: auto;
+  max-height: calc(88vh - 6rem);
+}
+.modal-body > p:first-of-type { font-size: var(--text-lg); color: var(--color-text-primary); }
+
+/* Notes block — the two sentences that carry the design decision. Given a
+   surface and an accent rule so they read as the point of the modal rather
+   than as loose labels. */
+.modal-body .feature-notes {
+  background: var(--color-surface);
+  border-left: 3px solid var(--color-action);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: var(--space-6);
+  margin-block: var(--space-8) var(--space-4);
+  gap: var(--space-1);
+}
+.modal-body .feature-notes dd { margin-bottom: var(--space-4); }
+.modal-body .feature-notes dd:last-child { margin-bottom: 0; }
+
+/* CREATION FLOW — steps with connectors. An <ol> because the order is the
+   point; the arrows are decorative and drawn with pseudo-elements. */
+.flow {
+  display: grid;
+  gap: var(--space-4);
+  list-style: none;
+  margin: var(--space-6) 0 0;
+  padding: 0;
+  counter-reset: none;
+}
+@media (min-width: 52rem) {
+  .flow { grid-template-columns: repeat(3, 1fr); gap: var(--space-6) var(--space-8); }
+}
+.flow-step {
+  position: relative;
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+/* Connector into the next step: a line plus an arrowhead, so direction is
+   explicit rather than implied. Hidden at row ends and on the last step,
+   where an arrow would point at nothing. */
+@media (min-width: 52rem) {
+  .flow-step::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: calc(var(--space-8) * -1);
+    width: var(--space-8);
+    height: 2px;
+    background: var(--color-action);
+    opacity: 0.55;
+  }
+  .flow-step::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: calc(var(--space-8) * -1 + 1px);
+    width: 0.45rem;
+    height: 0.45rem;
+    border-top: 2px solid var(--color-action);
+    border-right: 2px solid var(--color-action);
+    transform: translateY(-50%) rotate(45deg);
+    opacity: 0.55;
+  }
+  .flow-step:nth-child(3n)::after,
+  .flow-step:nth-child(3n)::before,
+  .flow-step:last-child::after,
+  .flow-step:last-child::before { display: none; }
+
+  /* End of a row: a down arrow so the wrap to the next row is stated, not
+     left to be inferred. */
+  .flow-step:nth-child(3n):not(:last-child) {
+    --wrap: 1;
+  }
+  .flow-step:nth-child(3n):not(:last-child)::after {
+    display: block;
+    top: auto;
+    bottom: calc(var(--space-6) * -1);
+    right: 50%;
+    width: 2px;
+    height: var(--space-6);
+  }
+  .flow-step:nth-child(3n):not(:last-child)::before {
+    display: block;
+    top: auto;
+    bottom: calc(var(--space-6) * -1 + 1px);
+    right: calc(50% - 0.2rem);
+    transform: rotate(135deg);
+  }
+}
+.flow-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+.flow-ico {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke: var(--color-action);
+  fill: none;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.8;
+}
+.flow-n {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-full);
+  background: var(--color-action);
+  color: var(--color-action-text);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  margin-bottom: var(--space-3);
+}
+.flow-step h4 {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  margin: 0 0 var(--space-2);
+}
+.flow-step p { margin: 0; font-size: var(--text-sm); color: var(--color-text-secondary); }
+.flow-step.is-end { background: var(--color-action-tint); border-color: transparent; }
+
+/* A five-step flow leaves a hole in a three-column grid, and the final card
+   lands mid-row. Flex lets the short last row centre instead. */
+@media (min-width: 52rem) {
+  .flow-5 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .flow-5 .flow-step {
+    flex: 0 1 calc(33.333% - var(--space-8));
+    max-width: calc(33.333% - var(--space-8));
+  }
+}
+
+/* END-TO-END FLOW — the nine steps grouped into three phases, each step
+   opening the feature it belongs to. */
+.phase { margin-top: var(--space-12); position: relative; }
+
+/* Connector between phases. Splitting the nine steps into three lists broke
+   the row-wrap arrows, so the path is stitched back together here — dropping
+   from under the last card of one phase into the next. */
+@media (min-width: 52rem) {
+  .phase:not(:last-of-type)::after {
+    content: "";
+    position: absolute;
+    bottom: calc(var(--space-12) * -1 + 0.4rem);
+    right: 16.66%;
+    transform: translateX(50%);
+    width: 2px;
+    height: 2rem;
+    background: var(--color-action);
+    opacity: 0.55;
+  }
+  .phase:not(:last-of-type)::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    bottom: calc(var(--space-12) * -1 + 0.55rem);
+    right: 16.66%;
+    transform: translateX(50%) rotate(135deg);
+    width: 0.45rem;
+    height: 0.45rem;
+    border-top: 2px solid var(--color-action);
+    border-right: 2px solid var(--color-action);
+    opacity: 0.55;
+  }
+}
+.phase-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: var(--weight-bold);
+  color: var(--color-text-tertiary);
+  margin: 0 0 var(--space-4);
+}
+.phase-dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: var(--radius-full);
+  background: var(--color-action);
+  flex: none;
+}
+.phase:nth-of-type(1) .phase-dot { background: #d1531a; }
+.phase:nth-of-type(2) .phase-dot { background: #7444cf; }
+.phase:nth-of-type(3) .phase-dot { background: var(--color-action); }
+.flow-e2e { margin-top: 0; }
+
+/* The whole step is the hit area, but there is one real button per step. */
+.flow-e2e .flow-step { position: relative; padding-bottom: var(--space-12); }
+.step-open {
+  position: absolute;
+  left: var(--space-6);
+  right: var(--space-6);
+  bottom: var(--space-6);
+  text-align: left;
+  font: inherit;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.04em;
+  color: var(--color-action);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.step-open::after { content: " \2192"; }
+.step-open::before { content: ""; position: absolute; inset: auto; }
+.flow-e2e .flow-step > .step-open::before {
+  position: absolute;
+  inset: calc(var(--space-6) * -1) calc(var(--space-6) * -1) calc(var(--space-6) * -1);
+  top: calc((var(--space-6) + 100%) * -1);
+}
+.flow-e2e .flow-step:hover { border-color: var(--color-action); }
+.flow-e2e .flow-step:hover .step-open { text-decoration: underline; }
+
+/* Hovering one step recedes the rest of its phase, so the eye lands on it. */
+@media (hover: hover) {
+  .flow-e2e { transition: none; }
+  .flow-e2e .flow-step { transition: opacity var(--duration-base) ease, border-color var(--duration-base) ease; }
+  .flow-e2e:hover .flow-step:not(:hover) { opacity: 0.5; }
+}
+
+/* Gallery header: label on the left, position counter on the right. */
+.gallery-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+.gallery-head h3 {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: var(--weight-bold);
+  color: var(--color-text-tertiary);
+  font-family: var(--font-body);
+}
+.gallery-nav { display: flex; align-items: center; gap: var(--space-3); }
+.gallery-count {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+/* Slider controls — the wheel gesture is not discoverable on its own, and it
+   does not exist at all for keyboard or touch. */
+.gnav {
+  width: 2.25rem;
+  height: 2.25rem;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  padding: 0;
+  transition: background var(--duration-base) ease, border-color var(--duration-base) ease;
+}
+.gnav svg { width: 1rem; height: 1rem; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.gnav:hover:not(:disabled) { background: var(--color-action); color: var(--color-action-text); border-color: transparent; }
+.gnav:disabled { opacity: 0.35; cursor: default; }
+.modal-body p { color: var(--color-text-secondary); max-width: var(--measure); }
+.modal-body img { border-radius: var(--radius-md); margin-block: var(--space-4); }
+
+/* Screen gallery — horizontal scroll with snap, so a feature with eight
+   screens does not turn the modal into an endless vertical scroll. */
+.modal-gallery {
+  display: flex;
+  gap: var(--space-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  /* Room for the hover scale, which would otherwise be clipped by the
+     scroll container. */
+  padding: var(--space-4) 0 var(--space-6);
+  margin-top: var(--space-4);
+  scrollbar-width: thin;
+}
+/* One screen fills most of the frame — at 26rem these were too small to read,
+   which defeats the point of showing them. */
+.modal-gallery > * {
+  flex: 0 0 min(82%, 46rem);
+  scroll-snap-align: center;
+  margin: 0;
+}
+.modal-gallery img {
+  width: 100%;
+  margin: 0 0 var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-medium);
+  transition: transform var(--duration-slow) var(--ease-smooth),
+    box-shadow var(--duration-slow) var(--ease-smooth);
+}
+
+/* Hovering a screen enlarges it. The gallery scrolls on x, which means it
+   clips on y too — the vertical padding above gives the grown image somewhere
+   to go instead of being cut off. */
+@media (hover: hover) {
+  .modal-gallery figure { position: relative; }
+  .modal-gallery figure:hover { z-index: 2; }
+  .modal-gallery figure:hover img {
+    transform: scale(1.06);
+    box-shadow: var(--shadow-high);
+  }
+}
+.modal-gallery figcaption {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+/* Scrollbar hidden: navigation is the buttons, the wheel and arrow keys. */
+.modal-gallery { scrollbar-width: none; }
+.modal-gallery::-webkit-scrollbar { display: none; }
+/* Peek placeholder tile — same geometry as a peek image, so real screens can
+   replace these without touching the animation. */
+.peek-slot {
+  width: 40%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-sm);
+  border: 3px solid var(--color-surface);
+  background: var(--color-action-tint);
+  box-shadow: var(--shadow-medium);
+}
+
+.shot-slot {
+  aspect-ratio: 16 / 10;
+  display: grid;
+  place-items: center;
+  border: 2px dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text-tertiary);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  text-align: center;
+  padding: var(--space-4);
+}
+.shot-slot figcaption { color: inherit; margin: 0; }
+.gallery-note { margin-bottom: 0; }
+
+.feature-notes { margin: var(--space-4) 0 0; display: grid; gap: var(--space-2); }
+.feature-notes dt {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: var(--weight-bold);
+  color: var(--color-text-tertiary);
+}
+.feature-notes dd { margin: 0 0 var(--space-2); }
+.feature-shot { margin: auto 0 0; }
+
+/* Client logo popping up on a work card. Decorative and non-interactive, so
+   it never intercepts the card's own link. */
+.card-logo {
+  position: absolute;
+  top: var(--space-6);
+  right: var(--space-6);
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  box-shadow: var(--shadow-medium);
+  opacity: 0;
+  transform: translateY(0.6rem) scale(0.9) rotate(-4deg);
+  transition: opacity var(--duration-base) ease,
+    transform var(--duration-slow) var(--ease);
+  pointer-events: none;
+}
+.card-logo img { height: 1.5rem; width: auto; display: block; }
+/* :has(:focus-visible) rather than :focus-within — a mouse click leaves focus
+   on the card's link, so :focus-within kept the logo showing after you came
+   back from a case study. Keyboard focus still reveals it. */
+.card:hover .card-logo,
+.card:has(:focus-visible) .card-logo { opacity: 1; transform: rotate(-4deg); }
+
+/* No hover on touch — show it rather than making it unreachable. */
+@media (hover: none) {
+  .card-logo { opacity: 1; transform: rotate(-4deg); }
+}
+
+/* END OF CASE STUDY — next project and contact as two equal cards, so each
+   block does one job instead of three links competing in one panel. */
+.endcards {
+  display: grid;
+  gap: var(--space-6);
+  margin-top: var(--spacing-section);
+}
+@media (min-width: 52rem) { .endcards { grid-template-columns: 1fr 1fr; } }
+
+.endcard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-8);
+  border-radius: var(--radius-lg);
+  min-height: 15rem;
+}
+.endcard h2 { font-size: var(--text-2xl); }
+.endcard p { margin: 0; }
+.endcard-label {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: var(--weight-bold);
+  opacity: 0.75;
+}
+
+.endcard-next {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: inherit;
+  text-decoration: none;
+  transition: transform var(--duration-slow) var(--ease-smooth),
+    box-shadow var(--duration-slow) var(--ease-smooth);
+}
+.endcard-next:hover, .endcard-next:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-medium);
+  color: inherit;
+}
+.endcard-next p { color: var(--color-text-secondary); }
+.endcard-go {
+  margin-top: auto;
+  font-size: var(--text-xl);
+  color: var(--color-action);
+  transition: transform var(--duration-base) var(--ease);
+}
+.endcard-next:hover .endcard-go { transform: translateX(5px); }
+
+.endcard-contact { background: var(--color-action); color: var(--color-action-text); }
+.endcard-contact h2 { color: var(--color-action-text); }
+.endcard-contact p { color: var(--color-action-text); opacity: 0.85; }
+.endcard-contact .actions { margin-top: auto; }
+
 .foot {
   padding-block: var(--space-12);
   font-size: var(--text-sm);
@@ -848,4 +1590,318 @@ figcaption {
   border-radius: var(--radius-sm);
   font-weight: var(--weight-bold);
   font-family: var(--font-body);
+}
+
+/* ---------------------------------------------------------------------------
+   Shuffle deck — a stack of case study cards you can cycle through.
+   Cards are absolutely stacked; JS sets data-pos and the stack's height to
+   whichever card is currently in front, since they are not all the same size.
+   --------------------------------------------------------------------------- */
+.deck {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8) var(--space-6) var(--space-6);
+  margin: 0 0 var(--space-12);
+}
+@media (min-width: 46rem) {
+  .deck { padding: var(--space-12) var(--space-12) var(--space-8); }
+}
+.deck > h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  margin: 0 0 var(--space-12);
+}
+
+.deck-stack { position: relative; }
+
+.deck-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-medium);
+  transition: transform var(--duration-slow) var(--ease-smooth);
+}
+@media (min-width: 46rem) {
+  .deck-card {
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    gap: var(--space-8);
+    padding: var(--space-4);
+  }
+}
+/* The two cards behind peek out above the front one, each a little narrower. */
+.deck-card[data-pos="0"] { transform: none; z-index: 3; }
+.deck-card[data-pos="1"] { transform: translateY(-0.85rem) scale(0.962); z-index: 2; }
+.deck-card[data-pos="2"] { transform: translateY(-1.6rem) scale(0.924); z-index: 1; }
+.deck-card[data-pos="3"] { transform: translateY(-2rem) scale(0.9); z-index: 0; opacity: 0; }
+.deck-card:not([data-pos="0"]) { pointer-events: none; }
+
+.deck-shot {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: var(--radius-sm);
+  background: var(--color-background);
+}
+.deck-body { min-width: 0; }
+.deck-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+.deck-tag {
+  padding: 0.15em 0.6em;
+  border-radius: var(--radius-full);
+  background: var(--color-action-tint);
+  color: var(--color-action);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+}
+.deck-body h4 {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  margin: 0 0 var(--space-3);
+}
+.deck-body > p { margin: 0 0 var(--space-4); color: var(--color-text-secondary); }
+.deck-go {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-full);
+  background: var(--color-action);
+  color: var(--color-action-text);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+.deck-go svg { width: 1em; height: 1em; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.deck-go:hover svg { transform: translateX(2px); }
+.deck-go svg { transition: transform 200ms var(--ease); }
+
+.deck-foot { display: flex; justify-content: center; margin-top: var(--space-6); }
+.shuffle {
+  padding: var(--space-3) var(--space-6);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-text-primary);
+  color: var(--color-surface);
+  font: inherit;
+  font-weight: var(--weight-bold);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: transform 200ms var(--ease);
+}
+.shuffle:hover { transform: translateY(-2px); }
+.shuffle:active { transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .deck-card, .shuffle, .deck-go svg { transition: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   Journey — a cascading timeline. Each role steps further right than the last,
+   so the eye reads it as forward motion rather than a list. The detail card
+   opens on hover, on keyboard focus, and on click, because hover alone leaves
+   touch and keyboard users with no way in.
+   --------------------------------------------------------------------------- */
+.journey {
+  list-style: none;
+  margin: var(--space-8) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+.journey-item {
+  position: relative;
+  /* Shrink to the pill so the detail card can anchor to the pill edge rather
+     than to the full width of the list row. */
+  width: fit-content;
+  max-width: 100%;
+}
+@media (min-width: 46rem) {
+  /* The step. Capped so a long career does not walk off the right edge. */
+  .journey-item { margin-left: calc(min(var(--i), 6) * 3.25rem); }
+}
+
+.journey-pill {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: fit-content;
+  max-width: 100%;
+  padding: var(--space-3) var(--space-6);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-action);
+  color: var(--color-action-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: var(--shadow-subtle);
+  transition: transform 200ms var(--ease), box-shadow 200ms var(--ease);
+}
+.journey-pill:hover, .journey-pill:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+.journey-yr {
+  flex: none;
+  padding-right: var(--space-4);
+  border-right: 1px solid rgb(255 255 255 / 0.35);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  opacity: 0.85;
+}
+.journey-role { display: grid; }
+.journey-role strong { font-weight: var(--weight-bold); }
+.journey-role span { font-size: var(--text-sm); opacity: 0.85; }
+
+.journey-card {
+  margin-top: var(--space-3);
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-medium);
+}
+@media (min-width: 62rem) {
+  /* Float it beside the pill on wide screens, the way the reference does. */
+  .journey-card {
+    position: absolute;
+    top: -0.5rem;
+    left: calc(100% - 3rem);
+    width: 20rem;
+    margin-top: 0;
+    z-index: 5;
+  }
+  /* A step far enough right would push its card off screen; flip those. */
+  .journey-item[data-flip] .journey-card { left: auto; right: calc(100% - 3rem); }
+}
+.journey-card[hidden] { display: none; }
+.journey-meta {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+.journey-card > p:not(.journey-meta) { margin: 0 0 var(--space-3); font-size: var(--text-sm); }
+.journey-card ul { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--space-2); }
+.journey-card li {
+  position: relative;
+  padding-left: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+.journey-card li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: var(--radius-full);
+  background: var(--color-action);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey-pill { transition: none; }
+}
+
+/* Deck: scroll-driven progress, and the client logo on hover. */
+.deck-dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+}
+.deck-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: var(--radius-full);
+  background: var(--color-border-strong);
+  transition: transform 240ms var(--ease), background 240ms ease;
+}
+.deck-dot.is-on { background: var(--color-action); transform: scale(1.5); }
+
+/* The logo sits over the card and lifts in on hover, so the client reads
+   before the copy does. Decorative — the name is already in the meta line. */
+.deck-logo {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  display: grid;
+  place-items: center;
+  padding: var(--space-2) var(--space-3);
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-medium);
+  opacity: 0;
+  transform: translateY(-0.4rem) scale(0.96);
+  transition: opacity 200ms ease, transform 340ms var(--ease);
+  pointer-events: none;
+  z-index: 2;
+}
+.deck-logo img { display: block; height: 1.6rem; width: auto; }
+.deck-card[data-pos="0"]:hover .deck-logo,
+.deck-card[data-pos="0"]:focus-within .deck-logo {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .deck-logo, .deck-dot { transition: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   About: portrait beside the prose. Two columns on wide screens, portrait
+   first on narrow ones so the page still opens on a face.
+   --------------------------------------------------------------------------- */
+.about-split { display: grid; gap: var(--space-8); align-items: start; }
+@media (min-width: 58rem) {
+  .about-split {
+    /* .prose caps at one readable column; splitting it in two would squeeze
+       the text below a comfortable measure, so widen by the portrait column. */
+    max-width: calc(var(--measure) + 17rem + var(--space-16));
+    grid-template-columns: minmax(0, var(--measure)) 17rem;
+    gap: var(--space-16);
+  }
+  .about-portrait { position: sticky; top: var(--space-16); }
+}
+.about-portrait { margin: 0; }
+.about-portrait img {
+  display: block;
+  width: 100%;
+  max-width: 17rem;
+  /* Matches the source, so the portrait is framed rather than cropped. */
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center top;
+  /* An arch rather than a circle — it keeps the shoulders, and echoes the
+     shape already running through the case study logos. */
+  border-radius: 10rem 10rem var(--radius-lg) var(--radius-lg);
+  background: var(--color-surface);
+}
+.about-portrait figcaption {
+  margin-top: var(--space-3);
+  max-width: 17rem;
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
 }

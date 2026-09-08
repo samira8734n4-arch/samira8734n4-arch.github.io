@@ -1,0 +1,1182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atrium HMS &mdash; Samira Binte Hamid</title>
+<meta name="description" content="A multi-tenant hotel and resort management platform: from a three-module MVP to twelve modules in eight weeks. Product design and release documentation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Plus+Jakarta+Sans:wght@400..700&display=swap">
+<link rel="stylesheet" href="../styles/tokens.css">
+<link rel="stylesheet" href="../styles/base.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="wrap">
+  <nav class="nav">
+    <a class="home" href="../index.html"><span class="avatar" aria-hidden="true">SH</span> Samira</a>
+    <a href="../index.html#work" aria-current="page">Work</a>
+    <a href="../about.html">About</a>
+    <a href="../cv.pdf">CV</a>
+    <a href="mailto:samirabintehamid46@gmail.com">Email</a>
+    <button class="theme-toggle" type="button" data-theme-toggle>Dark</button>
+  </nav>
+</div>
+
+<div class="progress" aria-hidden="true"><span class="progress-bar" data-progress></span></div>
+
+<main id="main">
+  <header class="wrap hero">
+    <a class="back" href="../index.html#work"><svg class="back-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>Back to work</a>
+    <p class="client-logo is-lockup"><img src="../assets/atrium-logo-color.svg" alt=""
+        width="439" height="444" loading="eager"></p>
+    <p class="eyebrow">Hospitality SaaS &middot; Multi-tenant platform &middot; Apex DMIT</p>
+    <h1>Atrium HMS</h1>
+    <p class="lede">Three modules to twelve in eight weeks, across two connected
+      systems &mdash; a public product a resort signs up to, and the operations
+      platform it then runs on. The public site is
+      <a href="https://atriumhms.com/" target="_blank" rel="noopener">atriumhms.com</a>;
+      the platform itself runs at
+      <a href="https://app.atriumhms.com/login" target="_blank" rel="noopener">app.atriumhms.com</a>.</p>
+  </header>
+
+  <div class="wrap">
+    <dl class="summary">
+      <div><dt>Role</dt><dd>Product designer, Apex DMIT</dd></div>
+      <div><dt>Releases</dt><dd>MVP 1, 9 July 2026 &middot; v2.0.0, 1 September 2026</dd></div>
+      <div><dt>Platform</dt><dd>Multi-tenant cloud SaaS</dd></div>
+      <div><dt>Sector</dt><dd>Hotels and resorts</dd></div>
+      <div><dt>Status</dt><dd>Released and live</dd></div>
+    </dl>
+
+    <div class="stats">
+      <div><span class="stat-value">12</span><span class="stat-label">Modules in the v2.0.0 navigation</span></div>
+      <div><span class="stat-value">8<span class="u">wks</span></span><span class="stat-label">From MVP 1 to final release</span></div>
+      <div><span class="stat-value">2</span><span class="stat-label">Connected systems: the product, and the platform</span></div>
+    </div>
+  </div>
+
+  <div class="wrap prose">
+    <section class="prose-section" data-reveal>
+      <h2 class="rule"><span class="n">01</span>The problem</h2>
+      <div class="body">
+        <p>Most hotel software is retrofitted from something else &mdash; a
+          generic ERP, a restaurant POS, a booking widget &mdash; so a property
+          ends up running several systems that each hold part of the truth.</p>
+        <p>The reservation system does not know what the restaurant sold. The
+          restaurant does not know what the store room has. Nobody has one number
+          for the night.</p>
+      </div>
+    </section>
+
+    <section class="prose-section" data-reveal>
+      <h2 class="rule"><span class="n">02</span>Two systems, not one</h2>
+      <div class="body">
+        <p>The structural decision, made at MVP: Atrium is not one product but
+          two connected ones.</p>
+        <ul class="points">
+          <li><strong>The public site and CRM.</strong> Where a resort finds the
+            product, signs itself up, and becomes a tenant record.</li>
+          <li><strong>The resort management system.</strong> What that tenant then
+            runs its front office, inventory and housekeeping on.</li>
+        </ul>
+        <p>A resort registers itself online, is provisioned as its own tenant, and
+          receives a welcome email with its access details &mdash; no sales call in
+          the middle. That is what makes it a SaaS product rather than software
+          delivered per property, and it is a design problem as much as an
+          engineering one: the marketing site and the first-run experience are the
+          same journey.</p>
+      </div>
+    </section>
+
+    <section class="prose-section" data-reveal>
+      <h2 class="rule"><span class="n">03</span>Built with AI in the loop</h2>
+      <div class="body">
+        <p>Three modules to twelve in eight weeks. That is not a normal
+          enterprise timeline, and it was not reached the normal way &mdash; the
+          build ran on an <strong>AI-driven development lifecycle</strong>.</p>
+        <p>What that changes is where the hard part sits:</p>
+        <ul class="points">
+          <li><strong>Judgement becomes the bottleneck.</strong> When screens get
+            built faster than they get decided, choosing <em>is</em> the work
+            &mdash; eight housekeeping states, a booking that holds several
+            banquets, which two nights count as the weekend.</li>
+          <li><strong>Consistency has to be deliberate.</strong> Twelve modules
+            generated fast drift into twelve dialects. One service form reused
+            across four modules is the thing speed most threatens.</li>
+          <li><strong>Domain knowledge is what AI cannot supply.</strong> No
+            model tells you a Bangladeshi wedding is three events.</li>
+        </ul>
+        <p>AI removed the reason to ship a thin product. Not the reason to think
+          about one.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <section class="wrap section" aria-labelledby="mods-h">
+    <h2 id="mods-h" class="rule">Twelve modules</h2>
+    <p class="prose">In sidebar order, as they ship in v2.0.0.</p>
+    <ul class="feature-grid">
+      <li class="feature-card" data-reveal>
+        <div class="peek" aria-hidden="true"><img src="../assets/atrium/front/1.jpg" alt="" loading="lazy"><img src="../assets/atrium/front/8.jpg" alt="" loading="lazy"><img src="../assets/atrium/front/2.jpg" alt="" loading="lazy"></div>
+        <span class="feature-n" aria-hidden="true">01</span>
+        <h3>Front Office</h3>
+        <p class="feature-job">Reservations, arrivals and departures, in-house
+          guests and bill transfer &mdash; with a full reporting layer added in
+          this release.</p>
+        <button class="feature-open" type="button" data-open="feat-fo">View screens &amp; details</button>
+      </li>
+      <li class="feature-card" data-reveal>
+        <div class="peek" aria-hidden="true"><img src="../assets/atrium/task/2.jpg" alt="" loading="lazy"><img src="../assets/atrium/task/1.jpg" alt="" loading="lazy"><img src="../assets/atrium/task/3.jpg" alt="" loading="lazy"></div>
+        <span class="feature-n" aria-hidden="true">02</span>
+        <h3>Task Manager</h3>
+        <p class="feature-job">Property task and project tracking: project → phase
+          → task → sub-task, in list, board and my-tasks views.</p>
+        <button class="feature-open" type="button" data-open="feat-task">View screens &amp; details</button>
+      </li>
+      <li class="feature-card" data-reveal>
+        <div class="peek" aria-hidden="true"><img src="../assets/atrium/Inventory/1.jpg" alt="" loading="lazy"><img src="../assets/atrium/Inventory/6.jpg" alt="" loading="lazy"><img src="../assets/atrium/Inventory/9.jpg" alt="" loading="lazy"></div>
+        <span class="feature-n" aria-hidden="true">03</span>
+        <h3>Inventory</h3>
+        <p class="feature-job">Procurement — purchase request, order, goods
+          received, returns — and multi-store stock, with the UI rebuilt and setup
+          masters completed.</p>
+        <button class="feature-open" type="button" data-open="feat-inv">View screens &amp; details</button>
+      </li>
+      <li class="feature-card" data-reveal>
+        <div class="peek" aria-hidden="true"><img src="../assets/atrium/House%20Keeping/1.jpg" alt="" loading="lazy"><img src="../assets/atrium/House%20Keeping/2.jpg" alt="" loading="lazy"></div>
+        <span class="feature-n" aria-hidden="true">04</span>
+        <h3>Housekeeping</h3>
+        <p class="feature-job">Room status board and transitions, task assignment
+          and housekeeping reporting.</p>
+        <button class="feature-open" type="button" data-open="feat-hk">View screens &amp; details</button>
+      </li>
+      <li class="feature-card" data-reveal>
+        <div class="peek" aria-hidden="true"><img src="../assets/atrium/activity/1.jpg" alt="" loading="lazy"><img src="../assets/atrium/activity/2.jpg" alt="" loading="lazy"></div>
+        <span class="feature-n" aria-hidden="true">05</span>
+        <h3>Activities</h3>
+        <p class="feature-job">Guest activities and recreation scheduling &mdash;
+          the part that turns a room night into a package.</p>
+        <button class="feature-open" type="button" data-open="feat-act">View screens &amp; details</button>
+      </li>
+      <li class="feature-card" data-reveal>
+        <div class="peek" aria-hidden="true"><img src="../assets/atrium/banqu/3.jpg" alt="" loading="lazy"><img src="../assets/atrium/banqu/2.jpg" alt="" loading="lazy"><img src="../assets/atrium/banqu/4.jpg" alt="" loading="lazy"></div>
+        <span class="feature-n" aria-hidden="true">06</span>
+        <h3>Banquet</h3>
+        <p class="feature-job">The full event lifecycle: reservation, confirmation,
+          event order, execution, billing, payment, settlement.</p>
+        <button class="feature-open" type="button" data-open="feat-banq">View screens &amp; details</button>
+      </li>
+      <li class="feature-card" data-reveal>
+        <div class="peek" aria-hidden="true"><img src="../assets/atrium/quot/2.jpg" alt="" loading="lazy"></div>
+        <span class="feature-n" aria-hidden="true">07</span>
+        <h3>Quotation</h3>
+        <p class="feature-job">Creation, revision and approval, feeding confirmed
+          business straight into reservations.</p>
+        <button class="feature-open" type="button" data-open="feat-quo">View screens &amp; details</button>
+      </li>
+      <li class="feature-card" data-reveal>
+        <div class="peek" aria-hidden="true"><img src="../assets/atrium/rest/1.jpg" alt="" loading="lazy"><img src="../assets/atrium/rest/3.jpg" alt="" loading="lazy"><img src="../assets/atrium/rest/7.jpg" alt="" loading="lazy"></div>
+        <span class="feature-n" aria-hidden="true">08</span>
+        <h3>F&amp;B</h3>
+        <p class="feature-job">Restaurant and outlet operations, tied back to
+          recipes and inventory.</p>
+        <button class="feature-open" type="button" data-open="feat-fnb">View screens &amp; details</button>
+      </li>
+      <li class="feature-card" data-reveal>
+        <div class="peek" aria-hidden="true"><img src="../assets/atrium/Company/2.jpg" alt="" loading="lazy"><img src="../assets/atrium/Company/3.jpg" alt="" loading="lazy"></div>
+        <span class="feature-n" aria-hidden="true">09</span>
+        <h3>Corporate Clients</h3>
+        <p class="feature-job">Company master and registration, company bill
+          collection, and corporate transaction reporting.</p>
+        <button class="feature-open" type="button" data-open="feat-corp">View screens &amp; details</button>
+      </li>
+      <li class="feature-card" data-reveal>
+        <div class="peek" aria-hidden="true"><img src="../assets/atrium/mail/1.jpg" alt="" loading="lazy"><img src="../assets/atrium/mail/2.jpg" alt="" loading="lazy"><img src="../assets/atrium/mail/3.jpg" alt="" loading="lazy"></div>
+        <span class="feature-n" aria-hidden="true">10</span>
+        <h3>Email Management</h3>
+        <p class="feature-job">Sign-up verification mail, editable templates, and
+          centralised outbound correspondence.</p>
+        <button class="feature-open" type="button" data-open="feat-mail">View screens &amp; details</button>
+      </li>
+      <li class="feature-card" data-reveal>
+        <div class="peek" aria-hidden="true"><img src="../assets/atrium/Settings/3.jpg" alt="" loading="lazy"><img src="../assets/atrium/Settings/1.jpg" alt="" loading="lazy"><img src="../assets/atrium/Settings/8.jpg" alt="" loading="lazy"></div>
+        <span class="feature-n" aria-hidden="true">11</span>
+        <h3>Settings</h3>
+        <p class="feature-job">Setup masters extended to every new module, plus IP
+          whitelist and blacklist access control.</p>
+        <button class="feature-open" type="button" data-open="feat-set">View screens &amp; details</button>
+      </li>
+    </ul>
+  </section>
+
+  <section class="wrap section" aria-labelledby="flow-h">
+    <h2 id="flow-h" class="rule">How one night becomes one number</h2>
+    <p class="prose">The problem at the top of this page was that the reservation
+      system does not know what the restaurant sold. This is the path that fixes
+      it &mdash; one guest, nine steps, every module touched once.</p>
+
+    <div class="phase">
+      <p class="phase-label"><span class="phase-dot" aria-hidden="true"></span>Win the stay</p>
+      <ol class="flow flow-e2e" start="1">
+        <li class="flow-step">
+          <div class="flow-head">
+            <span class="flow-n" aria-hidden="true">1</span>
+            <svg class="flow-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h4"/></svg>
+          </div>
+          <h4>Quote the whole thing</h4>
+          <p>Rooms, a hall, a menu and a driver on one document, with a validity
+            date. <em>Quotation</em></p>
+        </li>
+        <li class="flow-step">
+          <div class="flow-head">
+            <span class="flow-n" aria-hidden="true">2</span>
+            <svg class="flow-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          </div>
+          <h4>Hold the space</h4>
+          <p>A room booking, or a banquet that stays pending until the contract
+            and the advance arrive. <em>Front Office &middot; Banquet</em></p>
+        </li>
+        <li class="flow-step">
+          <div class="flow-head">
+            <span class="flow-n" aria-hidden="true">3</span>
+            <svg class="flow-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+          </div>
+          <h4>Take the advance</h4>
+          <p>A deposit against the booking, receipted by the template that event
+            fires. <em>Front Office &middot; Email</em></p>
+        </li>
+      </ol>
+    </div>
+
+    <div class="phase">
+      <p class="phase-label"><span class="phase-dot" aria-hidden="true"></span>Run the stay</p>
+      <ol class="flow flow-e2e" start="4">
+        <li class="flow-step">
+          <div class="flow-head">
+            <span class="flow-n" aria-hidden="true">4</span>
+            <svg class="flow-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/></svg>
+          </div>
+          <h4>Check in</h4>
+          <p>Against the booking, or off the street. A corporate guest bills to
+            account on the credit limit held on their company record.
+            <em>Front Office &middot; Corporate Clients</em></p>
+        </li>
+        <li class="flow-step">
+          <div class="flow-head">
+            <span class="flow-n" aria-hidden="true">5</span>
+            <svg class="flow-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3"/><path d="M2 17h20"/></svg>
+          </div>
+          <h4>Turn the room</h4>
+          <p>The board moves it through dirty, assigned, in progress, clean
+            &mdash; while occupancy tracks separately. <em>Housekeeping</em></p>
+        </li>
+        <li class="flow-step">
+          <div class="flow-head">
+            <span class="flow-n" aria-hidden="true">6</span>
+            <svg class="flow-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20"/><path d="M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h4>Everything they use lands on the folio</h4>
+          <p>Kayaking, dinner, laundry &mdash; posted through the same service
+            form, each carrying service charge and VAT.
+            <em>Activities &middot; F&amp;B &middot; Front Office</em></p>
+        </li>
+      </ol>
+    </div>
+
+    <div class="phase">
+      <p class="phase-label"><span class="phase-dot" aria-hidden="true"></span>Close the night</p>
+      <ol class="flow flow-e2e" start="7">
+        <li class="flow-step">
+          <div class="flow-head">
+            <span class="flow-n" aria-hidden="true">7</span>
+            <svg class="flow-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 8.4 12 3 3.4 8.4"/><path d="M3.4 8.4v7.2L12 21l8.6-5.4V8.4"/><path d="m3.4 8.4 8.6 5.4 8.6-5.4"/></svg>
+          </div>
+          <h4>The kitchen draws on stock</h4>
+          <p>That dinner was a recipe. The restaurant is a cost centre mapped to
+            a warehouse, so selling it moves real stock.
+            <em>F&amp;B &middot; Inventory</em></p>
+        </li>
+        <li class="flow-step">
+          <div class="flow-head">
+            <span class="flow-n" aria-hidden="true">8</span>
+            <svg class="flow-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/></svg>
+          </div>
+          <h4>Every movement hits a ledger code</h4>
+          <p>Each item carries an asset code and an expense code, so consumption
+            books itself instead of being re-keyed. <em>Inventory</em></p>
+        </li>
+        <li class="flow-step is-end">
+          <div class="flow-head">
+            <span class="flow-n" aria-hidden="true">9</span>
+            <svg class="flow-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+          </div>
+          <h4>Settle, and say thank you</h4>
+          <p>Payment against the check-in, the folio closes, the check-out
+            template sends. One night, one number.
+            <em>Front Office &middot; Email</em></p>
+        </li>
+      </ol>
+    </div>
+
+    <div class="prose">
+      <p><strong>Three joins hold it together:</strong> two ledger codes on every
+        item, commercial terms stored on the company rather than the booking, and
+        everything &mdash; departments, restaurants, stores &mdash; mapped to a
+        warehouse. That last one is why a dish sold in step 6 decrements a store
+        room in step 7.</p>
+    </div>
+  </section>
+
+
+  <div class="wrap prose">
+    <section class="prose-section" data-reveal>
+      <h2 class="rule"><span class="n">04</span>What was held back</h2>
+      <div class="body">
+        <p>Six things were deliberately kept out of v2.0.0, and the release note
+          says so by name rather than leaving people to find the gaps:</p>
+        <ul class="points">
+          <li><strong>Data auto-population</strong> &mdash; linked records carrying
+            values forward. Banquet first, then the rest.</li>
+          <li><strong>Finance &amp; Accounts</strong>, and <strong>HR</strong>.</li>
+          <li><strong>Scheduled and emailed reports</strong> &mdash; reports run on
+            demand only.</li>
+          <li><strong>External notification channels</strong> &mdash; notifications
+            stay in-application.</li>
+          <li><strong>Survey and guest feedback</strong> &mdash; designed, not
+            built.</li>
+        </ul>
+        <p>That last line is the interesting one. The survey module exists as a
+          full design with pre-arrival, post-checkout, banquet and restaurant
+          triggers, and it was still held back. Shipping the design without the
+          build, and saying which is which, is a harder call than quietly
+          dropping it.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="wrap prose">
+    <section class="prose-section" data-reveal>
+      <h2 class="rule"><span class="n">05</span>Credit</h2>
+      <div class="body">
+        <p>Product design at Apex DMIT. The v2.0.0 release note is mine; MVP 1 was
+          issued by the SD department under Mohammad Faruk as technical project
+          manager.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <div class="endcards">
+      <a class="endcard endcard-next" href="atrium-website.html">
+        <span class="endcard-label">Next project</span>
+        <h2>The Atrium website</h2>
+        <p>The marketing site that sells this platform &mdash; designed, built and
+          published in two weeks.</p>
+        <span class="endcard-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <div class="endcard endcard-contact">
+        <span class="endcard-label">Get in touch</span>
+        <h2>Say hello</h2>
+        <p>Happy to walk through this project, or any of the others, on a call.</p>
+        <div class="actions">
+          <a class="btn" href="mailto:samirabintehamid46@gmail.com">Email me</a>
+          <a class="btn btn-ghost" href="https://app.atriumhms.com/login" target="_blank" rel="noopener">Open the platform</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- FEATURE MODAL
+     Native <dialog>: Escape, focus trapping and the inert background all come
+     from the browser rather than being reimplemented badly. -->
+
+<dialog class="modal" id="feat-fo" aria-labelledby="feat-fo-t">
+  <div class="modal-head">
+    <h2 id="feat-fo-t">Front Office</h2>
+    <button class="modal-close" type="button" data-close aria-label="Close">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>Front Office is the module the property actually lives in. Eighteen
+      screens sit behind one menu, and a receptionist touches most of them
+      before lunch &mdash; so the design problem was never the individual form.
+      It was making eighteen screens feel like one desk.</p>
+    <p>Three decisions carry it. The dashboard answers the only questions a
+      shift starts with, so nobody has to go looking. Every long task &mdash;
+      booking, check-in &mdash; is one record split across tabs rather than a
+      wizard, so a half-finished booking is still a booking. And every list
+      opens with its filters already visible, because on a busy desk the search
+      <em>is</em> the screen.</p>
+
+    <div class="gallery-head">
+      <h3>How a stay moves through it</h3>
+    </div>
+    <ol class="flow">
+      <li class="flow-step">
+        <div class="flow-head">
+          <span class="flow-n" aria-hidden="true">1</span>
+          <svg class="flow-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </div>
+        <h4>Book</h4>
+        <p>Dates, nights, guest, country, billing currency &mdash; with the exchange rate locked to it.</p>
+      </li>
+      <li class="flow-step">
+        <div class="flow-head">
+          <span class="flow-n" aria-hidden="true">2</span>
+          <svg class="flow-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 8.4 12 3 3.4 8.4"/><path d="M3.4 8.4v7.2L12 21l8.6-5.4V8.4"/><path d="m3.4 8.4 8.6 5.4 8.6-5.4"/></svg>
+        </div>
+        <h4>Add the extras</h4>
+        <p>Airport pickup and drop, then complimentary items &mdash; the package's defaults already ticked.</p>
+      </li>
+      <li class="flow-step">
+        <div class="flow-head">
+          <span class="flow-n" aria-hidden="true">3</span>
+          <svg class="flow-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        </div>
+        <h4>Take a deposit</h4>
+        <p>An advance against the booking, in any currency the property accepts.</p>
+      </li>
+      <li class="flow-step">
+        <div class="flow-head">
+          <span class="flow-n" aria-hidden="true">4</span>
+          <svg class="flow-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/></svg>
+        </div>
+        <h4>Arrive</h4>
+        <p>Check in against the booking &mdash; or straight off the street, with no booking at all.</p>
+      </li>
+      <li class="flow-step">
+        <div class="flow-head">
+          <span class="flow-n" aria-hidden="true">5</span>
+          <svg class="flow-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h4"/></svg>
+        </div>
+        <h4>Post what they use</h4>
+        <p>Services onto the folio, with service charge and VAT as switches, not arithmetic.</p>
+      </li>
+      <li class="flow-step is-end">
+        <div class="flow-head">
+          <span class="flow-n" aria-hidden="true">6</span>
+          <svg class="flow-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+        </div>
+        <h4>Settle</h4>
+        <p>Payment against the check-in &mdash; cash, mobile banking or company transfer.</p>
+      </li>
+    </ol>
+
+    <div class="gallery-head">
+      <h3>Screens</h3>
+      <div class="gallery-nav">
+        <span class="gallery-count" data-count>1 / 8</span>
+        <button class="gnav" type="button" data-prev aria-label="Previous screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button class="gnav" type="button" data-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>
+    <div class="modal-gallery" tabindex="0" role="group" aria-label="Front Office screens, scroll horizontally">
+      <figure>
+        <img src="../assets/atrium/front/1.jpg" alt="The Front Office dashboard: arrivals, departures and in-hotel counters across the top, then today's guest status, today's housekeeping, room booking status as a donut, and room occupancy." loading="lazy">
+        <figcaption>The dashboard &mdash; arrivals, departures, in-hotel, housekeeping, occupancy</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/front/0.jpg" alt="The Front Office menu open as a flyout, listing eighteen destinations from Dashboard and Room Booking through Move Guest, Folio Transfer, Day Closing and Reports." loading="lazy">
+        <figcaption>Eighteen destinations behind one menu</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/front/2.jpg" alt="Room Booking, Stay Details tab: check-in and check-out dates and times, number of nights with a lock toggle, guest name fields, country, billing currency and exchange rate." loading="lazy">
+        <figcaption>Booking, tab one &mdash; the stay</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/front/3.jpg" alt="Room Booking, Other Services tab: airport pickup and drop selects above a grid of complimentary items as checkboxes, with starred defaults already ticked." loading="lazy">
+        <figcaption>Tab two &mdash; extras, with the package's defaults pre-ticked</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/front/4.jpg" alt="Room Booking, Advance Payment tab: payment mode, currency, exchange rate, amount and remarks, with an add payment action." loading="lazy">
+        <figcaption>Tab three &mdash; money down</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/front/6.jpg" alt="Guest Check-In: an optional link to an existing room booking, then stay details, then room detailed information with rack rate, negotiated rate, discount, service charge and VAT." loading="lazy">
+        <figcaption>Check-in &mdash; linked to a booking, or from nothing</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/front/8.jpg" alt="Room Planner View: a calendar grid of 51 rooms across 30 days, grouped by room type, with a ten-state colour legend from vacant and reserved through dirty, out of service and under maintenance." loading="lazy">
+        <figcaption>The planner &mdash; 51 rooms &times; 30 days, ten states</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/front/12.jpg" alt="Service Entry: a bill-to room search, then a service line with rate, negotiated rate, discount, service charge at ten percent and VAT at fifteen percent as tick-boxes, and a complimentary flag." loading="lazy">
+        <figcaption>Service entry &mdash; charge and VAT as switches</figcaption>
+      </figure>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="modal" id="feat-hk" aria-labelledby="feat-hk-t">
+  <div class="modal-head">
+    <h2 id="feat-hk-t">Housekeeping</h2>
+    <button class="modal-close" type="button" data-close aria-label="Close">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>A housekeeper does not read a table. They scan a floor, see which rooms
+      are dirty, and go. So Housekeeping is a board, not a list &mdash; fifty
+      room cards grouped by room type, each one carrying its own status.</p>
+    <p>Two things make it work on a busy morning. Every room tracks
+      <strong>two independent states at once</strong> &mdash; how clean it is,
+      and whether anyone is in it &mdash; because a room can be dirty and
+      vacant, or clean and occupied, and those need different actions. And the
+      action panel is always on screen rather than appearing after a selection,
+      so its empty state can tell you what to do next: <em>select one or more
+      rooms to change their housekeeping status</em>.</p>
+    <p>Status is never colour alone. The card carries a coloured edge
+      <em>and</em> the word, so it survives a quick scan and a colour-blind
+      user equally.</p>
+    <div class="gallery-head">
+      <h3>Eight cleaning states</h3>
+    </div>
+    <ul class="points">
+      <li><strong>Clean</strong>, <strong>Dirty</strong>, <strong>Assigned to
+        Clean</strong>, <strong>Cleaning in Progress</strong> &mdash; the working
+        cycle a room moves through every day.</li>
+      <li><strong>Out of Order</strong>, <strong>Out of Service</strong>,
+        <strong>Under Maintenance</strong>, <strong>House Use</strong> &mdash;
+        the four ways a room leaves sale without being sold.</li>
+      <li>Alongside them, four occupancy counters &mdash; reserved, today's
+        check-in, occupied, expected departure &mdash; so the board answers
+        &ldquo;what can I clean now?&rdquo; without opening Front Office.</li>
+    </ul>
+    <div class="gallery-head">
+      <h3>Screens</h3>
+      <div class="gallery-nav">
+        <span class="gallery-count" data-count>1 / 2</span>
+        <button class="gnav" type="button" data-prev aria-label="Previous screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button class="gnav" type="button" data-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>
+    <div class="modal-gallery" tabindex="0" role="group" aria-label="Housekeeping screens, scroll horizontally">
+      <figure>
+        <img src="../assets/atrium/House%20Keeping/1.jpg" alt="Assign Room Cleaning: eight housekeeping status counters and four occupancy counters above a board of room cards grouped by room type, each card showing its number, cleaning status and occupancy, with an Update Mode panel waiting at the right." loading="lazy">
+        <figcaption>The board &mdash; fifty rooms, eight states, bulk selection</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/House%20Keeping/2.jpg" alt="Housekeeping Service Entry: a bill-to room search and remarks, then a service line with rate, negotiated rate, discount, service charge and VAT tick-boxes and a complimentary flag." loading="lazy">
+        <figcaption>Service entry &mdash; the same form as Front Office, re-pointed</figcaption>
+      </figure>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="modal" id="feat-act" aria-labelledby="feat-act-t">
+  <div class="modal-head">
+    <h2 id="feat-act-t">Activities</h2>
+    <button class="modal-close" type="button" data-close aria-label="Close">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>Activities is what turns a room night into a package &mdash; kayaking,
+      fishing, a tree-top course, a driver for the day. It looks like a small
+      module and it is where two quiet decisions show.</p>
+    <p>The first: <strong>an activity is not owned by Activities</strong>. Every
+      service carries a parent category naming the module that actually sells it
+      &mdash; Front Office for what a resident guest books at the desk, Banquet
+      for what an event package includes. One price list, several front doors.</p>
+    <p>The second: activities are the only thing here a <strong>non-resident can
+      buy</strong>. So this Service Entry &mdash; the same component used in
+      Front Office and Housekeeping &mdash; grows one extra field the others do
+      not have: a guest type that lets the bill go to an in-house room or to a
+      walk-in customer. One shared form, one honest exception.</p>
+    <div class="gallery-head">
+      <h3>Screens</h3>
+      <div class="gallery-nav">
+        <span class="gallery-count" data-count>1 / 2</span>
+        <button class="gnav" type="button" data-prev aria-label="Previous screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button class="gnav" type="button" data-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>
+    <div class="modal-gallery" tabindex="0" role="group" aria-label="Activities screens, scroll horizontally">
+      <figure>
+        <img src="../assets/atrium/activity/1.jpg" alt="Activities Service Entry: a bill-to block with a guest type select set to In-House alongside the room search, then a service line with a category select, rate, discount, service charge and VAT." loading="lazy">
+        <figcaption>Service entry, plus a guest type &mdash; in-house or walk-in</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/activity/2.jpg" alt="Activities Services: a table of services with parent category, service name and price, filtered by active status, with add, edit and delete actions." loading="lazy">
+        <figcaption>The price list &mdash; each service owned by the module that sells it</figcaption>
+      </figure>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="modal" id="feat-fnb" aria-labelledby="feat-fnb-t">
+  <div class="modal-head">
+    <h2 id="feat-fnb-t">F&amp;B</h2>
+    <button class="modal-close" type="button" data-close aria-label="Close">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>F&amp;B is the module with two clocks. A manager wants revenue by payment
+      method and a seven-day trend; a waiter wants to get four items onto a
+      ticket before the table looks up. Those are different products wearing the
+      same navigation, and most hotel software picks one and makes the other
+      suffer.</p>
+    <p>The split is straight down the middle. The dashboard is read-only and
+      refreshes itself every sixty seconds, with the live counters marked
+      <em>Live</em> so nobody wonders whether the number is stale. The POS is
+      the opposite &mdash; a food grid on the left, a running order on the right,
+      totals recalculating as items go in, and two ways out: fire the ticket to
+      the kitchen, or place the order outright.</p>
+    <p>Underneath both, the same idea repeats: a restaurant is a cost centre
+      mapped to a warehouse, so what the kitchen sells is already the thing
+      Inventory decrements. The plumbing was designed before the pretty part.</p>
+    <div class="gallery-head">
+      <h3>What the module holds</h3>
+    </div>
+    <ul class="points">
+      <li><strong>A dashboard</strong> &mdash; orders, pending, ongoing kitchen
+        tickets, completed; revenue split six ways by payment method; a seven-day
+        revenue chart; and floors ranked by revenue.</li>
+      <li><strong>Table reservations</strong> &mdash; with pax and occasion on the
+        row, and a status strip that counts confirmed, seated, unallocated and
+        cancelled before you read a single line.</li>
+      <li><strong>A point of sale</strong> &mdash; food grid, category chips,
+        customer type, waiter, table, pax, and a live order summary carrying VAT,
+        service charge and supplementary duty.</li>
+      <li><strong>The setup behind it</strong> &mdash; restaurants as cost centres,
+        card terminals, and a food catalogue six levels wide: items, categories,
+        menu types, item groups, variants, add-ons.</li>
+    </ul>
+    <div class="gallery-head">
+      <h3>Screens</h3>
+      <div class="gallery-nav">
+        <span class="gallery-count" data-count>1 / 6</span>
+        <button class="gnav" type="button" data-prev aria-label="Previous screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button class="gnav" type="button" data-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>
+    <div class="modal-gallery" tabindex="0" role="group" aria-label="F and B screens, scroll horizontally">
+      <figure>
+        <img src="../assets/atrium/rest/1.jpg" alt="Restaurant Dashboard: four order counters with live badges, a revenue breakdown by payment method, a seven-day daily revenue chart, and a restaurant summary ranking floors and tables by revenue." loading="lazy">
+        <figcaption>The manager's view &mdash; refreshes itself every sixty seconds</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/rest/3.jpg" alt="Make Order point of sale: a searchable food grid with category chips on the left, and a new order panel on the right holding customer type, waiter, table, pax, a line-by-line order summary with quantity steppers, tax lines and a total, above buttons to send the kitchen ticket or place the order." loading="lazy">
+        <figcaption>The POS &mdash; grid left, running ticket right</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/rest/6.jpg" alt="The F and B navigation opened three levels deep: dashboard, restaurant booking, order management, restaurant config, customer management and food and menu config, expanding to food items, categories, menu type, item group, variant list and add-ons." loading="lazy">
+        <figcaption>Three levels of menu, and still one path</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/rest/7.jpg" alt="Add Food: basic information with name, components, type, recipe type and category; offers and rules with discount dates and flags for special, non-discountable, supplementary duty and room service; and a right rail for image, add-ons, variants, VAT and cooking time." loading="lazy">
+        <figcaption>Adding a dish &mdash; recipe, offer rules, add-ons, cooking time</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/rest/4.jpg" alt="Restaurant configuration: counters for total restaurants, tables and capacity above a table mapping each restaurant to a warehouse, with table count, capacity and active status." loading="lazy">
+        <figcaption>Restaurants as cost centres, mapped to warehouses</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/rest/5.jpg" alt="Card Terminal List: a short table of named payment card terminals with edit and delete actions." loading="lazy">
+        <figcaption>Card terminals &mdash; small screens get the same care</figcaption>
+      </figure>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="modal" id="feat-quo" aria-labelledby="feat-quo-t">
+  <div class="modal-head">
+    <h2 id="feat-quo-t">Quotation</h2>
+    <button class="modal-close" type="button" data-close aria-label="Close">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>A resort rarely sells one thing. A wedding enquiry is rooms
+      <em>and</em> a banquet hall <em>and</em> a menu <em>and</em> a driver, and
+      until the guest sees one number for all of it, they cannot say yes.</p>
+    <p>Every module in Atrium can price its own line. Quotation is the module
+      that puts them in one document &mdash; <strong>room, banquet, F&amp;B and
+      services in a single quotation</strong>, sectioned A, B, C, D, each
+      section carrying its own subtotal, with the final amount recalculating in
+      a rail that stays on screen while you build.</p>
+    <p>Two details make it a sales tool rather than a form. It has a
+      <strong>validity date</strong>, because a held rate that never expires is
+      not a quote. And it ends in two different buttons &mdash; save a draft, or
+      save and send to the customer &mdash; so the act of quoting and the act of
+      committing to a price are not the same click.</p>
+    <div class="gallery-head">
+      <h3>Screens</h3>
+      <div class="gallery-nav">
+        <span class="gallery-count" data-count>1 / 1</span>
+        <button class="gnav" type="button" data-prev aria-label="Previous screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button class="gnav" type="button" data-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>
+    <div class="modal-gallery" tabindex="0" role="group" aria-label="Quotation screens, scroll horizontally">
+      <figure>
+        <img src="../assets/atrium/quot/2.jpg" alt="New Quotation: a customer and quotation block with contact fields, validity date and remarks shown on the quotation, then a lettered room reservation section with dates, room type, rates, discount method, service charge and VAT, beside a rail showing the final quotation amount with save draft and save and send actions." loading="lazy">
+        <figcaption>One quotation &mdash; room, banquet, F&amp;B and services, priced live</figcaption>
+      </figure>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="modal" id="feat-task" aria-labelledby="feat-task-t">
+  <div class="modal-head">
+    <h2 id="feat-task-t">Task Manager</h2>
+    <button class="modal-close" type="button" data-close aria-label="Close">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>Every property already runs on tasks &mdash; the lift needs servicing, the
+      pool needs testing, room 205 needs a new mirror. Task Manager is the module
+      that stops those living in a WhatsApp group.</p>
+    <p>The design decision that matters most here is small and easy to miss:
+      <strong>planned dates and actual dates are separate fields</strong>. A task
+      must have a planned start and a due date; it may or may not have an actual
+      start and an actual end. That split is what turns a to-do list into
+      something a manager can report on &mdash; without it you can see what is
+      late, but never by how much, or which department is always late.</p>
+    <p>The rest follows the same instinct: say the thing rather than hide it. The
+      phase field stays visible but disabled, telling you to pick a project
+      first, instead of appearing out of nowhere. The assignee label admits it
+      <em>can be set later</em>, so a task can exist before an owner does. And
+      the due date is labelled <em>planned finish</em>, because the two words
+      mean different things to the person filling the form.</p>
+    <div class="gallery-head">
+      <h3>Five statuses, not three</h3>
+    </div>
+    <ul class="points">
+      <li><strong>To do</strong>, <strong>In progress</strong>,
+        <strong>Done</strong> &mdash; the obvious three, dragged between columns.</li>
+      <li><strong>Blocked</strong> and <strong>In review</strong> get their own
+        columns rather than being folded into <em>in progress</em>. Those are the
+        two places work actually stalls, and a three-column board hides exactly
+        the thing a manager needs to see.</li>
+      <li>The same tasks render as a list or a board, filtered by project,
+        department, assignee, priority, and open-only &mdash; one dataset, two
+        habits of working.</li>
+    </ul>
+    <p>One more thing worth saying out loud, because it is a multi-tenant
+      product: <strong>every empty state is designed</strong>. Nothing in To do.
+      No tasks found &mdash; create a task or adjust your filters. No files
+      attached. Every property's first day on Atrium is an empty board, so the
+      empty board is the first screen the product is judged on.</p>
+    <div class="gallery-head">
+      <h3>Screens</h3>
+      <div class="gallery-nav">
+        <span class="gallery-count" data-count>1 / 3</span>
+        <button class="gnav" type="button" data-prev aria-label="Previous screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button class="gnav" type="button" data-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>
+    <div class="modal-gallery" tabindex="0" role="group" aria-label="Task Manager screens, scroll horizontally">
+      <figure>
+        <img src="../assets/atrium/task/2.jpg" alt="Task Board: a list and board toggle above five status columns headed to do, blocked, in progress, in review and done, each with a count, an add-task action and a written empty state, under filters for project, open-only, department, assignee and priority." loading="lazy">
+        <figcaption>Five columns &mdash; blocked and in review earn their own</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/task/1.jpg" alt="The New task drawer sliding in over the task list: title and description, task type, project, priority, status, a phase field disabled until a project is picked, department, assignee marked can be set later, a read-only created-by, planned start and due date, actual start and actual end, and an attachments area." loading="lazy">
+        <figcaption>New task &mdash; planned dates and actual dates kept apart</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/task/3.jpg" alt="The Departments settings screen: a master list used across the module, with an add-department action, an active toggle per row, and a confirmation toast." loading="lazy">
+        <figcaption>Departments &mdash; one master list, used on every task</figcaption>
+      </figure>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="modal" id="feat-banq" aria-labelledby="feat-banq-t">
+  <div class="modal-head">
+    <h2 id="feat-banq-t">Banquet</h2>
+    <button class="modal-close" type="button" data-close aria-label="Close">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>Banquet is the module that had to be designed for Bangladesh rather than
+      translated into it.</p>
+    <p>The decision it turns on: <strong>one booking can hold several
+      banquets</strong>. A wedding here is not an event, it is a holud, a
+      wedding and a reception &mdash; different halls, different days, different
+      headcounts, one client, one contract, one bill. Most event software models
+      a booking as a single date and forces the family to make three unrelated
+      reservations. This one puts a repeating panel inside the booking: fill it,
+      press add, and each banquet joins the list beneath.</p>
+    <p>The second decision is a status rule, and it is written into the page
+      header rather than buried in a spec: <strong>a booking becomes an event
+      order once the contract and the advance are in</strong>. Pending until the
+      money and the paper arrive. The team using it never has to ask what
+      confirmed means.</p>
+    <div class="gallery-head">
+      <h3>How it holds together</h3>
+    </div>
+    <ul class="points">
+      <li><strong>The same three tabs as a room booking</strong> &mdash; details,
+        other services, advance payment. An event is a stay with a hall instead
+        of a bed, so it should not need a new mental model.</li>
+      <li><strong>Priced as you build.</strong> Hall rate, adult and child pax,
+        discount, negotiated rate, additional charges and service charge, with a
+        summary rail that starts by telling you what it still needs before it can
+        price anything.</li>
+      <li><strong>A calendar in day, week and month</strong>, filterable by hall,
+        with pending events labelled as pending on the entry itself &mdash; so a
+        provisional hold never reads as a confirmed one.</li>
+      <li><strong>Occasion as a managed list</strong>, not free text, so night
+        stay, banquet, day-long event, wedding and picnic stay countable in
+        reporting.</li>
+    </ul>
+    <div class="gallery-head">
+      <h3>Screens</h3>
+      <div class="gallery-nav">
+        <span class="gallery-count" data-count>1 / 3</span>
+        <button class="gnav" type="button" data-prev aria-label="Previous screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button class="gnav" type="button" data-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>
+    <div class="modal-gallery" tabindex="0" role="group" aria-label="Banquet screens, scroll horizontally">
+      <figure>
+        <img src="../assets/atrium/banqu/2.jpg" alt="Add banquet: enquiry details with event name, booked-by, company, contact person and enquiry source, then a repeating add-a-banquet panel with hall, occasion, layout, party date range, times, adult and child pax, hall rate, discount and service charge, beside a booking summary rail." loading="lazy">
+        <figcaption>One booking, several banquets &mdash; add each to the list below</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/banqu/3.jpg" alt="Banquet Calendar in month view: a September grid with event entries on their days, each showing name and time, pending events labelled as pending, a per-day count badge, a hall filter and day, week and month toggles." loading="lazy">
+        <figcaption>The calendar &mdash; pending holds never look confirmed</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/banqu/4.jpg" alt="Occasion Type List: a settings table of banquet occasion types with name, active status and edit and delete actions." loading="lazy">
+        <figcaption>Occasion as a managed list, so it stays countable</figcaption>
+      </figure>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="modal" id="feat-corp" aria-labelledby="feat-corp-t">
+  <div class="modal-head">
+    <h2 id="feat-corp-t">Corporate Clients</h2>
+    <button class="modal-close" type="button" data-close aria-label="Close">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>This is the smallest-looking module in Atrium and the one the most other
+      screens depend on. A resort's real money is not the walk-in guest &mdash;
+      it is the bank that books forty room nights a quarter and the garments
+      company that runs its annual outing there. Those are accounts, not
+      bookings.</p>
+    <p>Two fields on the company record explain a pattern that shows up
+      everywhere else in the product.</p>
+    <ul class="points">
+      <li><strong>Commercial terms</strong> &mdash; discount, service charge and
+        VAT, agreed once and stored on the company. That is why every pricing
+        screen in Atrium shows a rack rate <em>and</em> a negotiated rate side by
+        side: the second one is not typed from memory, it comes from here.</li>
+      <li><strong>Credit limit</strong> &mdash; because a corporate guest does not
+        settle at the desk on the way out. That single number is what makes the
+        <em>corporate guest</em> switch on the Front Office check-in mean
+        anything, and what lets a folio close without a payment.</li>
+    </ul>
+    <p>The rest is quiet structural work: an account manager on every company so
+      someone owns the relationship, a billing address that can differ from the
+      registered one, and business type kept as a managed list &mdash; airline,
+      travel agency, government, NGO, IT, garments, pharmaceuticals, telecom,
+      banking, conglomerate &mdash; rather than free text, so the sales side can
+      count which sectors actually book.</p>
+    <div class="gallery-head">
+      <h3>Screens</h3>
+      <div class="gallery-nav">
+        <span class="gallery-count" data-count>1 / 2</span>
+        <button class="gnav" type="button" data-prev aria-label="Previous screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button class="gnav" type="button" data-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>
+    <div class="modal-gallery" tabindex="0" role="group" aria-label="Corporate Clients screens, scroll horizontally">
+      <figure>
+        <img src="../assets/atrium/Company/2.jpg" alt="The Add Company dialog: legal name, business type, website and status, then a full address block with a same-as-registered billing option, phone and company email, and a commercial terms section holding discount, service charge and VAT percentages." loading="lazy">
+        <figcaption>Commercial terms live on the company, not on the booking</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/Company/3.jpg" alt="Business Types settings: a managed list of the sectors used to classify companies, each with an active status and a created date." loading="lazy">
+        <figcaption>Sector as a managed list, so the sales side can count it</figcaption>
+      </figure>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="modal" id="feat-inv" aria-labelledby="feat-inv-t">
+  <div class="modal-head">
+    <h2 id="feat-inv-t">Inventory</h2>
+    <button class="modal-close" type="button" data-close aria-label="Close">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>This is the largest module in Atrium and the one that makes the claim at
+      the top of this page true. The problem was never that a resort cannot
+      count its towels. It is that the restaurant, the store room and the
+      accounts office each hold a different version of the same number.</p>
+    <p>The fix is a field, not a feature. <strong>Every inventory item carries
+      two chart-of-accounts codes</strong> &mdash; one for the asset, one for the
+      expense. A bar of soap is not a bar of soap; it is a balance held at one
+      ledger code that becomes a cost at another the moment housekeeping
+      consumes it. Design that in at the item level and the night's numbers
+      reconcile themselves. Leave it out and someone re-keys the whole month.</p>
+    <div class="gallery-head">
+      <h3>The chain, and the way around it</h3>
+    </div>
+    <ul class="points">
+      <li><strong>Requisition &rarr; approval &rarr; purchase order &rarr; goods
+        received.</strong> A department asks, someone approves, a supplier is
+        ordered from, stock arrives against that order with a GRN number and a
+        payment status. Four screens, one thread.</li>
+      <li><strong>And a spot purchase that skips all of it</strong> &mdash;
+        recorded explicitly as an ad-hoc stock-in without a purchase order.
+        Procurement policy is real; so is a kitchen that needs onions today.
+        The honest design is to give the shortcut its own name and its own
+        audit trail rather than pretend it will not happen.</li>
+      <li><strong>Two asset classes on one form.</strong> A radio at the top of
+        the purchase decides whether what you are buying is inventory or a fixed
+        asset. Consumables get expiry dates; assets get depreciation schedules
+        &mdash; straight line or declining balance, a life span in months, a
+        percentage.</li>
+      <li><strong>Everything lands somewhere physical.</strong> Warehouses, one
+        flagged default; departments mapped to warehouses; and, from the F&amp;B
+        module, restaurants mapped to warehouses too. That is why a dish sold in
+        the restaurant can decrement a store room without anyone typing it
+        twice.</li>
+    </ul>
+    <p>The dashboard sits on top of all of it and answers one question per tile
+      &mdash; total value, item count, quantity, and how many items have fallen
+      below their reorder point &mdash; then splits activity four ways:
+      purchases, consumption, transfers, adjustments. Those four verbs are the
+      only things that can change a stock number, so they are the only things
+      the chart shows.</p>
+    <div class="gallery-head">
+      <h3>Screens</h3>
+      <div class="gallery-nav">
+        <span class="gallery-count" data-count>1 / 12</span>
+        <button class="gnav" type="button" data-prev aria-label="Previous screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button class="gnav" type="button" data-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>
+    <div class="modal-gallery" tabindex="0" role="group" aria-label="Inventory screens, scroll horizontally">
+      <figure>
+        <img src="../assets/atrium/Inventory/1.jpg" alt="Inventory Dashboard: tiles for total stock value, items in stock, total quantity and low stock items, above an activity value comparison of purchases, consumption, transfers and adjustments, a category-wise stock value breakdown, and warehouse-wise value." loading="lazy">
+        <figcaption>Four verbs can change a stock number &mdash; so four bars</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/Inventory/7.jpg" alt="The Inventory navigation opened two levels: dashboard, procurement, inventory and materials, fixed asset and setup, expanding to inventory items, stock, store requisition, requisition approval, demand manage, consumption, stock transfer and stock adjustment." loading="lazy">
+        <figcaption>The module in one menu</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/Inventory/3.jpg" alt="Purchase Requisition: a five-field search above a table of purchase requests showing date, request number, originating department, requisition destination, requested store, source and pending status." loading="lazy">
+        <figcaption>Step one &mdash; a department asks</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/Inventory/4.jpg" alt="Add Purchase Order dialog: PO date, delivery date, order type set to from-requisition, PO number, department and warehouse, a choice between supplier and spot purchase, a requisition number block reading no approved requisitions available, and totals for sub total, freight, tax and discount." loading="lazy">
+        <figcaption>Step two &mdash; the order, loaded from the requisition</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/Inventory/5.jpg" alt="Stock: tabs for spot purchase, PO purchase and active PO list, a six-field search, and a table of stock-ins showing GRN number, supplier, store, purchase type, date, amount, reference number and payment status." loading="lazy">
+        <figcaption>Step three &mdash; goods received, with a payment status</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/Inventory/2.jpg" alt="Spot Purchase: a radio choosing between inventory and fixed asset, purchase date, invoice and GRN numbers, supplier, department and warehouse, and a product line table carrying chart-of-accounts id, current stock, unit price, manufacture date and expire date." loading="lazy">
+        <figcaption>The shortcut, named and audited rather than hidden</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/Inventory/6.jpg" alt="Items: a six-field search above a table of inventory items showing item type, category, inventory type, name, SKU, unit, chart-of-accounts id, chart-of-accounts expense id and status." loading="lazy">
+        <figcaption>Two ledger codes on every item &mdash; the asset and the expense</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/Inventory/8.jpg" alt="Fixed Asset items: a search panel above a table of capital items with category, name, coded SKU, unit, status and a depreciation status column." loading="lazy">
+        <figcaption>Fixed assets &mdash; the same catalogue, a different life</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/Inventory/9.jpg" alt="Depreciation List: schedules per asset showing method as straight line or declining balance, the item, start and end dates, life span in months, percentage and status." loading="lazy">
+        <figcaption>Straight line or declining balance, per asset</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/Inventory/14.jpg" alt="Warehouses: a table of storage locations with name, code, phone, a default flag and an active status." loading="lazy">
+        <figcaption>Storage locations, one of them the default</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/Inventory/10.jpg" alt="Inventory Departments: a table of departments with the warehouse each is mapped to and an active status." loading="lazy">
+        <figcaption>Departments mapped to warehouses</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/Inventory/11.jpg" alt="The Add Department dialog: a name field with a worked example as placeholder, a warehouse location select and a status select." loading="lazy">
+        <figcaption>Even the smallest dialog gets a worked example</figcaption>
+      </figure>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="modal" id="feat-mail" aria-labelledby="feat-mail-t">
+  <div class="modal-head">
+    <h2 id="feat-mail-t">Email Management</h2>
+    <button class="modal-close" type="button" data-close aria-label="Close">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>Every confirmation, welcome and thank-you a guest receives comes out of
+      this module. It is the only part of Atrium the guest actually sees, which
+      makes it the property's voice &mdash; and no two properties want to sound
+      alike.</p>
+    <p>So the model is not one template per event. <strong>Each event can hold
+      several templates, and a checkbox decides which one the system
+      sends.</strong> A resort can write a short check-out note and a long one, a
+      monsoon-season welcome and an ordinary one, and switch between them without
+      deleting anything or asking support. Six events are wired up &mdash;
+      reservation confirmation, check-in welcome, check-out thank you, deposit
+      receipt, quotation, banquet confirmation &mdash; the moments a stay
+      actually generates mail.</p>
+    <div class="gallery-head">
+      <h3>Two details worth the space</h3>
+    </div>
+    <ul class="points">
+      <li><strong>Attachments belong to the template, not the send.</strong>
+        Anything added here goes out with every email from that template,
+        alongside whatever document the event itself generates &mdash; so a
+        property's terms, or a map to the resort, is attached once rather than
+        remembered every time.</li>
+      <li><strong>The sender screen admits a constraint instead of hiding
+        it.</strong> Sender addresses are verified through AWS, and the page says
+        plainly that once an address is verified it can no longer be changed. That
+        is an infrastructure limit surfaced in plain language at the moment
+        someone types the address &mdash; rather than a support ticket three
+        weeks later.</li>
+    </ul>
+    <p>The editor itself is unremarkable on purpose: a design view and an HTML
+      view, a preview, merge variables in the subject line, a character budget.
+      The person writing a welcome email is a duty manager, not a marketer.</p>
+    <div class="gallery-head">
+      <h3>Screens</h3>
+      <div class="gallery-nav">
+        <span class="gallery-count" data-count>1 / 3</span>
+        <button class="gnav" type="button" data-prev aria-label="Previous screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button class="gnav" type="button" data-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>
+    <div class="modal-gallery" tabindex="0" role="group" aria-label="Email Management screens, scroll horizontally">
+      <figure>
+        <img src="../assets/atrium/mail/1.jpg" alt="Email Templates: a table pairing each guest-facing event with its template name and an active badge, with a status checkbox choosing which template the system sends and an edit action." loading="lazy">
+        <figcaption>One event, several templates &mdash; a checkbox picks the live one</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/mail/2.jpg" alt="New Email Template: template title, event select and subject line with a merge variable in the placeholder, above a rich text body with design and HTML views and a preview, then a custom attachments area and a set-as-active checkbox." loading="lazy">
+        <figcaption>Design or HTML, with attachments held on the template</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/mail/3.jpg" alt="Company Emails: sender addresses registered with AWS SES, showing a verified badge, a default-sender marker and a verified count, with explanatory text stating that a verified address can no longer be changed." loading="lazy">
+        <figcaption>Sender verification &mdash; the constraint stated up front</figcaption>
+      </figure>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="modal" id="feat-set" aria-labelledby="feat-set-t">
+  <div class="modal-head">
+    <h2 id="feat-set-t">Settings</h2>
+    <button class="modal-close" type="button" data-close aria-label="Close">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>Settings is where a multi-tenant product either works in a country or
+      quietly does not. Two screens in here carry more design thinking than most
+      of the modules that came before them.</p>
+
+    <div class="gallery-head">
+      <h3>The weekend is not Saturday and Sunday</h3>
+    </div>
+    <p>In Bangladesh the weekend is <strong>Friday and Saturday</strong>. A hotel
+      system that assumes otherwise prices the wrong two nights of every week,
+      forever, and nobody notices until the year-end numbers are wrong. So which
+      days count as weekend is a setting, not an assumption.</p>
+    <p>But changing it silently re-prices a month of inventory &mdash; which is
+      why the screen does the thing I am most pleased with in this system. Under
+      the checkboxes sits a <strong>thirty-day preview</strong>: every upcoming
+      day, labelled weekday or weekend, with a dashed border on exactly the cells
+      that would change, and a running count of days affected. It does not ask
+      <em>are you sure</em>. It shows you what will happen, before you commit.
+      Confirmation dialogs make people click yes; consequence made visible makes
+      them think. It even names the timezone the preview starts in, because
+      &ldquo;today&rdquo; is not a fixed idea on a cloud product.</p>
+
+    <div class="gallery-head">
+      <h3>Designing against the worst mistake</h3>
+    </div>
+    <p>The IP access page can lock every user out of the property's own system.
+      So before either list, it prints <strong>the administrator's own IP address
+      as the server currently sees it</strong>, and tells them to whitelist that
+      exact value to keep their access. It also states the precedence rule in one
+      line &mdash; the blacklist wins when an address appears on both. The most
+      dangerous screen in the product is the one that explains itself most
+      plainly.</p>
+
+    <div class="gallery-head">
+      <h3>And the rest of what a tenant owns</h3>
+    </div>
+    <ul class="points">
+      <li><strong>Appearance, company-wide.</strong> Five themes plus custom,
+        light / dark / system, brand and accent colour, six typefaces and a base
+        size &mdash; and copy that says outright it applies to every user once
+        saved, because one person's taste is about to become everyone's screen.</li>
+      <li><strong>Currency with the base flagged.</strong> Ten currencies
+        converted against Bangladeshi Taka, each carrying whether its symbol sits
+        left or right of the number &mdash; because a taka sign and a riyal do not
+        sit on the same side.</li>
+      <li><strong>Guest source as a managed list</strong> &mdash; direct, OTA,
+        travel agent, corporate, referral, walk-in &mdash; so the booking channel
+        stays countable rather than typed differently by every receptionist.</li>
+      <li><strong>Policies and terms as rich text</strong>, shown to guests and
+        printed onto documents, held in the product rather than in a Word file on
+        somebody's desktop.</li>
+      <li><strong>The workspace slug is locked.</strong> It is the tenant's
+        identity in the URL, so the field is visible but disabled &mdash; the same
+        honesty as the email module telling you a verified sender can never be
+        changed.</li>
+    </ul>
+
+    <div class="gallery-head">
+      <h3>Screens</h3>
+      <div class="gallery-nav">
+        <span class="gallery-count" data-count>1 / 8</span>
+        <button class="gnav" type="button" data-prev aria-label="Previous screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button class="gnav" type="button" data-next aria-label="Next screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>
+    <div class="modal-gallery" tabindex="0" role="group" aria-label="Settings screens, scroll horizontally">
+      <figure>
+        <img src="../assets/atrium/Settings/3.jpg" alt="Yearly Rate Plan: weekend and festival tabs, a set of day checkboxes with Friday and Saturday selected, and below it a thirty-day preview grid labelling each upcoming day weekday or weekend, with dashed borders marking the cells that would change and a count of days affected." loading="lazy">
+        <figcaption>Consequence shown, not confirmation asked</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/Settings/1.jpg" alt="Company Settings: six theme presets as colour-pair swatches, a light, dark and system colour mode toggle, brand and accent colour choices, and six selectable typefaces each previewed with a specimen line." loading="lazy">
+        <figcaption>Appearance, applied company-wide once saved</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/Settings/8.jpg" alt="Currency List: ten currencies with name, symbol, whether the symbol sits left or right of the number, and conversion rate, with Bangladeshi Taka marked as the base currency." loading="lazy">
+        <figcaption>Ten currencies against a flagged base &mdash; and which side the symbol sits</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/Settings/5.jpg" alt="Application Setting: basic information with application and store name, address, contact details, a disabled workspace slug and the tenant's application link, above upload slots for favicon, logo, splash image, login background and secondary logo." loading="lazy">
+        <figcaption>Tenant identity &mdash; with the slug deliberately locked</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/Settings/7.jpg" alt="Policies: two rich text editors, one for general hotel policies and one for terms and conditions accepted at check-in, each with a character count and an update action." loading="lazy">
+        <figcaption>Policies and terms, held in the product</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/Settings/2.jpg" alt="Guest Sources: a managed list of the booking channels used to tag reservations for reporting, from direct and phone through online travel agency, corporate and walk-in." loading="lazy">
+        <figcaption>Booking channel, kept countable</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/Settings/4.jpg" alt="Payment Methods: a status-filtered list of the payment methods available across Front Office billing, covering card terminals, mobile banking and a bank." loading="lazy">
+        <figcaption>What the front desk is allowed to take</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/atrium/Settings/6.jpg" alt="Common Setting: contact fields and four separate logo upload slots for header, login, footer and invoice, plus a powered-by text field." loading="lazy">
+        <figcaption>Four logo slots &mdash; a header logo is not an invoice logo</figcaption>
+      </figure>
+    </div>
+  </div>
+</dialog>
+
+<footer class="wrap foot">
+  <p>Samira Binte Hamid &middot; Dhaka, Bangladesh &middot;
+    <a href="https://www.linkedin.com/in/samira-binte-hamid-b3a1a0119/">LinkedIn</a> &middot;
+    <a href="https://www.behance.net/samira00100">Behance</a> &middot;
+    <a href="https://uiuxghost.blogspot.com/">Blog</a> &middot;
+    <a href="../cv.pdf">CV</a></p>
+</footer>
+<script src="../scripts/theme.js" defer></script>
+</body>
+</html>

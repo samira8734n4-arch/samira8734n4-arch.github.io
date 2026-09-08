@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="80 14 439 444">
+  <defs>
+    <style>
+      .burgundy { fill: #7A123D; }
+      .gold { fill: #C8A15A; stroke: #C8A15A; }
+      .charcoal { fill: #1F2733; }
+    </style>
+  </defs>
+
+  <!-- ===== ICON: Gothic arch building ===== -->
+  <g transform="translate(300,20)">
+    <!-- Outer burgundy pointed arch -->
+    <path class="burgundy"
+      d="M0,0
+         C 70,70 118,150 118,255
+         L 118,300
+         L 90,300
+         L 90,255
+         C 90,168 52,96 0,44
+         C -52,96 -90,168 -90,255
+         L -90,300
+         L -118,300
+         L -118,255
+         C -118,150 -70,70 0,0 Z"/>
+
+    <!-- Inner gold pointed arch outline -->
+    <path fill="none" stroke="#C8A15A" stroke-width="7"
+      d="M0,40
+         C 46,92 78,162 78,250
+         L 78,300
+         L -78,300
+         L -78,250
+         C -78,162 -46,92 0,40 Z"/>
+
+    <!-- Gothic window frame (gold) -->
+    <g fill="none" stroke="#C8A15A" stroke-width="6">
+      <!-- window arch + sides -->
+      <path d="M0,150
+               C 30,178 46,214 46,250
+               L 46,300
+               L -46,300
+               L -46,250
+               C -46,214 -30,178 0,150 Z"/>
+      <!-- vertical mullion -->
+      <line x1="0" y1="162" x2="0" y2="300"/>
+      <!-- horizontal transoms -->
+      <line x1="-42" y1="215" x2="42" y2="215"/>
+      <line x1="-46" y1="258" x2="46" y2="258"/>
+    </g>
+  </g>
+
+  <!-- ===== WORDMARK ===== -->
+  <text x="300" y="378" text-anchor="middle"
+        font-family="Cinzel, 'Times New Roman', serif"
+        font-size="72" letter-spacing="6" class="charcoal">ATRIUM</text>
+
+  <!-- gold divider lines flanking HMS -->
+  <line x1="150" y1="410" x2="238" y2="410" stroke="#C8A15A" stroke-width="2.5"/>
+  <line x1="362" y1="410" x2="450" y2="410" stroke="#C8A15A" stroke-width="2.5"/>
+
+  <text x="300" y="418" text-anchor="middle"
+        font-family="Cinzel, 'Times New Roman', serif"
+        font-size="30" letter-spacing="10" class="charcoal">HMS</text>
+
+  <text x="300" y="448" text-anchor="middle"
+        font-family="Montserrat, Arial, sans-serif"
+        font-size="15" letter-spacing="5" class="charcoal">HOSPITALITY MANAGEMENT SYSTEM</text>
+</svg>

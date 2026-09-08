@@ -26,9 +26,15 @@
   </nav>
 </div>
 
+<div class="progress" aria-hidden="true"><span class="progress-bar" data-progress></span></div>
 <main id="main">
   <!-- Scannable layer: readable cold, forwarded on its own. -->
   <header class="wrap hero">
+    <a class="back" href="../index.html#work"><svg class="back-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>Back to work</a>
+    <!-- Decorative: the h1 below already names the product, so alt is empty
+         rather than making a screen reader announce "PropSoft.ai" twice. -->
+    <p class="client-logo"><img src="../assets/propsoft-logo.svg" alt=""
+        width="186" height="38" loading="eager"></p>
     <p class="eyebrow">Proptech · SaaS · Apex DMIT</p>
     <h1>PropSoft.ai</h1>
     <p class="lede">The marketing site that turns a sixteen-feature product into
@@ -51,11 +57,11 @@
 
     <div class="stats">
       <div><span class="stat-value">12</span><span class="stat-label">User interviews, by phone and in person</span></div>
-      <div><span class="stat-value">40<span class="u">+</span></span><span class="stat-label">Screens designed</span></div>
+      <div><span class="stat-value">20<span class="u">+</span></span><span class="stat-label">Screens designed</span></div>
       <div><span class="stat-value">20<span class="u">%</span></span><span class="stat-label">Sales increase reported after launch</span></div>
     </div>
 
-    <figure>
+    <figure data-reveal>
       <img class="shot" src="../assets/propsoft-hero.webp"
            alt="The PropSoft.ai home page: a headline about AI-driven property maintenance management above an email field and a Schedule a Demo button."
            width="1440" height="900" loading="lazy">
@@ -66,73 +72,49 @@
 
   <!-- Deep layer: the reasoning. -->
   <div class="wrap prose">
-    <h2 class="rule"><span class="n">The product</span>What PropSoft.ai is</h2>
+    <section class="prose-section" data-reveal><h2 class="rule"><span class="n">00</span>What PropSoft.ai is</h2><div class="body">
     <p>PropSoft.ai sells property maintenance software to companies coordinating
-      field teams across many properties. It spans four surfaces — a marketing
-      site, a web app, an iOS app and an Android app. I designed the marketing
+      field teams across many properties. It spans four surfaces — marketing site,
+      web app, iOS and Android. I designed the marketing
       site.</p>
-    <p>The product carries sixteen distinct features: estimates, photo and video
-      capture, project tracking, roles and permissions, dashboards, import and
-      export, reporting, route generation for field teams, customisable
-      inspection forms, invoicing, vendor payments, job notes, activity reports,
-      follow-ups, and field-staff KPI and bonus calculation. It sells at $79 a
-      month for three users, with fifty free projects on trial.</p>
+    <p>Behind it sit sixteen features: estimates, inspections, routing, invoicing,
+      vendor payments, KPI tracking. It sells at $79 a month for three users,
+      with fifty free projects on trial.</p>
 
-    <h2 class="rule"><span class="n">01</span>The constraint</h2>
-    <p>Two months, from scratch, and the site had to sell rather than explain.
-      There was no existing brand system, no component library and no prior site
-      to iterate on — the visual language, the structure and the argument all had
-      to be built at once, for a product carrying sixteen features.</p>
-    <p>Twelve interviews, by phone and in person, turned up the same picture five
-      different ways. Managers were tracking work by hand. Repetitive tasks were
-      eating their days. Rent and payment records carried errors. Nothing lived in
-      one place. And they had no way to promote themselves or let clients serve
-      themselves.</p>
-    <p>So the problem was never a shortage of features. It was that every feature
-      added made the case harder to make on a single page.</p>
+    </div></section><section class="prose-section" data-reveal><h2 class="rule"><span class="n">01</span>The constraint</h2><div class="body">
+    <p>Two months, from scratch. No brand system, no component library, no prior
+      site — the visual language, the structure and the argument all had to be
+      built at once.</p>
+    <p>Twelve interviews turned up the same picture five ways: manual tracking,
+      repetitive work, payment errors, nothing in one place, and no way to
+      promote or let clients serve themselves. The problem was never a shortage
+      of features — it was that each one made the case harder to make on a single
+      page.</p>
 
-    <h2 class="rule"><span class="n">02</span>Designing for Sara</h2>
-    <p>The research produced a persona the whole site was built against. Sara is
-      37, manages a portfolio of around thirty residential and commercial
-      properties, and is responsible for tenant relations, maintenance
-      coordination and financial tracking. She is not a software buyer. She is a
-      manager who has run out of hours.</p>
-    <p>Her empathy map is blunt about it. She says she spends too much time on
-      repetitive tasks that could be automated. She thinks there has to be a
-      better way to streamline property management. She feels frustrated by
-      repetitive work, and overwhelmed by the volume of it.</p>
-    <p>That gave each of the five insights something concrete to answer to, and
-      the site addresses them in order: centralisation first, then tracking, then
-      payments, then communication, then the self-service and promotion that
-      managers said they had no way to offer.</p>
+    </div></section><section class="prose-section" data-reveal><h2 class="rule"><span class="n">02</span>Designing for Sara</h2><div class="body">
+    <p>Sara, 37, manages around thirty residential and commercial properties —
+      tenant relations, maintenance, financial tracking. She is not a software
+      buyer. She is a manager who has run out of hours.</p>
+    <p>Her empathy map is blunt: too much time on repetitive tasks, overwhelmed
+      by the volume, certain there has to be a better way. The site answers the
+      five insights in that order — centralisation, tracking, payments,
+      communication, then self-service.</p>
 
-    <h2 class="rule"><span class="n">03</span>What the site does</h2>
-    <p>The hero leads with a property, not a dashboard. A maintenance manager is
-      being sold an outcome, not software, and the page reflects that — the
-      product screenshots come later, once there is a reason to care.</p>
-    <p>The sixteen features sit in a single scannable grid rather than sixteen
-      explanations. A visitor can find the one thing they came for without
-      reading past the fifteen they did not. Everything beyond that grid lives on
-      a separate features page.</p>
-    <p>Pricing is published rather than hidden behind a sales call, and every
-      section resolves to the same action: start a free trial, fifty projects,
-      no card. For a manager with no hours to spare, that is a smaller ask than
-      booking a demo.</p>
-    <p>The visual system was built from nothing: a teal primary, Roboto for
-      headings and Inter for text, and two icon sets — outline and bold — so the
-      site could stay consistent as it grew past forty screens.</p>
+    </div></section><section class="prose-section" data-reveal><h2 class="rule"><span class="n">03</span>What the site does</h2><div class="body">
+    <ul class="points">
+      <li><strong>A property, not a dashboard.</strong> The hero sells the
+        outcome; product screenshots come later, once there is a reason to care.</li>
+      <li><strong>One grid, not sixteen explanations.</strong> A visitor finds
+        the feature they came for without reading past the fifteen they did not.</li>
+      <li><strong>Pricing published, not hidden behind a call.</strong> Every
+        section resolves to the same action: free trial, fifty projects, no card.</li>
+      <li><strong>A system built from nothing.</strong> Teal primary, Roboto and
+        Inter, two icon sets — consistent across every screen.</li>
+    </ul></div></section>
   </div>
 
   <div class="wrap">
-    <figure>
-      <img class="shot" src="../assets/propsoft-features.webp"
-           alt="The feature section of PropSoft.ai, presenting sixteen product features as a grid of labelled tiles."
-           width="1440" height="900" loading="lazy">
-      <figcaption>Sixteen features as one scannable grid rather than sixteen
-        paragraphs — findable without being read end to end.</figcaption>
-    </figure>
-
-    <figure>
+    <figure data-reveal>
       <img class="shot" src="../assets/propsoft-board-overview.webp"
            alt="Case study board: the PropSoft.ai problem statement, proposed solution, key website features, project duration and the tools used."
            width="1400" height="2270" loading="lazy">
@@ -140,7 +122,7 @@
         originally planned; delivered in two months.</figcaption>
     </figure>
 
-    <figure>
+    <figure data-reveal>
       <img class="shot" src="../assets/propsoft-board-process.webp"
            alt="Case study board: the five-phase design process, project timeline, qualitative research questions and key insights, the Sara persona, an empathy map, the user flow diagram, and the style guide with colour palette, typography and iconography."
            width="1400" height="8350" loading="lazy">
@@ -150,7 +132,7 @@
         two icon sets.</figcaption>
     </figure>
 
-    <figure>
+    <figure data-reveal>
       <img class="shot" src="../assets/propsoft-board-ui.webp"
            alt="Case study board: the full designed marketing site, from hero through feature set, testimonials, statistics, mobile app promotion, one-stop solution grid, team section and pricing tiers."
            width="1400" height="7944" loading="lazy">
@@ -161,7 +143,7 @@
   </div>
 
   <div class="wrap prose">
-    <h2 class="rule"><span class="n">04</span>What happened</h2>
+    <section class="prose-section" data-reveal><h2 class="rule"><span class="n">04</span>What happened</h2><div class="body">
     <p>PropSoft.ai is in use by a property reservation company in the United
       States. After the site launched, the client reported a <strong>20% increase
       in sales</strong>, with the site giving the marketing team something to sell
@@ -174,24 +156,33 @@
          against what baseline? If that is not known, say so when asked rather
          than guessing. The claim is the client's, and the page says so. -->
 
-    <h2 class="rule"><span class="n">05</span>Credit</h2>
+    </div></section><section class="prose-section" data-reveal><h2 class="rule"><span class="n">05</span>Credit</h2><div class="body">
     <p>Designed with <strong>Rajan Das Gupta</strong> at Apex DMIT, in a team of
       three. The case study is published jointly on
       <a href="https://www.behance.net/gallery/220371493/PropSoftai-Case-Study"
          target="_blank" rel="noopener">Behance</a>.</p>
-
+</div></section>
   </div>
 
   <div class="wrap">
-    <section class="cta">
-      <h2>Next: Nexis HRM</h2>
-      <p>Data-dense dashboards on a reusable component framework.
-        <a href="nexis-hrm.html">Read it →</a></p>
-      <div class="actions">
-        <a class="btn" href="mailto:samirabintehamid46@gmail.com">Say hello</a>
-        <a class="btn btn-ghost" href="https://propsoft.ai/" target="_blank" rel="noopener">Visit the live site</a>
+    <div class="endcards">
+      <a class="endcard endcard-next" href="atrium-website.html">
+        <span class="endcard-label">Next project</span>
+        <h2>Atrium HMS website</h2>
+        <p>Designed and built in two weeks with an AI-driven lifecycle
+          &mdash; a 30% sales increase reported after launch.</p>
+        <span class="endcard-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <div class="endcard endcard-contact">
+        <span class="endcard-label">Get in touch</span>
+        <h2>Say hello</h2>
+        <p>Happy to walk through this project, or any of the others, on a call.</p>
+        <div class="actions">
+          <a class="btn" href="mailto:samirabintehamid46@gmail.com">Email me</a>
+          <a class="btn btn-ghost" href="https://propsoft.ai/" target="_blank" rel="noopener">Visit the live site</a>
+        </div>
       </div>
-    </section>
+    </div>
   </div>
 </main>
 
@@ -199,6 +190,7 @@
   <p>Samira Binte Hamid · Dhaka, Bangladesh ·
     <a href="https://www.linkedin.com/in/samira-binte-hamid-b3a1a0119/">LinkedIn</a> ·
     <a href="https://www.behance.net/samira00100">Behance</a> ·
+    <a href="https://uiuxghost.blogspot.com/">Blog</a> ·
     <a href="../cv.pdf">CV</a></p>
 </footer>
 <script src="../scripts/theme.js" defer></script>

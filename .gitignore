@@ -3,3 +3,17 @@ Thumbs.db
 desktop.ini
 *.log
 node_modules/
+
+# Held back until the client data in these screenshots is redacted.
+src/assets/Project 2/
+src/work/propsoft-system.html
+src/assets/atrium/front/5.jpg
+src/assets/atrium/front/7.jpg
+src/assets/atrium/front/9.jpg
+src/assets/atrium/front/11.jpg
+src/assets/atrium/rest/2.jpg
+src/assets/atrium/quot/1.jpg
+src/assets/atrium/banqu/1.jpg
+src/assets/atrium/Company/1.jpg
+src/assets/atrium/Inventory/13.jpg
+src/assets/atrium/Settings/9.jpg
