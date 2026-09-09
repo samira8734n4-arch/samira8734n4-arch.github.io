@@ -12,9 +12,11 @@
   function apply(theme) {
     document.documentElement.dataset.theme = theme;
     try { localStorage.setItem('theme', theme); } catch (e) { /* file:// or blocked */ }
-    var next = theme === 'dark' ? 'light' : 'dark';
-    btn.textContent = next === 'dark' ? 'Dark' : 'Light';
-    btn.setAttribute('aria-label', 'Switch to ' + next + ' theme');
+    var next = theme === "dark" ? "light" : "dark";
+    // The button holds two icons now, so only the label changes -- writing
+    // textContent here would wipe them out.
+    btn.setAttribute("aria-label", "Switch to " + next + " theme");
+    btn.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
   }
 
   apply(current());
@@ -292,27 +294,6 @@ document.documentElement.classList.add('js');
   }, 3000);
 })();
 
-// Copy-to-clipboard for the email. Falls back to leaving the mailto link as the
-// route if the clipboard API is unavailable or blocked.
-(function () {
-  document.querySelectorAll('[data-copy-email]').forEach(function (btn) {
-    var original = btn.textContent;
-    btn.addEventListener('click', function () {
-      var email = btn.getAttribute('data-copy-email');
-      var done = function (ok) {
-        btn.textContent = ok ? 'Copied ✓' : email;
-        setTimeout(function () { btn.textContent = original; }, 2400);
-      };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(email).then(function () { done(true); },
-          function () { done(false); });
-      } else {
-        done(false);
-      }
-    });
-  });
-})();
-
 // Shuffle deck. Cards are absolutely stacked so they can overlap, which means
 // the stack has no natural height — JS gives it the height of whichever card is
 // currently in front, since the cards are not all the same size.
@@ -549,16 +530,121 @@ document.documentElement.classList.add('js');
     if (still) tick();
   });
 
-  // Off-screen it stops entirely — no point animating a hero nobody is looking at.
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (es) {
-      visible = es[0].isIntersecting;
-      if (visible) tick();
-      else if (raf) { cancelAnimationFrame(raf); raf = null; }
-    }, { threshold: 0 }).observe(cv);
-  }
+  // The canvas is fixed now, so it is always on screen; what is worth stopping
+  // for is a hidden tab. Browsers throttle rAF there anyway, but this makes it
+  // a full stop rather than a slow trickle.
+  document.addEventListener('visibilitychange', function () {
+    visible = document.visibilityState === 'visible';
+    if (visible) tick();
+    else if (raf) { cancelAnimationFrame(raf); raf = null; }
+  });
 
   // Re-read the tokens when the theme changes, so the dots recolour.
   new MutationObserver(function () { readTheme(); tick(); })
     .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+})();
+
+
+
+
+// The signature writes itself, holds, fades, and writes again — but only while
+// it is on screen.
+//
+// Driven with the Web Animations API rather than a CSS class. Restarting a CSS
+// animation means removing the class, forcing a reflow and re-adding it, and
+// the usual reflow trick (reading offsetWidth) silently does nothing on an SVG
+// element — it has no offsetWidth, so the two class changes coalesce and the
+// animation never runs a second time. cancel() and play() have no such trap.
+(function () {
+  var sig = document.querySelector('.sig');
+  if (!sig) return;
+
+  var paths = [].slice.call(sig.querySelectorAll('path'));
+  var SPEED = 260;    // units per second
+  var HOLD = 2600;    // how long the finished name sits there
+  var plan = [], total = 0;
+
+  paths.forEach(function (p) {
+    var len = Math.max(p.getTotalLength(), 6);
+    var dur = (len / SPEED) * 1000;
+    p.style.strokeDasharray = len;
+    p.style.strokeDashoffset = len;
+    plan.push({ el: p, len: len, dur: dur, delay: total });
+    total += dur * 0.82;   // slight overlap, so it flows rather than stutters
+  });
+  var drawTime = total + plan[plan.length - 1].dur;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    paths.forEach(function (p) { p.style.strokeDashoffset = 0; });
+    return;
+  }
+
+  var anims = [], timer = null, running = false;
+
+  function write() {
+    anims = plan.map(function (s) {
+      return s.el.animate(
+        [{ strokeDashoffset: s.len }, { strokeDashoffset: 0 }],
+        { duration: s.dur, delay: s.delay, easing: 'ease-in-out', fill: 'both' }
+      );
+    });
+  }
+
+  // Un-writes in reverse -- last letter first -- then writes again. Reusing the
+  // stroke animation for the erase keeps it to one mechanism; an opacity fade on
+  // the svg element did not take here.
+  function erase() {
+    var back = plan.slice().reverse();
+    var at = 0;
+    anims = back.map(function (s) {
+      var d = s.dur * 0.55;
+      var a = s.el.animate(
+        [{ strokeDashoffset: 0 }, { strokeDashoffset: s.len }],
+        { duration: d, delay: at, easing: "ease-in", fill: "forwards" }
+      );
+      at += d * 0.7;
+      return a;
+    });
+    return at + back[back.length - 1].dur * 0.55;
+  }
+
+  function cycle() {
+    write();
+    timer = setTimeout(function () {
+      var wipe = erase();
+      timer = setTimeout(function () {
+        anims.forEach(function (a) { a.cancel(); });
+        if (running) cycle();
+      }, wipe + 120);
+    }, drawTime + HOLD);
+  }
+
+  function start() { if (!running) { running = true; cycle(); } }
+  function stop() {
+    running = false;
+    clearTimeout(timer);
+  }
+
+  if (!('IntersectionObserver' in window)) { start(); return; }
+  new IntersectionObserver(function (es) {
+    if (es[0].isIntersecting) start(); else stop();
+  }, { threshold: 0.4 }).observe(sig);
+})();
+
+// "View more work". The older groups start collapsed. The markup carries the
+// hidden attribute, and the CSS above forces them visible when JS never runs,
+// so a no-JS reader still gets every project rather than a dead button.
+(function () {
+  var btn = document.querySelector('[data-work-toggle]');
+  var more = document.querySelector('[data-work-more]');
+  if (!btn || !more) return;
+  var label = btn.querySelector('[data-work-label]');
+
+  btn.addEventListener('click', function () {
+    var open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+    more.hidden = open;
+    if (label) label.textContent = open ? 'View more work' : 'Show less';
+    if (open) more.previousElementSibling && btn.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  });
 })();

@@ -31,6 +31,8 @@
   --fill-mint: #d5f0e1;
   --fill-butter: #ffeebd;
   --fill-sky: #dbeafb;
+  --fill-rose: #ffdfe6;
+  --fill-sand: #efe6d5;
 
   --color-success: #15803d;
   --color-warning: #a16207;
@@ -145,6 +147,8 @@
     --fill-mint: #1c342a;
     --fill-butter: #3a3218;
     --fill-sky: #1e2c3d;
+    --fill-rose: #3d2430;
+    --fill-sand: #33301f;
 
     --color-success: #4ade80;
     --color-warning: #fbbf24;
@@ -180,6 +184,8 @@
   --fill-mint: #1c342a;
   --fill-butter: #3a3218;
   --fill-sky: #1e2c3d;
+  --fill-rose: #3d2430;
+  --fill-sand: #33301f;
 
   --color-success: #4ade80;
   --color-warning: #fbbf24;
