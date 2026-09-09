@@ -357,6 +357,21 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* HERO — faint dot grid behind it. */
 .hero { padding-block: var(--space-12) var(--space-8); position: relative; }
+
+/* Constellation behind the hero. The dot grid stays as the still layer
+   underneath; this adds the drifting points and the lines between them.
+   Canvas rather than a library: it has to follow the theme tokens, and a
+   second dependency for one decoration is a poor trade. */
+.hero-particles {
+  position: absolute;
+  inset: 0 0 auto;
+  width: 100%;
+  height: clamp(30rem, 78vh, 52rem);
+  z-index: -1;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+}
 .hero::before {
   content: "";
   position: absolute;

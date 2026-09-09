@@ -443,3 +443,122 @@ document.documentElement.classList.add('js');
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(null); });
 })();
 
+
+// Hero constellation. Drifting points joined by lines when they come close,
+// which lean toward the pointer. Written rather than pulled in from a library:
+// the colours have to come from the theme tokens so it survives the dark
+// toggle, and a dependency for one decoration is a poor trade.
+(function () {
+  var cv = document.querySelector('[data-particles]');
+  if (!cv) return;
+  var ctx = cv.getContext && cv.getContext('2d');
+  if (!ctx) return;
+
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var w = 0, h = 0, pts = [], raf = null, visible = true;
+  var LINK = 132, REACH = 170;
+  var mx = -1e4, my = -1e4;
+
+  // Colours are read from the cascade, so the theme toggle just works.
+  var dot = '#0f5c4c', line = '#0f5c4c';
+  function readTheme() {
+    var s = getComputedStyle(document.documentElement);
+    dot = (s.getPropertyValue('--color-action') || '#0f5c4c').trim();
+    line = (s.getPropertyValue('--color-border-strong') || dot).trim();
+  }
+
+  function size() {
+    var r = cv.getBoundingClientRect();
+    w = r.width; h = r.height;
+    cv.width = Math.round(w * dpr);
+    cv.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    // Density by area, so a phone does not get a desktop's worth of dots.
+    var target = Math.max(26, Math.min(78, Math.round(w * h / 15000)));
+    pts.length = 0;
+    for (var i = 0; i < target; i++) {
+      pts.push({
+        x: Math.random() * w, y: Math.random() * h,
+        vx: (Math.random() - .5) * .22, vy: (Math.random() - .5) * .22,
+        r: 1 + Math.random() * 1.4
+      });
+    }
+  }
+
+  function draw() {
+    raf = null;
+    ctx.clearRect(0, 0, w, h);
+
+    for (var i = 0; i < pts.length; i++) {
+      var p = pts[i];
+      if (!still) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < -20) p.x = w + 20; else if (p.x > w + 20) p.x = -20;
+        if (p.y < -20) p.y = h + 20; else if (p.y > h + 20) p.y = -20;
+      }
+      ctx.globalAlpha = .5;
+      ctx.fillStyle = dot;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, 6.2832);
+      ctx.fill();
+
+      // Links to neighbours, fading out with distance.
+      for (var j = i + 1; j < pts.length; j++) {
+        var q = pts[j], dx = p.x - q.x, dy = p.y - q.y;
+        var d2 = dx * dx + dy * dy;
+        if (d2 > LINK * LINK) continue;
+        ctx.globalAlpha = (1 - Math.sqrt(d2) / LINK) * .3;
+        ctx.strokeStyle = line;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(q.x, q.y);
+        ctx.stroke();
+      }
+
+      // And to the pointer, brighter, so the field answers the cursor.
+      var ex = p.x - mx, ey = p.y - my, e2 = ex * ex + ey * ey;
+      if (e2 < REACH * REACH) {
+        var e = Math.sqrt(e2);
+        ctx.globalAlpha = (1 - e / REACH) * .55;
+        ctx.strokeStyle = dot;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(mx, my);
+        ctx.stroke();
+        // A nudge toward the cursor, capped so nothing gets flung.
+        if (!still && e > 1) { p.x -= ex / e * .35; p.y -= ey / e * .35; }
+      }
+    }
+    ctx.globalAlpha = 1;
+    if (!still && visible) raf = requestAnimationFrame(draw);
+  }
+
+  function tick() { if (!raf) raf = requestAnimationFrame(draw); }
+
+  readTheme();
+  size();
+  tick();
+
+  window.addEventListener('resize', function () { size(); tick(); });
+
+  window.addEventListener('mousemove', function (e) {
+    var r = cv.getBoundingClientRect();
+    mx = e.clientX - r.left; my = e.clientY - r.top;
+    if (still) tick();
+  });
+
+  // Off-screen it stops entirely — no point animating a hero nobody is looking at.
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      visible = es[0].isIntersecting;
+      if (visible) tick();
+      else if (raf) { cancelAnimationFrame(raf); raf = null; }
+    }, { threshold: 0 }).observe(cv);
+  }
+
+  // Re-read the tokens when the theme changes, so the dots recolour.
+  new MutationObserver(function () { readTheme(); tick(); })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+})();
