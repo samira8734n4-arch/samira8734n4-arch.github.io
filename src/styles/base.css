@@ -165,7 +165,6 @@ img { max-width: 100%; height: auto; display: block; }
   /* Shift the page across so the nav sits beside the content, not over it. */
   .has-toc main,
   .has-toc > body > .wrap { padding-left: 11rem; }
-  /* Offset the credit line, not the footer itself - the artwork stays full-bleed. */
   .has-toc .foot-inner { padding-left: 11rem; }
 }
 .toc-title {
@@ -1902,25 +1901,33 @@ figcaption {
 }
 
 /* ---------------------------------------------------------------------------
-   Footer — the ink landscape plays behind the credit line.
-   The clip is never cropped: it runs at its own 16:9 so the empty sky always
-   sits at the top of the frame, and the credit line floats over that band.
-   Cropping it to a short footer drags the cranes up through the text.
+   Footer — the credit line sits above the ink landscape, never on it. The clip
+   runs full-bleed at its own 16:9 underneath, so nothing is cropped and no
+   text competes with the artwork.
    --------------------------------------------------------------------------- */
 .foot {
   position: relative;
   isolation: isolate;
+  /* Flex only so the credit line can precede the clip: the video comes first
+     in the DOM to keep it out of the reading order. */
   display: flex;
   flex-direction: column;
   font-size: var(--text-sm);
-  /* Fixed ink rather than a theme token: the artwork is cream in both themes,
-     so a light dark-mode colour would disappear against it. */
-  color: #24505a;
+  color: var(--color-text-tertiary);
 }
+.foot-inner {
+  position: relative;
+  order: 0;
+  z-index: 1;
+  padding-block: var(--space-12) var(--space-8);
+}
+.foot p { margin: 0; }
+
 .foot-media {
+  position: relative;
+  order: 1;
   display: block;
   width: 100%;
-  order: 1;
 }
 .foot-bg {
   display: block;
@@ -1929,41 +1936,21 @@ figcaption {
   pointer-events: none;
   animation: foot-fade-in 1.35s ease both;
 }
-.foot-inner {
+/* Blends the top edge of the clip into the page so it reads as one surface. */
+.foot-media::after {
+  content: "";
   position: absolute;
-  top: 0;
   left: 0;
   right: 0;
-  z-index: 1;
-  order: 0;
-  padding-block: var(--space-8);
+  top: 0;
+  height: clamp(40px, 8vw, 110px);
+  pointer-events: none;
+  background: linear-gradient(to bottom,
+    var(--color-background) 0%,
+    rgba(0, 0, 0, 0) 100%);
 }
-.foot p { margin: 0; }
-.foot a { color: inherit; }
 
 @keyframes foot-fade-in { from { opacity: 0; } to { opacity: 1; } }
-
-/* Narrow viewports: the sky band is too short to hold the line, so the text
-   goes back into normal flow above the clip. */
-@media (max-width: 52rem) {
-  .foot-inner {
-    position: static;
-    padding-block: var(--space-12) var(--space-8);
-  }
-  .foot-media::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: clamp(40px, 14vw, 90px);
-    pointer-events: none;
-    background: linear-gradient(to bottom,
-      var(--color-background) 0%,
-      rgba(0, 0, 0, 0) 100%);
-  }
-  .foot-media { position: relative; }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .foot-bg { display: none; animation: none; }
@@ -1974,5 +1961,4 @@ figcaption {
     background-size: cover;
     background-repeat: no-repeat;
   }
-  .foot-media::after { content: none; }
 }
