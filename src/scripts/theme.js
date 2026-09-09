@@ -442,3 +442,87 @@ document.documentElement.classList.add('js');
 
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(null); });
 })();
+
+// Footer cranes. The CSS keeps them gliding; this layer makes them yours to
+// bother — they spring away from a close cursor and settle back, and a click
+// on the sky launches one more bird from that spot. Decorative throughout, so
+// the whole sky stays aria-hidden and none of it is focusable.
+(function () {
+  var sky = document.querySelector('.foot-sky');
+  if (!sky) return;
+
+  // Each bird gets a wrapper for the dodge offset: its outer span owns the
+  // glide animation and its svg owns the bob, and a CSS animation would
+  // overrule an inline transform on either.
+  function rig(el) {
+    var w = document.createElement('span');
+    w.className = 'crane-flee';
+    var svg = el.querySelector('svg');
+    el.insertBefore(w, svg);
+    w.appendChild(svg);
+    return { el: el, flee: w };
+  }
+  var birds = [].slice.call(sky.querySelectorAll('.crane')).map(rig);
+  var template = birds.length && birds[0].el.querySelector('svg').outerHTML;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // --- dodge -----------------------------------------------------------
+  var mx = -1e4, my = -1e4, queued = false;
+  var REACH = 150, PUSH = 44;
+
+  function step() {
+    queued = false;
+    birds.forEach(function (b) {
+      var r = b.el.getBoundingClientRect();
+      var dx = r.left + r.width / 2 - mx;
+      var dy = r.top + r.height / 2 - my;
+      var d = Math.hypot(dx, dy);
+      if (d < REACH && d > 0.001) {
+        var f = (REACH - d) / REACH * PUSH;
+        b.flee.style.transform =
+          'translate(' + (dx / d * f).toFixed(1) + 'px,' + (dy / d * f).toFixed(1) + 'px)';
+      } else if (b.flee.style.transform) {
+        b.flee.style.transform = '';
+      }
+    });
+  }
+  sky.addEventListener('mousemove', function (e) {
+    mx = e.clientX; my = e.clientY;
+    if (!queued) { queued = true; requestAnimationFrame(step); }
+  });
+  sky.addEventListener('mouseleave', function () {
+    mx = my = -1e4;
+    requestAnimationFrame(step);
+  });
+
+  // --- click to launch -------------------------------------------------
+  var MAX_SPAWNED = 5;
+  sky.addEventListener('click', function (e) {
+    if (!template) return;
+    var rect = sky.getBoundingClientRect();
+    var el = document.createElement('span');
+    el.className = 'crane crane-spawn is-new';
+    el.innerHTML = template;
+
+    var size = 40 + Math.random() * 44;
+    var fly = 50 + Math.random() * 40;
+    // Position its flight so the bird is at the click point right now.
+    var progress = Math.min(.98, Math.max(.02, (e.clientX / window.innerWidth + 0.16) / 1.24));
+    var alt = Math.max(4, Math.min(76, (e.clientY - rect.top) / rect.height * 100 - 6));
+    el.style.cssText = '--size:' + size.toFixed(0) + 'px;--fly:' + fly.toFixed(1) +
+      's;--wait:-' + (progress * fly).toFixed(2) + 's;--alt:' + alt.toFixed(1) +
+      '%;--faint:.6;--bob:' + (5 + Math.random() * 4).toFixed(1) + 's';
+
+    sky.appendChild(el);
+    birds.push(rig(el));
+    setTimeout(function () { el.classList.remove('is-new'); }, 700);
+
+    var spawned = birds.filter(function (b) { return b.el.classList.contains('crane-spawn'); });
+    if (spawned.length > MAX_SPAWNED) {
+      var oldest = spawned[0];
+      oldest.el.remove();
+      birds.splice(birds.indexOf(oldest), 1);
+    }
+  });
+})();

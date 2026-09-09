@@ -1901,64 +1901,86 @@ figcaption {
 }
 
 /* ---------------------------------------------------------------------------
-   Footer — the credit line sits above the ink landscape, never on it. The clip
-   runs full-bleed at its own 16:9 underneath, so nothing is cropped and no
-   text competes with the artwork.
+   Footer — a shallow sky where line-drawn cranes glide past, in the same
+   hand-drawn stroke language as the flow icons. Staggered negative delays put
+   every bird mid-flight on load, so nobody waits at the edge of the screen.
    --------------------------------------------------------------------------- */
 .foot {
   position: relative;
-  isolation: isolate;
-  /* Flex only so the credit line can precede the clip: the video comes first
-     in the DOM to keep it out of the reading order. */
-  display: flex;
-  flex-direction: column;
+  overflow: hidden;
   font-size: var(--text-sm);
   color: var(--color-text-tertiary);
 }
 .foot-inner {
   position: relative;
-  order: 0;
   z-index: 1;
-  padding-block: var(--space-12) var(--space-8);
+  padding-block: var(--space-12) var(--space-2);
 }
+/* Only the home page carries the sky; elsewhere the credit line is the whole
+   footer and needs its own breathing room beneath it. */
+.foot:not(:has(.foot-sky)) .foot-inner { padding-bottom: var(--space-12); }
 .foot p { margin: 0; }
 
-.foot-media {
+.foot-sky {
   position: relative;
-  order: 1;
-  display: block;
-  width: 100%;
+  height: clamp(6.5rem, 16vh, 10rem);
 }
-.foot-bg {
-  display: block;
-  width: 100%;
-  height: auto;
-  pointer-events: none;
-  animation: foot-fade-in 1.35s ease both;
-}
-/* Blends the top edge of the clip into the page so it reads as one surface. */
-.foot-media::after {
-  content: "";
+.crane {
   position: absolute;
+  top: var(--alt, 20%);
   left: 0;
-  right: 0;
-  top: 0;
-  height: clamp(40px, 8vw, 110px);
-  pointer-events: none;
-  background: linear-gradient(to bottom,
-    var(--color-background) 0%,
-    rgba(0, 0, 0, 0) 100%);
+  color: var(--color-text-tertiary);
+  opacity: var(--faint, .75);
+  animation: crane-glide var(--fly, 48s) linear infinite;
+  animation-delay: var(--wait, 0s);
+  will-change: transform;
+}
+.crane svg {
+  display: block;
+  width: var(--size, 76px);
+  height: auto;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: crane-bob var(--bob, 6s) ease-in-out infinite alternate;
+}
+.crane-a { --alt: 16%; --size: 84px; --fly: 56s; --wait: -14s; --bob: 6s; }
+.crane-b { --alt: 48%; --size: 58px; --fly: 74s; --wait: -48s; --bob: 7.5s; --faint: .55; }
+.crane-c { --alt: 32%; --size: 40px; --fly: 92s; --wait: -70s; --bob: 9s; --faint: .45; }
+
+@keyframes crane-glide {
+  from { transform: translateX(-16vw); }
+  to   { transform: translateX(108vw); }
+}
+@keyframes crane-bob {
+  from { transform: translateY(0) rotate(-1.5deg); }
+  to   { transform: translateY(10px) rotate(1.5deg); }
 }
 
-@keyframes foot-fade-in { from { opacity: 0; } to { opacity: 1; } }
-
+/* Reduced motion: the birds hold still, placed as if mid-flight. */
 @media (prefers-reduced-motion: reduce) {
-  .foot-bg { display: none; animation: none; }
-  .foot-media {
-    aspect-ratio: 16 / 9;
-    background-image: url("https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/4f690bd1-881a-4192-82f2-d714d34c8fb9.png");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
+  .crane, .crane svg { animation: none; }
+  .crane-a { left: 14%; }
+  .crane-b { left: 58%; }
+  .crane-c { left: 80%; }
+}
+
+/* Interactive layer: birds carry a wrapper (added by JS) that springs away
+   from the cursor, and a click on the sky launches one more bird. */
+.crane { pointer-events: none; }
+.crane-flee {
+  display: block;
+  transition: transform .55s var(--ease-smooth);
+  will-change: transform;
+}
+.crane.is-new .crane-flee { animation: crane-pop .6s var(--ease) both; }
+@keyframes crane-pop {
+  from { opacity: 0; transform: translateY(16px) scale(.55); }
+  to   { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .crane-flee { transition: none; }
+  .crane.is-new .crane-flee { animation: none; }
 }
