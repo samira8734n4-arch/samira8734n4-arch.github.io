@@ -4,9 +4,6 @@ desktop.ini
 *.log
 node_modules/
 
-# Held back until the client data in these screenshots is redacted.
-src/assets/Project 2/
-src/work/propsoft-system.html
 src/assets/atrium/front/5.jpg
 src/assets/atrium/front/7.jpg
 src/assets/atrium/front/9.jpg

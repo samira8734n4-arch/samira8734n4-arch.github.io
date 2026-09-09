@@ -313,13 +313,12 @@ img { max-width: 100%; height: auto; display: block; }
   height: 40px;
   border-radius: var(--radius-full);
   background: var(--fill-mint);
-  display: grid;
-  place-items: center;
-  font-family: var(--font-display);
-  font-weight: var(--weight-black);
-  font-size: var(--text-base);
-  color: var(--color-action);
   flex: none;
+  /* A portrait cropped to a 40px circle: hold the top so the crop keeps the
+     face rather than centring on the shoulders. */
+  object-fit: cover;
+  object-position: 50% 12%;
+  border: 1px solid var(--color-border);
 }
 .theme-toggle {
   font: inherit;
