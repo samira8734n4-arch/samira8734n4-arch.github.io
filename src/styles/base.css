@@ -2314,6 +2314,9 @@ html:not(.js) .work-more[hidden] { display: block !important; }
 }
 @media (min-width: 46rem) {
   .certs-now { grid-template-columns: 1fr 1fr; }
+  /* One course in progress: a single card at a comfortable width, not half a
+     grid with an empty slot beside it. */
+  .certs-now:has(> li:only-child) { grid-template-columns: minmax(0, 34rem); }
 }
 .certs-now li {
   padding: var(--space-6);
