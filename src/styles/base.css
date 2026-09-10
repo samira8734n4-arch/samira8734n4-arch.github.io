@@ -1098,7 +1098,9 @@ figcaption {
 }
 .cta h2 { font-size: var(--text-3xl); max-width: 16ch; color: var(--color-action-text); }
 .cta p { margin-top: var(--space-6); color: var(--color-action-text); opacity: 0.85; }
-.cta a { color: var(--color-action-text); }
+/* Plain links only: a .btn inside the CTA keeps its own dark-on-light colours,
+   or the filled button turns white text on a cream fill. */
+.cta a:not(.btn) { color: var(--color-action-text); }
 
 .actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
 .btn {
