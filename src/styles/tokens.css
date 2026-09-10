@@ -33,9 +33,6 @@
   --fill-sky: #dbeafb;
   --fill-rose: #ffdfe6;
   --fill-sand: #efe6d5;
-  /* Highlighter behind key phrases: strong enough to read as a marker on the
-     cream ground, not a tint. */
-  --color-highlight: #ffd95a;
 
   --color-success: #15803d;
   --color-warning: #a16207;
@@ -152,7 +149,6 @@
     --fill-sky: #1e2c3d;
     --fill-rose: #3d2430;
     --fill-sand: #33301f;
-    --color-highlight: #6b5410;
 
     --color-success: #4ade80;
     --color-warning: #fbbf24;
@@ -190,7 +186,6 @@
   --fill-sky: #1e2c3d;
   --fill-rose: #3d2430;
   --fill-sand: #33301f;
-  --color-highlight: #6b5410;
 
   --color-success: #4ade80;
   --color-warning: #fbbf24;

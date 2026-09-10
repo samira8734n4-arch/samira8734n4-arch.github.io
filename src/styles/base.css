@@ -2625,28 +2625,18 @@ html:not(.js) .work-more[hidden] { display: block !important; }
   color: var(--color-text-tertiary);
 }
 .about-list dd { margin: var(--space-2) 0 0; }
-.about-list dd p { margin: 0 0 var(--space-3); }
-.about-list dd p:last-child { margin-bottom: 0; }
 
-/* Highlighter: a band of colour behind the lower half of the words, swept in
-   left to right once the page has loaded. */
-mark.hl {
-  color: inherit;
-  padding: 0 .12em;
-  margin: 0 -.12em;
-  background: linear-gradient(transparent 50%, var(--color-highlight) 50%) no-repeat;
-  background-size: 100% 100%;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
+/* Emphasis: body text steps back to the secondary colour so the results,
+   in bold primary, are what a skimming reader picks out. A rule down the
+   left of each answer turns to the brand colour under the pointer. */
+.about-list > div {
+  padding-left: var(--space-4);
+  border-left: 2px solid var(--color-border);
+  transition: border-color 200ms var(--ease);
 }
-@media (prefers-reduced-motion: no-preference) {
-  .js mark.hl {
-    background-size: 0 100%;
-    animation: hl-sweep 700ms var(--ease) forwards;
-    animation-delay: calc(400ms + var(--d, 0) * 250ms);
-  }
-}
-@keyframes hl-sweep { to { background-size: 100% 100%; } }
+.about-list > div:hover { border-left-color: var(--color-action); }
+.about-list dd { color: var(--color-text-secondary); }
+.about-list dd strong { color: var(--color-text-primary); font-weight: var(--weight-bold); }
 
 .about-label { margin-top: var(--space-12); }
 .about-awards {
