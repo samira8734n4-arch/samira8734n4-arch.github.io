@@ -2470,7 +2470,7 @@ html:not(.js) .work-more[hidden] { display: block !important; }
   gap: var(--space-4);
 }
 @media (min-width: 46rem) { .personas { grid-template-columns: 1fr 1fr; } }
-.personas li {
+.personas > li {
   padding: var(--space-6);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -2505,3 +2505,67 @@ html:not(.js) .work-more[hidden] { display: block !important; }
   color: var(--color-text-tertiary);
 }
 .personas dd { margin: var(--space-1) 0 0; color: var(--color-text-secondary); }
+.personas dd ul { margin: 0; padding-left: 1.1em; display: grid; gap: var(--space-1); }
+.personas-intro { margin-top: var(--space-12); }
+.persona-head { display: flex; align-items: center; gap: var(--space-4); }
+.persona-head h3 { margin-top: var(--space-2); }
+.persona-head .persona-meta { margin-bottom: 0; }
+.persona-photo { width: 4.5rem; height: 4.5rem; border-radius: var(--radius-full); flex: none; }
+.persona-traits {
+  list-style: none;
+  margin: var(--space-4) 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.persona-traits li {
+  padding: .2em .75em;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+.persona-story { margin: 0 0 var(--space-6); color: var(--color-text-secondary); }
+
+/* Interview questions: one column per audience, numbered so they can be
+   referred to. */
+.interview { display: grid; gap: var(--space-8); margin: var(--space-8) 0 0; }
+@media (min-width: 46rem) { .interview { grid-template-columns: 1fr 1fr; } }
+.interview h3 {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+.interview ol { margin: 0; padding-left: 1.4em; display: grid; gap: var(--space-2); color: var(--color-text-secondary); }
+
+/* A figure whose image is small at source is shown at its own size, not
+   stretched to the column. */
+.figure-narrow { max-width: 41.25rem; }
+
+/* Team: people credited on the project. */
+.team {
+  list-style: none;
+  margin: var(--space-8) 0 var(--space-12);
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+.team li {
+  flex: 1 1 14rem;
+  max-width: 18rem;
+  padding: var(--space-6);
+  text-align: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-subtle);
+}
+.team img { width: 6rem; height: 6rem; border-radius: var(--radius-full); margin: 0 auto var(--space-4); display: block; }
+.team h3 { margin: 0; font-size: var(--text-lg); }
+.team p { margin: var(--space-1) 0 0; font-size: var(--text-sm); color: var(--color-text-secondary); }
