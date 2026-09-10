@@ -1799,94 +1799,106 @@ figcaption {
 }
 
 /* ---------------------------------------------------------------------------
-   Journey — a cascading timeline. Each role steps further right than the last,
-   so the eye reads it as forward motion rather than a list. The detail card
-   opens on hover, on keyboard focus, and on click, because hover alone leaves
-   touch and keyboard users with no way in.
+   Journey: a timeline that fills the row. Three roles side by side on a
+   connecting line, with the detail always visible rather than behind a
+   hover; on narrow screens the line runs down the left instead.
    --------------------------------------------------------------------------- */
 .journey {
   list-style: none;
   margin: var(--space-8) 0 0;
   padding: 0;
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-8);
 }
 .journey-item {
   position: relative;
-  /* Shrink to the pill so the detail card can anchor to the pill edge rather
-     than to the full width of the list row. */
-  width: fit-content;
-  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-left: var(--space-8);
 }
-@media (min-width: 46rem) {
-  /* The step. Capped so a long career does not walk off the right edge. */
-  .journey-item { margin-left: calc(min(var(--i), 6) * 3.25rem); }
+/* The line: down the left edge, from this dot to the next one. */
+.journey-item::before {
+  content: "";
+  position: absolute;
+  left: calc(0.5rem - 1px);
+  top: 0.5rem;
+  bottom: calc(-1 * var(--space-8));
+  width: 2px;
+  background: var(--color-border-strong);
+}
+.journey-item:last-child::before { display: none; }
+.journey-dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1rem;
+  height: 1rem;
+  border-radius: var(--radius-full);
+  background: var(--color-background);
+  border: 3px solid var(--color-action);
+}
+.is-now .journey-dot { background: var(--color-action); }
+.is-now .journey-dot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  background: var(--color-action);
+  animation: certs-pulse 1.8s ease-out infinite;
 }
 
-.journey-pill {
+.journey-yr {
+  margin: 0;
   display: flex;
   align-items: center;
-  gap: var(--space-4);
-  width: fit-content;
-  max-width: 100%;
-  padding: var(--space-3) var(--space-6);
-  border: 0;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  line-height: 1rem;
+  height: 1.1rem;
+  color: var(--color-text-tertiary);
+}
+.journey-now {
+  padding: 0 .6em;
+  line-height: 1.1rem;
   border-radius: var(--radius-full);
   background: var(--color-action);
   color: var(--color-action-text);
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-  box-shadow: var(--shadow-subtle);
-  transition: transform 200ms var(--ease), box-shadow 200ms var(--ease);
+  letter-spacing: .08em;
 }
-.journey-pill:hover, .journey-pill:focus-visible {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-medium);
+.journey-co {
+  margin: var(--space-3) 0 0;
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  line-height: 1.15;
 }
-.journey-yr {
-  flex: none;
-  padding-right: var(--space-4);
-  border-right: 1px solid rgb(255 255 255 / 0.35);
-  font-size: var(--text-sm);
-  font-variant-numeric: tabular-nums;
-  opacity: 0.85;
-}
-.journey-role { display: grid; }
-.journey-role strong { font-weight: var(--weight-bold); }
-.journey-role span { font-size: var(--text-sm); opacity: 0.85; }
+.journey-role { margin: var(--space-1) 0 var(--space-4); color: var(--color-text-secondary); }
 
 .journey-card {
-  margin-top: var(--space-3);
+  flex: 1;
   padding: var(--space-6);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-medium);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-subtle);
+  transition: transform 220ms var(--ease), box-shadow 220ms var(--ease);
 }
-@media (min-width: 62rem) {
-  /* Float it beside the pill on wide screens, the way the reference does. */
-  .journey-card {
-    position: absolute;
-    top: -0.5rem;
-    left: calc(100% - 3rem);
-    width: 20rem;
-    margin-top: 0;
-    z-index: 5;
-  }
-  /* A step far enough right would push its card off screen; flip those. */
-  .journey-item[data-flip] .journey-card { left: auto; right: calc(100% - 3rem); }
-}
-.journey-card[hidden] { display: none; }
-.journey-meta {
-  margin: 0 0 var(--space-3);
+.journey-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-medium); }
+.is-now .journey-card { border-color: var(--color-action); }
+.journey-tag {
+  display: inline-block;
+  margin-bottom: var(--space-3);
+  padding: .25em .7em;
+  border-radius: var(--radius-full);
+  background: var(--color-action-tint);
   font-size: var(--text-xs);
   font-weight: var(--weight-bold);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--color-text-tertiary);
+  color: var(--color-text-primary);
 }
-.journey-card > p:not(.journey-meta) { margin: 0 0 var(--space-3); font-size: var(--text-sm); }
+.journey-card > p { margin: 0 0 var(--space-3); font-size: var(--text-sm); }
 .journey-card ul { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--space-2); }
 .journey-card li {
   position: relative;
@@ -1905,8 +1917,23 @@ figcaption {
   background: var(--color-action);
 }
 
+@media (min-width: 58rem) {
+  .journey { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); }
+  .journey-item { padding-left: 0; padding-top: var(--space-8); }
+  /* The line turns horizontal: from this dot across to the next column. */
+  .journey-item::before {
+    left: 0.5rem;
+    right: calc(-1 * var(--space-6));
+    top: calc(0.5rem - 1px);
+    bottom: auto;
+    width: auto;
+    height: 2px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .journey-pill { transition: none; }
+  .journey-card { transition: none; }
+  .is-now .journey-dot::after { animation: none; }
 }
 
 /* Deck: scroll-driven progress, and the client logo on hover. */
@@ -2557,3 +2584,100 @@ html:not(.js) .work-more[hidden] { display: block !important; }
   mask-image: linear-gradient(to bottom, #000 calc(100% - 5rem), transparent);
 }
 .work-toggle.clamp-toggle { margin: var(--space-4) 0 0; }
+
+/* ---------------------------------------------------------------------------
+   About intro: the numbers first, then short labelled answers rather than one
+   long run of paragraphs, and recognition as cards a reader can scan.
+   --------------------------------------------------------------------------- */
+.about-facts {
+  list-style: none;
+  margin: 0 0 var(--space-8);
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+.about-facts li {
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+.about-facts strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-bold);
+  line-height: 1;
+  color: var(--color-text-primary);
+}
+.about-facts span { display: block; margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary); }
+
+.about-list { margin: 0; display: grid; gap: var(--space-6); }
+.about-list dt,
+.about-label {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+.about-list dd { margin: var(--space-2) 0 0; }
+.about-list dd p { margin: 0 0 var(--space-3); }
+.about-list dd p:last-child { margin-bottom: 0; }
+
+/* Highlighter: a band of colour behind the lower half of the words, swept in
+   left to right once the page has loaded. */
+mark.hl {
+  color: inherit;
+  padding: 0 .12em;
+  margin: 0 -.12em;
+  background: linear-gradient(transparent 50%, var(--color-highlight) 50%) no-repeat;
+  background-size: 100% 100%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js mark.hl {
+    background-size: 0 100%;
+    animation: hl-sweep 700ms var(--ease) forwards;
+    animation-delay: calc(400ms + var(--d, 0) * 250ms);
+  }
+}
+@keyframes hl-sweep { to { background-size: 100% 100%; } }
+
+.about-label { margin-top: var(--space-12); }
+.about-awards {
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+.about-awards li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+.award-ico {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-full);
+  background: var(--fill-butter);
+  color: var(--color-text-primary);
+}
+.award-ico.is-edu { background: var(--fill-sky); }
+.award-ico svg { width: 1.4rem; height: 1.4rem; }
+.about-awards strong { display: block; color: var(--color-text-primary); }
+.about-awards div span { display: block; font-size: var(--text-sm); color: var(--color-text-secondary); }
+
+.about-links { margin-top: var(--space-8); }

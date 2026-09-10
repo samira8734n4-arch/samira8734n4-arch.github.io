@@ -393,52 +393,6 @@ document.documentElement.classList.add('js');
   if ('ResizeObserver' in window) new ResizeObserver(sizeStack).observe(deck);
 })();
 
-// Journey timeline. The detail card opens on hover for a mouse, on focus for a
-// keyboard, and on click for touch — hover alone would strand two of the three.
-(function () {
-  var list = document.querySelector('[data-journey]');
-  if (!list) return;
-
-  var items = [].slice.call(list.querySelectorAll('.journey-item'));
-  var hoverable = window.matchMedia('(hover: hover)').matches;
-
-  function open(item, on) {
-    var btn = item.querySelector('.journey-pill');
-    var card = item.querySelector('.journey-card');
-    if (!btn || !card) return;
-    card.hidden = !on;
-    btn.setAttribute('aria-expanded', on ? 'true' : 'false');
-  }
-
-  function closeAll(except) {
-    items.forEach(function (i) { if (i !== except) open(i, false); });
-  }
-
-  items.forEach(function (item) {
-    var btn = item.querySelector('.journey-pill');
-
-    btn.addEventListener('click', function () {
-      var isOpen = btn.getAttribute('aria-expanded') === 'true';
-      closeAll(item);
-      open(item, !isOpen);
-    });
-
-    // Focus opens it, so tabbing through the timeline reads the same as hovering.
-    btn.addEventListener('focus', function () { closeAll(item); open(item, true); });
-
-    if (hoverable) {
-      item.addEventListener('mouseenter', function () { closeAll(item); open(item, true); });
-      item.addEventListener('mouseleave', function () {
-        // Leave it open if the keyboard is still inside it.
-        if (!item.contains(document.activeElement)) open(item, false);
-      });
-    }
-  });
-
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(null); });
-})();
-
-
 // Hero constellation. Drifting points joined by lines when they come close,
 // which lean toward the pointer. Written rather than pulled in from a library:
 // the colours have to come from the theme tokens so it survives the dark
