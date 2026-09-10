@@ -67,12 +67,26 @@ document.documentElement.classList.add('js');
   var nav = document.createElement('nav');
   nav.className = 'toc';
   nav.setAttribute('aria-label', 'On this page');
-  var title = document.createElement('p');
-  title.className = 'toc-title';
-  title.textContent = 'On this page';
-  nav.appendChild(title);
+  // A toggle rather than a static title: the panel can be folded away when it
+  // is in the way, and the button says so to assistive tech via aria-expanded.
+  var toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "toc-toggle";
+  toggle.setAttribute("aria-expanded", "true");
+  toggle.setAttribute("aria-controls", "toc-list");
+  toggle.innerHTML = '<span class="toc-burger" aria-hidden="true"><span></span><span></span></span><span>Menu</span>';
+  nav.appendChild(toggle);
 
-  var list = document.createElement('ul');
+  var list = document.createElement("ul");
+  list.id = "toc-list";
+  toggle.addEventListener("click", function () {
+    var open = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", open ? "false" : "true");
+    nav.classList.toggle("is-collapsed", open);
+    // inert, not just opacity: a faded-out list is still in the tab order and
+    // the accessibility tree, so keyboard users would land on invisible links.
+    list.inert = open;
+  });
   var links = [];
 
   // "Overview" points at the top of the page — the hero and summary block,
