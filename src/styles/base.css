@@ -2614,7 +2614,7 @@ html:not(.js) .work-more[hidden] { display: block !important; }
 .about-facts span { display: block; margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary); }
 
 .about-list { margin: 0; display: grid; gap: var(--space-6); }
-.about-list dt,
+.about-item-label,
 .about-label {
   margin: 0;
   font-family: var(--font-mono);
@@ -2624,7 +2624,8 @@ html:not(.js) .work-more[hidden] { display: block !important; }
   text-transform: uppercase;
   color: var(--color-text-tertiary);
 }
-.about-list dd { margin: var(--space-2) 0 0; }
+.about-list p { margin: 0; }
+.about-list .about-item-label { margin-bottom: var(--space-2); }
 
 /* Emphasis: body text steps back to the secondary colour so the results,
    in bold primary, are what a skimming reader picks out. A rule down the
@@ -2635,8 +2636,8 @@ html:not(.js) .work-more[hidden] { display: block !important; }
   transition: border-color 200ms var(--ease);
 }
 .about-list > div:hover { border-left-color: var(--color-action); }
-.about-list dd { color: var(--color-text-secondary); }
-.about-list dd strong { color: var(--color-text-primary); font-weight: var(--weight-bold); }
+.about-list p:not(.about-item-label) { color: var(--color-text-secondary); }
+.about-list p strong { color: var(--color-text-primary); font-weight: var(--weight-bold); }
 
 .about-label { margin-top: var(--space-12); }
 .about-awards {
