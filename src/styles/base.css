@@ -2454,5 +2454,54 @@ html:not(.js) .work-more[hidden] { display: block !important; }
   .certs-logo { transition: none; }
 }
 
-/* A card that leaves the site says so: the arrow points out, not along. */
-.card.is-external .outcome::after { content: " \2197"; }
+
+/* A reversed mark (white type on the brand ground) keeps its own ground on the
+   chip, matched to the pixels of the image, rather than being recoloured. */
+.client-logo.is-dark,
+.card-logo.is-dark,
+.deck-logo.is-dark { background: #292864; border-color: transparent; }
+
+/* Personas: two people side by side, read as a pair rather than a list. */
+.personas {
+  list-style: none;
+  margin: var(--space-8) 0 var(--space-12);
+  padding: 0;
+  display: grid;
+  gap: var(--space-4);
+}
+@media (min-width: 46rem) { .personas { grid-template-columns: 1fr 1fr; } }
+.personas li {
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-subtle);
+}
+.persona-role {
+  display: inline-block;
+  padding: .3em .75em;
+  border-radius: var(--radius-full);
+  background: var(--color-action-tint);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+.personas h3 {
+  margin: var(--space-4) 0 var(--space-1);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  line-height: 1.2;
+}
+.persona-meta { margin: 0 0 var(--space-4); font-size: var(--text-sm); color: var(--color-text-secondary); }
+.personas dl { margin: 0; display: grid; gap: var(--space-3); }
+.personas dt {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+.personas dd { margin: var(--space-1) 0 0; color: var(--color-text-secondary); }
