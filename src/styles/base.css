@@ -2717,6 +2717,7 @@ html:not(.js) .work-more[hidden] { display: block !important; }
 .outside-gallery .pos-stitch { object-position: 64% 50%; }
 .outside-gallery .pos-peony { object-position: 30% 62%; }
 .outside-gallery .pos-photo { object-position: 50% 72%; }
+.outside-gallery .pos-hope { object-position: 50% 34%; }
 .outside-gallery figcaption {
   position: absolute;
   left: var(--space-3);
