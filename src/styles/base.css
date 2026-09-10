@@ -2415,6 +2415,9 @@ html:not(.js) .work-more[hidden] { display: block !important; }
   padding: var(--space-4) 0;
   border-top: 1px solid var(--color-border);
 }
+/* display: grid above outranks the browser rule for [hidden], so the rows
+   folded behind "See all" would stay on screen without this. */
+.certs-list li[hidden] { display: none; }
 .certs-list .certs-title {
   font-weight: var(--weight-semibold);
   color: var(--color-text-primary);
