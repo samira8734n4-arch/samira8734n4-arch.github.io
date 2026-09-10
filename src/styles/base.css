@@ -2675,3 +2675,62 @@ html:not(.js) .work-more[hidden] { display: block !important; }
 .about-awards div span { display: block; font-size: var(--text-sm); color: var(--color-text-secondary); }
 
 .about-links { margin-top: var(--space-8); }
+
+/* Outside of work: a small bento of things made by hand. Two pieces lead at
+   double height, one at each end, with four smaller ones between them;
+   captions sit on the images as chips. */
+.outside-gallery {
+  list-style: none;
+  margin: var(--space-8) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 14rem;
+  grid-auto-flow: dense;
+  gap: var(--space-4);
+}
+.outside-gallery .is-feature { grid-column: 1 / -1; grid-row: span 2; }
+@media (min-width: 46rem) {
+  .outside-gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 15rem; }
+  .outside-gallery .is-feature { grid-column: auto; }
+  /* Pinned to the last column so the four small pieces fill the middle. */
+  .outside-gallery .is-feature-end { grid-column: 4; grid-row: 1 / span 2; }
+}
+.outside-gallery li { min-width: 0; }
+.outside-gallery figure {
+  position: relative;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-subtle);
+  background: var(--color-surface);
+}
+.outside-gallery img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms var(--ease);
+}
+.outside-gallery figure:hover img { transform: scale(1.04); }
+.outside-gallery .pos-stitch { object-position: 64% 50%; }
+.outside-gallery .pos-peony { object-position: 30% 62%; }
+.outside-gallery .pos-photo { object-position: 50% 72%; }
+.outside-gallery figcaption {
+  position: absolute;
+  left: var(--space-3);
+  bottom: var(--space-3);
+  padding: .3em .8em;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-subtle);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+@media (prefers-reduced-motion: reduce) {
+  .outside-gallery img { transition: none; }
+}
