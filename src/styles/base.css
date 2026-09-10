@@ -2453,3 +2453,6 @@ html:not(.js) .work-more[hidden] { display: block !important; }
 @media (prefers-reduced-motion: reduce) {
   .certs-logo { transition: none; }
 }
+
+/* A card that leaves the site says so: the arrow points out, not along. */
+.card.is-external .outcome::after { content: " \2197"; }
