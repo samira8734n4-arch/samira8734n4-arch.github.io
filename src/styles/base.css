@@ -2718,6 +2718,13 @@ html:not(.js) .work-more[hidden] { display: block !important; }
 .outside-gallery .pos-peony { object-position: 30% 62%; }
 .outside-gallery .pos-photo { object-position: 50% 72%; }
 .outside-gallery .pos-hope { object-position: 50% 34%; }
+.outside-gallery .pos-rickshaw { object-position: 50% 64%; }
+.outside-gallery .pos-tea { object-position: 40% 100%; }
+/* The glass sits bottom-left, where the caption would cover it. */
+.outside-gallery .cap-right figcaption { left: auto; right: var(--space-3); }
+.outside-gallery .pos-samosa { object-position: 50% 52%; }
+/* A wide tile closes the last row so it runs the full width without a gap. */
+.outside-gallery .is-wide { grid-column: span 2; }
 .outside-gallery figcaption {
   position: absolute;
   left: var(--space-3);
