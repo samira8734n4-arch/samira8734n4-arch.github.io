@@ -2469,7 +2469,7 @@ html:not(.js) .work-more[hidden] { display: block !important; }
   display: grid;
   gap: var(--space-4);
 }
-@media (min-width: 46rem) { .personas { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 46rem) { .personas { grid-template-columns: 1fr 1fr; align-items: start; } }
 .personas > li {
   padding: var(--space-6);
   background: var(--color-surface);
@@ -2547,25 +2547,13 @@ html:not(.js) .work-more[hidden] { display: block !important; }
    stretched to the column. */
 .figure-narrow { max-width: 41.25rem; }
 
-/* Team: people credited on the project. */
-.team {
-  list-style: none;
-  margin: var(--space-8) 0 var(--space-12);
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-4);
+/* See more: a long block is cut to a set height with its last lines fading
+   out, so it reads as continuing rather than ending. The mask fades to
+   transparent, which works on any ground in either theme. */
+.is-clamped {
+  max-height: var(--clamp);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 5rem), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 5rem), transparent);
 }
-.team li {
-  flex: 1 1 14rem;
-  max-width: 18rem;
-  padding: var(--space-6);
-  text-align: center;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-subtle);
-}
-.team img { width: 6rem; height: 6rem; border-radius: var(--radius-full); margin: 0 auto var(--space-4); display: block; }
-.team h3 { margin: 0; font-size: var(--text-lg); }
-.team p { margin: var(--space-1) 0 0; font-size: var(--text-sm); color: var(--color-text-secondary); }
+.work-toggle.clamp-toggle { margin: var(--space-4) 0 0; }

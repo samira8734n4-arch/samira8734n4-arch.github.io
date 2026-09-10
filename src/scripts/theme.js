@@ -737,3 +737,43 @@ document.documentElement.classList.add('js');
     if (open) head.scrollIntoView({ block: 'start', behavior: 'smooth' });
   });
 })();
+
+// See more on long blocks. An element marked data-clamp is cut to that many
+// rem, with a button to open it. A block that runs only a little past the cut
+// is left open: hiding two lines behind a button costs more than it saves.
+(function () {
+  var blocks = [].slice.call(document.querySelectorAll('[data-clamp]'));
+  if (!blocks.length) return;
+  var rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+
+  blocks.forEach(function (el, i) {
+    var cut = (parseFloat(el.getAttribute('data-clamp')) || 14) * rem;
+    if (el.scrollHeight < cut * 1.35) return;
+    if (!el.id) el.id = 'more-' + (i + 1);
+    el.style.setProperty('--clamp', cut + 'px');
+    el.classList.add('is-clamped');
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'work-toggle clamp-toggle';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-controls', el.id);
+    var label = document.createElement('span');
+    label.textContent = 'See more';
+    btn.appendChild(label);
+    btn.insertAdjacentHTML('beforeend',
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>');
+    el.insertAdjacentElement('afterend', btn);
+
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      el.classList.toggle('is-clamped', open);
+      label.textContent = open ? 'See more' : 'See less';
+      // Closing a long block can leave the reader below it; bring its top back.
+      if (open && el.getBoundingClientRect().top < 0) {
+        el.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      }
+    });
+  });
+})();
