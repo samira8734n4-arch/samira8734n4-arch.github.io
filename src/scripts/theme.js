@@ -662,3 +662,78 @@ document.documentElement.classList.add('js');
     if (open) more.previousElementSibling && btn.scrollIntoView({ block: 'center', behavior: 'smooth' });
   });
 })();
+
+// Certifications: a provider mark pops up on hover, and the completed list
+// shows its first few until asked for the rest.
+//
+// Four providers have official marks, taken from Simple Icons (CC0). The rest
+// get an initials badge rather than an imitation of their logo, since a
+// hand-drawn crest would misrepresent the institution.
+(function () {
+  var head = document.getElementById('certs-h');
+  if (!head) return;
+  var section = head.closest('section');
+
+  var MARKS = [
+    [/interaction design foundation/i, { img: 'org-idf.svg' }],
+    [/^google/i, { img: 'org-google.svg' }],
+    [/coursera/i, { img: 'org-coursera.svg' }],
+    [/udemy/i, { img: 'org-udemy.svg' }],
+    [/nextgen/i, { mono: 'NG' }],
+    [/ostad/i, { mono: 'OS' }],
+    [/michigan/i, { mono: 'UM' }],
+    [/california institute of the arts/i, { mono: 'CA' }],
+    [/national youth/i, { mono: 'NY' }]
+  ];
+
+  [].forEach.call(section.querySelectorAll('.certs-now li, .certs-list li'), function (li) {
+    var by = li.querySelector('.certs-by');
+    if (!by) return;
+    var mark = null;
+    for (var i = 0; i < MARKS.length; i++) {
+      if (MARKS[i][0].test(by.textContent.trim())) { mark = MARKS[i][1]; break; }
+    }
+    if (!mark) return;
+    var badge = document.createElement('span');
+    badge.className = 'certs-logo';
+    badge.setAttribute('aria-hidden', 'true');   // the provider is already written out
+    if (mark.img) {
+      var img = document.createElement('img');
+      img.src = 'assets/icons/' + mark.img;
+      img.alt = '';
+      badge.appendChild(img);
+    } else {
+      badge.classList.add('is-mono');
+      badge.textContent = mark.mono;
+    }
+    li.appendChild(badge);
+  });
+
+  // See more. Without JS every course stays visible; the script does the hiding.
+  var list = section.querySelector('.certs-list');
+  if (!list) return;
+  var rows = [].slice.call(list.children);
+  var SHOW = 6;
+  if (rows.length <= SHOW) return;
+  var extra = rows.slice(SHOW);
+  extra.forEach(function (li) { li.hidden = true; });
+
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'work-toggle certs-more';
+  btn.setAttribute('aria-expanded', 'false');
+  var label = document.createElement('span');
+  label.textContent = 'See all ' + rows.length + ' courses';
+  btn.appendChild(label);
+  btn.insertAdjacentHTML('beforeend',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>');
+  list.insertAdjacentElement('afterend', btn);
+
+  btn.addEventListener('click', function () {
+    var open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+    extra.forEach(function (li) { li.hidden = open; });
+    label.textContent = open ? 'See all ' + rows.length + ' courses' : 'Show fewer';
+    if (open) head.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  });
+})();

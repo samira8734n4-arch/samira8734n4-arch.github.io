@@ -2405,3 +2405,51 @@ html:not(.js) .work-more[hidden] { display: block !important; }
   .certs-now li { transition: none; }
   .certs-dot::after { animation: none; }
 }
+
+/* Provider mark: hidden until the row is hovered or focused, then it springs
+   in. Always on a white tile, so brand colours read in both themes. */
+.certs-now li, .certs-list li { position: relative; }
+.certs-list li { padding-right: 3.25rem; }
+.certs-logo {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-medium);
+  opacity: 0;
+  transform: translateY(-50%) scale(.55) rotate(-10deg);
+  transition: opacity 180ms ease, transform 380ms var(--ease);
+  pointer-events: none;
+}
+.certs-logo img { width: 58%; height: 58%; object-fit: contain; }
+.certs-logo.is-mono {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .06em;
+  color: #16231f;
+}
+.certs-list li:hover .certs-logo,
+.certs-list li:focus-within .certs-logo {
+  opacity: 1;
+  transform: translateY(-50%) scale(1) rotate(0deg);
+}
+/* On the card it sits in the corner instead. */
+.certs-now .certs-logo {
+  top: var(--space-5, 1.25rem);
+  right: var(--space-5, 1.25rem);
+  transform: scale(.55) rotate(-10deg);
+}
+.certs-now li:hover .certs-logo { opacity: 1; transform: scale(1) rotate(0deg); }
+
+.certs-more { margin-top: var(--space-6); }
+
+@media (prefers-reduced-motion: reduce) {
+  .certs-logo { transition: none; }
+}
