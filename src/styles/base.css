@@ -2010,7 +2010,9 @@ figcaption {
 /* The signature. Each letter is its own path so they can be drawn in order,
    the way a hand would write it, rather than all at once. */
 .contact-mark {
-  margin: clamp(2rem, 5vh, 3.25rem) auto var(--space-4);
+  /* The signature finishes the headline sentence, so it sits close to it
+     rather than floating as a separate mark. */
+  margin: clamp(.5rem, 1.5vh, 1.25rem) auto var(--space-4);
   max-width: min(26rem, 78vw);
   color: var(--color-text-primary);
 }
