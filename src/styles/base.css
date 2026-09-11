@@ -2744,3 +2744,71 @@ html:not(.js) .work-more[hidden] { display: block !important; }
 @media (prefers-reduced-motion: reduce) {
   .outside-gallery img { transition: none; }
 }
+
+/* ---------------------------------------------------------------------------
+   Get in touch, with stickers: the copy on the left, a small sticker board on
+   the right. Each sticker is die-cut (white edge, drop shadow), pops in when
+   the block arrives, straightens on hover, and can be dragged about. They are
+   decoration only, so the whole board is hidden from assistive tech.
+   --------------------------------------------------------------------------- */
+.cta.has-stickers { display: grid; gap: var(--space-8); align-items: center; overflow: hidden; }
+@media (min-width: 58rem) {
+  .cta.has-stickers { grid-template-columns: minmax(0, 1fr) 24rem; }
+}
+.cta-stickers {
+  position: relative;
+  height: 18rem;
+  font-size: 0.85rem;
+}
+@media (min-width: 40rem) { .cta-stickers { font-size: 1rem; } }
+.cta-sticker {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  rotate: var(--r);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  filter: drop-shadow(0 8px 12px rgb(0 0 0 / 0.25));
+}
+.cta-sticker svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  transition: transform 260ms var(--ease);
+}
+/* Straighten and lift, as if half-peeled. */
+.cta-sticker:hover svg { transform: rotate(calc(-1 * var(--r))) scale(1.08); }
+.cta-sticker.is-dragging { cursor: grabbing; }
+.cta-sticker.is-dragging svg { transform: scale(1.12); }
+.cta-sticker-text {
+  font-family: var(--font-display);
+  font-weight: 800;
+  fill: #16231f;
+}
+.cta-stickers-hint {
+  position: absolute;
+  right: 0;
+  bottom: -0.25rem;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: .08em;
+  color: var(--color-action-text);
+  opacity: 0.7;
+}
+.js .cta-sticker { scale: 0; }
+.js .cta-stickers.is-in .cta-sticker { animation: cta-sticker-pop 520ms var(--ease) var(--d) forwards; }
+@keyframes cta-sticker-pop {
+  0% { scale: 0; }
+  70% { scale: 1.12; }
+  100% { scale: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .cta-sticker { scale: 1; }
+  .js .cta-stickers.is-in .cta-sticker { animation: none; }
+  .cta-sticker svg { transition: none; }
+}

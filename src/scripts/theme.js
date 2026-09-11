@@ -731,3 +731,41 @@ document.documentElement.classList.add('js');
     });
   });
 })();
+
+// Get in touch stickers: pop in when the block comes into view, and can be
+// dragged around. Pointer events cover mouse, pen and touch in one path.
+(function () {
+  var board = document.querySelector('[data-stickers]');
+  if (!board) return;
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) { board.classList.add('is-in'); io.disconnect(); }
+    }, { threshold: 0.3 });
+    io.observe(board);
+  } else {
+    board.classList.add('is-in');
+  }
+
+  var z = 2;
+  [].forEach.call(board.querySelectorAll('.cta-sticker'), function (s) {
+    var startX = 0, startY = 0, x = 0, y = 0, dragging = false;
+    s.addEventListener('pointerdown', function (e) {
+      dragging = true;
+      try { s.setPointerCapture(e.pointerId); } catch (err) { /* capture is a nicety */ }
+      s.classList.add('is-dragging');
+      s.style.zIndex = ++z;
+      startX = e.clientX - x;
+      startY = e.clientY - y;
+    });
+    s.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      x = e.clientX - startX;
+      y = e.clientY - startY;
+      s.style.translate = x + 'px ' + y + 'px';
+    });
+    function end() { dragging = false; s.classList.remove('is-dragging'); }
+    s.addEventListener('pointerup', end);
+    s.addEventListener('pointercancel', end);
+  });
+})();
