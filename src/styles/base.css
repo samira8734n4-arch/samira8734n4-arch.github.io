@@ -2823,13 +2823,13 @@ html:not(.js) .work-more[hidden] { display: block !important; }
 .cta-sticker.is-dragging { cursor: grabbing; }
 .cta-sticker.is-dragging svg { transform: scale(1.12); }
 .cta-sticker-text {
-  font-family: var(--font-display);
-  font-weight: 800;
+  font-family: var(--font-body);
+  font-weight: 700;
   fill: #16231f;
 }
 .cta-stickers-hint {
   position: absolute;
-  right: 0;
+  left: 0;
   bottom: -0.25rem;
   margin: 0;
   font-family: var(--font-mono);
