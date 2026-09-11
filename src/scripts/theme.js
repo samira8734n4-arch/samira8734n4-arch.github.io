@@ -769,3 +769,114 @@ document.documentElement.classList.add('js');
     s.addEventListener('pointercancel', end);
   });
 })();
+
+// Contact panel. Any link marked data-contact opens it. The link itself is a
+// mailto, so without JS (or without <dialog>) it still does something useful.
+// Messages go through FormSubmit (formsubmit.co), which emails them on to
+// Samira; the very first message asks the inbox owner to confirm once.
+(function () {
+  var triggers = document.querySelectorAll('[data-contact]');
+  if (!triggers.length || typeof HTMLDialogElement !== 'function') return;
+
+  var ENDPOINT = 'https://formsubmit.co/ajax/samira0151521@gmail.com';
+  var MAIL = 'samirabintehamid46@gmail.com';
+  var ico = function (d) {
+    return '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="' + d + '"/></svg>';
+  };
+  var I_MAIL = 'M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z';
+  var I_WA = 'M16.75 13.96c.25.13.41.2.46.3.06.11.04.61-.21 1.18-.2.56-1.24 1.1-1.7 1.12-.46.02-.47.36-2.96-.73-2.49-1.09-3.99-3.75-4.11-3.92-.12-.17-.96-1.38-.92-2.61.05-1.22.69-1.8.95-2.04.24-.26.51-.29.68-.26h.47c.15 0 .36-.06.55.45l.69 1.87c.6.13.1.28.1.44l-.27.41-.39.42c-.12.12-.26.25-.12.5.12.26.62 1.09 1.32 1.78.91.88 1.71 1.17 1.95 1.29.24.14.39.12.54-.04l.81-.94c.19-.25.35-.19.58-.11l1.67.88M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10c-1.97 0-3.8-.57-5.35-1.55L2 22l1.55-4.65A9.969 9.969 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8c0 1.72.54 3.31 1.46 4.61L4.5 19.5l2.89-.96A7.95 7.95 0 0 0 12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8z';
+  var I_IN = 'M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .92.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z';
+  var I_PIN = 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z';
+  var I_X = 'M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z';
+
+  var dlg = document.createElement('dialog');
+  dlg.className = 'contact-dialog';
+  dlg.setAttribute('aria-labelledby', 'contact-dialog-h');
+  dlg.innerHTML =
+    '<button class="contact-dialog-close" type="button" aria-label="Close">' + ico(I_X) + '</button>' +
+    '<div class="contact-dialog-grid">' +
+      '<div class="contact-dialog-info">' +
+        '<p class="contact-dialog-kicker">Contact</p>' +
+        '<h2 id="contact-dialog-h">Let&rsquo;s talk.</h2>' +
+        '<p class="contact-dialog-lede">A project, a role or a question &mdash; send a note and I will get back to you.</p>' +
+        '<ul class="contact-dialog-list">' +
+          '<li><span class="cd-ico">' + ico(I_MAIL) + '</span><div><span class="cd-label">Email</span><a href="mailto:' + MAIL + '">' + MAIL + '</a></div></li>' +
+          '<li><span class="cd-ico">' + ico(I_WA) + '</span><div><span class="cd-label">WhatsApp</span><a href="https://wa.me/8801515216636">+880 1515-216636</a></div></li>' +
+          '<li><span class="cd-ico">' + ico(I_IN) + '</span><div><span class="cd-label">LinkedIn</span><a href="https://www.linkedin.com/in/samira-binte-hamid-b3a1a0119/">Samira Binte Hamid</a></div></li>' +
+          '<li><span class="cd-ico">' + ico(I_PIN) + '</span><div><span class="cd-label">Based in</span><span>Dhaka, Bangladesh</span></div></li>' +
+        '</ul>' +
+      '</div>' +
+      '<form class="contact-form" novalidate>' +
+        '<h3>Send me a message</h3>' +
+        '<label>Your name<input name="name" type="text" autocomplete="name" required maxlength="100"></label>' +
+        '<label>Your email<input name="email" type="email" autocomplete="email" required maxlength="200"></label>' +
+        '<label>Message<textarea name="message" rows="5" required maxlength="3000"></textarea></label>' +
+        '<label class="contact-form-trap" aria-hidden="true">Leave this empty<input name="_honey" type="text" tabindex="-1" autocomplete="off"></label>' +
+        '<button class="btn contact-form-send" type="submit">Send message</button>' +
+        '<p class="contact-form-status" role="status" aria-live="polite"></p>' +
+      '</form>' +
+    '</div>';
+  document.body.appendChild(dlg);
+
+  var form = dlg.querySelector('form');
+  var status = dlg.querySelector('.contact-form-status');
+  var send = dlg.querySelector('.contact-form-send');
+
+  function say(text, kind) {
+    status.textContent = text;
+    status.className = 'contact-form-status' + (kind ? ' is-' + kind : '');
+  }
+
+  [].forEach.call(triggers, function (t) {
+    t.addEventListener('click', function (e) {
+      e.preventDefault();
+      dlg.showModal();
+      var first = form.querySelector('input[name="name"]');
+      if (first) first.focus();
+    });
+  });
+  dlg.querySelector('.contact-dialog-close').addEventListener('click', function () { dlg.close(); });
+  // A click on the backdrop lands on the dialog element itself.
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      say('Please fill in your name, a valid email and a message.', 'error');
+      return;
+    }
+    var data = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      message: form.message.value.trim(),
+      _subject: 'Portfolio message from ' + form.name.value.trim(),
+      _template: 'table',
+      _honey: form._honey.value
+    };
+    // A filled trap field means a bot; pretend it worked and send nothing.
+    if (data._honey) { form.reset(); say('Thanks, your message is on its way.', 'ok'); return; }
+
+    send.disabled = true;
+    send.textContent = 'Sending...';
+    say('');
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    })
+      .then(function (r) { return r.json().catch(function () { return {}; }); })
+      .then(function (res) {
+        if (res && (res.success === true || res.success === 'true')) {
+          form.reset();
+          say('Thanks, your message is on its way. I will reply to you by email.', 'ok');
+        } else {
+          say('Your message could not be sent just now. Please email ' + MAIL + ' instead.', 'error');
+        }
+      })
+      .catch(function () {
+        say('Your message could not be sent just now. Please email ' + MAIL + ' instead.', 'error');
+      })
+      .then(function () { send.disabled = false; send.textContent = 'Send message'; });
+  });
+})();

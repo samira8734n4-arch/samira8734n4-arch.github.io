@@ -406,9 +406,10 @@ body > .wrap:has(> .nav)::before {
 /* Narrow: the name takes its own row, then the links and the toggle share the
    next one rather than the toggle stranding on a third. */
 @media (max-width: 40rem) {
-  .nav { border-radius: var(--radius-lg); gap: var(--space-2); }
+  /* Tight column gap and pills so five links (with Contact) fit on one row. */
+  .nav { border-radius: var(--radius-lg); gap: var(--space-2) var(--space-1); }
   .nav .home { flex: 1 0 100%; margin-inline-end: 0; }
-  .nav a { padding: var(--space-2); }
+  .nav a { padding: var(--space-2) 0.4rem; }
   .theme-toggle { padding: var(--space-2) var(--space-3); }
 }
 
@@ -2899,3 +2900,110 @@ html:not(.js) .work-more[hidden] { display: block !important; }
   color: var(--color-text-primary);
 }
 .edu-school { margin: var(--space-1) 0 0; font-size: var(--text-sm); color: var(--color-text-secondary); }
+
+/* ---------------------------------------------------------------------------
+   Contact panel, opened from Contact in the nav on every page: details on the
+   left, a short message form on the right. Stacks on narrow screens.
+   --------------------------------------------------------------------------- */
+.contact-dialog {
+  width: min(52rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-high);
+  overflow: auto;
+}
+.contact-dialog::backdrop { background: rgb(10 12 11 / 0.55); backdrop-filter: blur(3px); }
+.contact-dialog[open] { animation: contact-in 280ms var(--ease-smooth); }
+@keyframes contact-in { from { opacity: 0; transform: translateY(12px) scale(0.98); } }
+.contact-dialog-close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  z-index: 1;
+}
+.contact-dialog-close svg { width: 1.2rem; height: 1.2rem; }
+.contact-dialog-close:hover { background: var(--color-action-tint); }
+.contact-dialog-grid { display: grid; }
+@media (min-width: 44rem) { .contact-dialog-grid { grid-template-columns: 1fr 1.15fr; } }
+.contact-dialog-info {
+  padding: var(--space-8);
+  background: var(--color-action-tint);
+}
+.contact-dialog-kicker {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+.contact-dialog-info h2 { margin: var(--space-2) 0 0; font-size: var(--text-2xl); }
+.contact-dialog-lede { margin: var(--space-3) 0 var(--space-6); color: var(--color-text-secondary); font-size: var(--text-sm); }
+.contact-dialog-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); }
+.contact-dialog-list li { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
+.cd-ico {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-action);
+}
+.cd-ico svg { width: 1.2rem; height: 1.2rem; }
+.contact-dialog-list div { min-width: 0; }
+.cd-label {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+}
+.contact-dialog-list a,
+.contact-dialog-list div > span:last-child {
+  display: block;
+  font-weight: var(--weight-bold);
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+.contact-dialog-list a:hover { color: var(--color-action); }
+
+.contact-form { padding: var(--space-8); display: grid; gap: var(--space-4); align-content: start; }
+.contact-form h3 { margin: 0 0 var(--space-1); font-size: var(--text-xl); padding-right: var(--space-12); }
+.contact-form label { display: grid; gap: var(--space-2); font-size: var(--text-sm); font-weight: var(--weight-bold); }
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  font: inherit;
+  font-weight: var(--weight-regular);
+}
+.contact-form textarea { resize: vertical; min-height: 7.5rem; }
+.contact-form input:focus-visible,
+.contact-form textarea:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 1px; border-color: transparent; }
+.contact-form-send { justify-self: start; background: var(--color-action); color: var(--color-action-text); }
+.contact-form-send:hover { background: var(--color-action-hover); color: var(--color-action-text); }
+.contact-form-send:disabled { opacity: 0.6; cursor: wait; }
+.contact-form-status { margin: 0; min-height: 1.4em; font-size: var(--text-sm); }
+.contact-form-status.is-ok { color: var(--color-success); }
+.contact-form-status.is-error { color: var(--color-error); }
+/* The bot trap: present for form-filling scripts, invisible to people. */
+.contact-form-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+@media (prefers-reduced-motion: reduce) { .contact-dialog[open] { animation: none; } }
