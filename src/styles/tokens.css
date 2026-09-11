@@ -24,6 +24,9 @@
   --color-action-text: #ffffff;
   --color-action-tint: #e3f1eb;
   --color-focus: #0f5c4c;
+  /* The page headline: brand green on cream; in dark it turns cream so the
+     accent stays on buttons and links instead of shouting from the title. */
+  --color-hero-title: #0f5c4c;
 
   /* Pastel fills — cycled across cards for rhythm. */
   --fill-peach: #ffe1cd;
@@ -125,35 +128,36 @@
 /* DARK THEME — values only; no component branches on theme. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --color-background: #121715;
-    --color-surface: #1b2320;
-    --color-surface-raised: #222b28;
-    --color-border: #2c3733;
-    --color-border-strong: #435049;
+    --color-background: #161412;
+    --color-surface: #211e1b;
+    --color-surface-raised: #2a2622;
+    --color-border: #35302a;
+    --color-border-strong: #4d463e;
 
-    --color-text-primary: #f2f0ea;
-    --color-text-secondary: #b6c2bc;
-    --color-text-tertiary: #909d97;
-    --color-text-inverse: #121715;
+    --color-text-primary: #f3efe7;
+    --color-text-secondary: #c9c2b6;
+    --color-text-tertiary: #a39b8f;
+    --color-text-inverse: #161412;
 
-    --color-action: #5fd7b6;
-    --color-action-hover: #8ae7cd;
-    --color-action-text: #08130f;
-    --color-action-tint: #17302a;
-    --color-focus: #5fd7b6;
+    --color-action: #8fd1b8;
+    --color-action-hover: #aee0cc;
+    --color-action-text: #0f1a16;
+    --color-action-tint: #26302a;
+    --color-focus: #8fd1b8;
+    --color-hero-title: #f3efe7;
 
     --fill-peach: #3b2a20;
     --fill-lavender: #2a2740;
-    --fill-mint: #1c342a;
+    --fill-mint: #1f3029;
     --fill-butter: #3a3218;
     --fill-sky: #1e2c3d;
     --fill-rose: #3d2430;
-    --fill-sand: #33301f;
+    --fill-sand: #332d24;
 
     --color-success: #4ade80;
     --color-warning: #fbbf24;
     --color-error: #f87171;
-    --color-info: #5fd7b6;
+    --color-info: #8fd1b8;
 
     --shadow-subtle: 0 2px 6px rgb(0 0 0 / 0.4);
     --shadow-medium: 0 10px 30px rgb(0 0 0 / 0.5);
@@ -162,35 +166,36 @@
 }
 
 :root[data-theme="dark"] {
-  --color-background: #121715;
-  --color-surface: #1b2320;
-  --color-surface-raised: #222b28;
-  --color-border: #2c3733;
-  --color-border-strong: #435049;
+  --color-background: #161412;
+  --color-surface: #211e1b;
+  --color-surface-raised: #2a2622;
+  --color-border: #35302a;
+  --color-border-strong: #4d463e;
 
-  --color-text-primary: #f2f0ea;
-  --color-text-secondary: #b6c2bc;
-  --color-text-tertiary: #909d97;
-  --color-text-inverse: #121715;
+  --color-text-primary: #f3efe7;
+  --color-text-secondary: #c9c2b6;
+  --color-text-tertiary: #a39b8f;
+  --color-text-inverse: #161412;
 
-  --color-action: #5fd7b6;
-  --color-action-hover: #8ae7cd;
-  --color-action-text: #08130f;
-  --color-action-tint: #17302a;
-  --color-focus: #5fd7b6;
+  --color-action: #8fd1b8;
+  --color-action-hover: #aee0cc;
+  --color-action-text: #0f1a16;
+  --color-action-tint: #26302a;
+  --color-focus: #8fd1b8;
+  --color-hero-title: #f3efe7;
 
   --fill-peach: #3b2a20;
   --fill-lavender: #2a2740;
-  --fill-mint: #1c342a;
+  --fill-mint: #1f3029;
   --fill-butter: #3a3218;
   --fill-sky: #1e2c3d;
   --fill-rose: #3d2430;
-  --fill-sand: #33301f;
+  --fill-sand: #332d24;
 
   --color-success: #4ade80;
   --color-warning: #fbbf24;
   --color-error: #f87171;
-  --color-info: #5fd7b6;
+  --color-info: #8fd1b8;
 
   --shadow-subtle: 0 2px 6px rgb(0 0 0 / 0.4);
   --shadow-medium: 0 10px 30px rgb(0 0 0 / 0.5);

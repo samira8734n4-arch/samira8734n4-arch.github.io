@@ -457,7 +457,7 @@ body > .wrap:has(> .nav)::before {
 }
 .hero h1 {
   font-size: var(--text-4xl);
-  color: var(--color-action);
+  color: var(--color-hero-title);
 }
 
 /* ROTATING ROLES — all three stacked in one grid cell, so the line never
