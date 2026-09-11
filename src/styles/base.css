@@ -1117,6 +1117,9 @@ figcaption {
   cursor: pointer;
 }
 .btn:hover { background: var(--color-surface); color: var(--color-text-primary); }
+/* A button that leads with an icon: the icon sits on the text baseline. */
+.btn-icon { display: inline-flex; align-items: center; gap: var(--space-2); }
+.btn-icon svg { width: 1.15em; height: 1.15em; flex: none; }
 .btn-ghost {
   background: transparent;
   color: var(--color-action-text);
