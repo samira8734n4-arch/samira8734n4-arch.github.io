@@ -2809,7 +2809,9 @@ html:not(.js) .work-more[hidden] { display: block !important; }
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
-  filter: drop-shadow(0 8px 12px rgb(0 0 0 / 0.25));
+  /* The die-cut edge: four hard white shadows build an even outline round any
+     shape, then a soft one lifts the sticker off the card. */
+  filter: drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(0 8px 12px rgb(0 0 0 / 0.25));
 }
 .cta-sticker svg {
   display: block;
@@ -2827,10 +2829,11 @@ html:not(.js) .work-more[hidden] { display: block !important; }
   font-weight: 700;
   fill: #16231f;
 }
+.cta-sticker-text.is-display { font-family: var(--font-display); font-weight: 800; }
 .cta-stickers-hint {
   position: absolute;
   left: 0;
-  bottom: -0.25rem;
+  bottom: -1.75rem;
   margin: 0;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
