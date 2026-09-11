@@ -2712,7 +2712,6 @@ html:not(.js) .work-more[hidden] { display: block !important; }
   background: var(--fill-butter);
   color: var(--color-text-primary);
 }
-.award-ico.is-edu { background: var(--fill-sky); }
 .award-ico svg { width: 1.4rem; height: 1.4rem; }
 .about-awards strong { display: block; color: var(--color-text-primary); }
 .about-awards div span { display: block; font-size: var(--text-sm); color: var(--color-text-secondary); }
@@ -2856,3 +2855,47 @@ html:not(.js) .work-more[hidden] { display: block !important; }
   .js .cta-stickers.is-in .cta-sticker { animation: none; }
   .cta-sticker svg { transition: none; }
 }
+
+/* Education: the degree stands apart from the awards, as its own card with a
+   sky fill, a deep-blue edge and the degree set in the display face. */
+.about-edu {
+  --edu-ink: #164a83;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+  padding: var(--space-6);
+  background: var(--fill-sky);
+  border-left: 4px solid var(--edu-ink);
+  border-radius: var(--radius-lg);
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .about-edu { --edu-ink: #a9cdf7; } }
+[data-theme="dark"] .about-edu { --edu-ink: #a9cdf7; }
+.edu-ico {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--edu-ink);
+  box-shadow: var(--shadow-subtle);
+}
+.edu-ico svg { width: 1.9rem; height: 1.9rem; }
+.edu-tag {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--edu-ink);
+}
+.edu-degree {
+  margin: var(--space-1) 0 0;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+.edu-school { margin: var(--space-1) 0 0; font-size: var(--text-sm); color: var(--color-text-secondary); }
