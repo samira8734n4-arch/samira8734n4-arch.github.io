@@ -822,9 +822,18 @@ document.documentElement.classList.add('js');
   var status = dlg.querySelector('.contact-form-status');
   var send = dlg.querySelector('.contact-form-send');
 
-  function say(text, kind) {
+  function say(text, kind, mailto) {
     status.textContent = text;
     status.className = 'contact-form-status' + (kind ? ' is-' + kind : '');
+    // On failure the address is offered as a link, not just as words to copy.
+    if (mailto) {
+      var a = document.createElement('a');
+      a.href = 'mailto:' + MAIL;
+      a.textContent = MAIL;
+      status.appendChild(document.createTextNode(' '));
+      status.appendChild(a);
+      status.appendChild(document.createTextNode(' instead.'));
+    }
   }
 
   [].forEach.call(triggers, function (t) {
@@ -871,11 +880,11 @@ document.documentElement.classList.add('js');
           form.reset();
           say('Thanks, your message is on its way. I will reply to you by email.', 'ok');
         } else {
-          say('Your message could not be sent just now. Please email ' + MAIL + ' instead.', 'error');
+          say('Your message could not be sent just now. Please email', 'error', true);
         }
       })
       .catch(function () {
-        say('Your message could not be sent just now. Please email ' + MAIL + ' instead.', 'error');
+        say('Your message could not be sent just now. Please email', 'error', true);
       })
       .then(function () { send.disabled = false; send.textContent = 'Send message'; });
   });
