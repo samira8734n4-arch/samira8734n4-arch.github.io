@@ -3367,3 +3367,58 @@ html, body { overflow-x: clip; }
 
 /* Count badges removed from the shipped panel: the head is just name + years. */
 .shipped-head { display: block; }
+
+/* ---------------------------------------------------------------------------
+   Solid panels (shipped work, contact band). In the light theme they use the
+   action green with white text. In the dark theme the action colour becomes a
+   bright mint meant for buttons, which is far too loud as a large block, so
+   the panels switch to a deep green with light text, and the shipped pills to
+   quiet translucent chips.
+   --------------------------------------------------------------------------- */
+:root {
+  --color-panel: var(--color-action);
+  --color-panel-text: var(--color-action-text);
+  --color-panel-line: rgb(255 255 255 / 0.22);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-panel: #12332b;
+    --color-panel-text: #f3efe7;
+    --color-panel-line: rgb(255 255 255 / 0.14);
+  }
+}
+:root[data-theme="dark"] {
+  --color-panel: #12332b;
+  --color-panel-text: #f3efe7;
+  --color-panel-line: rgb(255 255 255 / 0.14);
+}
+:root[data-theme="light"] {
+  --color-panel: var(--color-action);
+  --color-panel-text: var(--color-action-text);
+  --color-panel-line: rgb(255 255 255 / 0.22);
+}
+
+.shipped, .note-card { background: var(--color-panel); color: var(--color-panel-text); }
+.shipped { border: 1px solid var(--color-panel-line); }
+.shipped-group { border-bottom-color: var(--color-panel-line); }
+.shipped-head h3, .shipped-when,
+.note-card p { color: var(--color-panel-text); }
+.note-card img { border-color: var(--color-panel-text); }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .shipped .shipped-list li {
+    background: rgb(255 255 255 / 0.08);
+    border: 1px solid rgb(255 255 255 / 0.14);
+    color: #f3efe7;
+  }
+  :root:not([data-theme="light"]) .shipped .shipped-type { color: #c9c2b6; }
+}
+:root[data-theme="dark"] .shipped .shipped-list li {
+  background: rgb(255 255 255 / 0.08);
+  border: 1px solid rgb(255 255 255 / 0.14);
+  color: #f3efe7;
+}
+:root[data-theme="dark"] .shipped .shipped-type { color: #c9c2b6; }
+
+/* Contact band photo: a real photograph needs more room than the avatar did. */
+.note-card img { width: 6.5rem; height: 6.5rem; object-position: center; }
