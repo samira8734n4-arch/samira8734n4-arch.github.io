@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parliament Documentation System &mdash; Samira Binte Hamid</title>
+<meta name="description" content="An internal document management system for the Bangladesh Parliament Secretariat: central archive, search, sharing, reminders and role-based permissions. UX case study.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Plus+Jakarta+Sans:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/tokens.css">
+<link rel="stylesheet" href="../styles/base.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="wrap">
+  <nav class="nav">
+    <a class="home" href="../index.html"><img class="avatar" src="../assets/samira.png" alt="" width="471" height="522" loading="eager"> Samira</a>
+    <a href="../index.html#work" aria-current="page">Work</a>
+    <a href="../about.html">About</a>
+    <a href="../cv.pdf" download="Samira-Binte-Hamid-CV.pdf">CV</a>
+    <a href="mailto:samirabintehamid46@gmail.com" data-contact>Contact</a>
+  </nav>
+</div>
+
+<div class="progress" aria-hidden="true"><span class="progress-bar" data-progress></span></div>
+
+<main id="main">
+  <header class="wrap hero">
+    <a class="back" href="../index.html#work"><svg class="back-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>Back to work</a>
+    <p class="client-logo is-square"><img src="../assets/parliament/parliament-logo.png" alt=""
+        width="104" height="104" loading="eager"></p>
+    <p class="eyebrow">Government &middot; Document management &middot; Mysoft Heaven</p>
+    <h1>Parliament Documentation System</h1>
+    <p class="lede">One secure place for the Bangladesh Parliament Secretariat
+      to upload, find and share legislative files &mdash; replacing shared
+      drives and email threads.</p>
+  </header>
+
+  <div class="wrap">
+    <figure data-reveal>
+      <img class="shot" src="../assets/parliament/parliament-cover.webp"
+           alt="The system's login screen over a photo of the National Parliament building, under the title Building a secure and accessible government documentation platform."
+           width="1400" height="896" loading="eager">
+    </figure>
+
+    <dl class="summary">
+      <div><dt>Role</dt><dd>UI/UX Designer &mdash; research, UI design and prototype</dd></div>
+      <div><dt>Duration</dt><dd>2023&ndash;2024</dd></div>
+      <div><dt>Platform</dt><dd>Internal web system, desktop and tablet</dd></div>
+      <div><dt>Client</dt><dd>Bangladesh Parliament Secretariat</dd></div>
+      <div><dt>Tools</dt><dd>Figma, Photoshop</dd></div>
+    </dl>
+
+    <div class="stats">
+      <div><span class="stat-value">7</span><span class="stat-label">Steps in the upload workflow, from login to notifying users</span></div>
+      <div><span class="stat-value">7</span><span class="stat-label">Modules, from dashboard to settings</span></div>
+      <div><span class="stat-value">11</span><span class="stat-label">Permissions an admin can switch on or off per role</span></div>
+    </div>
+  </div>
+
+  <div class="wrap prose">
+    <section class="prose-section" data-reveal>
+      <h2 class="rule"><span class="n">01</span>The problem</h2>
+      <div class="body">
+        <p>Parliament's internal documentation ran on manual workflows,
+          unstructured file drives and scattered email threads.</p>
+        <p>Important documents were slow to retrieve. Files were duplicated or
+          lost. And with no central archive, version history or permissions,
+          sensitive legislative material was at real risk of reaching people who
+          should not see it.</p>
+      </div>
+    </section>
+
+    <section class="prose-section" data-reveal>
+      <h2 class="rule"><span class="n">02</span>What it had to do</h2>
+      <div class="body">
+        <ul class="points">
+          <li><strong>Centralise</strong> legislative files, motions and notes
+            in one archive.</li>
+          <li><strong>Make retrieval fast</strong>, through search and filters
+            rather than remembering which drive a file is on.</li>
+          <li><strong>Control access by role</strong>, so sensitive files are
+            only open to the right people.</li>
+          <li><strong>Track every action</strong> with version history, for
+            accountability.</li>
+          <li><strong>Stay simple</strong> enough for non-technical staff, on
+            desktop and tablet.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="prose-section" data-reveal>
+      <h2 class="rule"><span class="n">03</span>Process and workflow</h2>
+      <div class="body">
+        <p>The work ran in four phases, measured in sprints: discovery (1),
+          research (2), UI design (4) and prototype (6).</p>
+        <p>The core flow is uploading a document, and it has seven steps: log
+          in, land on the dashboard, upload, add metadata (title, tags, date),
+          set the access level, submit, and the system notifies the relevant
+          users. Access level is a step in the upload itself, not a setting to
+          remember afterwards.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <figure data-reveal>
+      <img class="shot" src="../assets/parliament/parliament-process.jpg"
+           alt="The folders and files screen on a laptop, and a design process timeline: discovery in 1 sprint, research in 2 sprints, UI design in 4 sprints, prototype in 6 sprints."
+           width="1400" height="1679" loading="lazy">
+      <figcaption>The design process, in sprints.</figcaption>
+    </figure>
+
+    <figure data-reveal>
+      <img class="shot" src="../assets/parliament/parliament-workflow.jpg"
+           alt="Document upload workflow in seven steps: login, dashboard, upload document, add metadata, set access level, submit, notify users."
+           width="1400" height="770" loading="lazy">
+      <figcaption>The upload workflow.</figcaption>
+    </figure>
+  </div>
+
+  <section class="wrap section" aria-labelledby="mods-h">
+    <h2 id="mods-h" class="rule">What's in it</h2>
+    <ul class="feature-grid">
+      <li class="feature-card" data-reveal>
+        <span class="feature-n" aria-hidden="true">01</span>
+        <h3>Dashboard</h3>
+        <p class="feature-job">Total users, folders and files, recent uploads,
+          this month's upload volume, new users, and storage used by file type.</p>
+      </li>
+      <li class="feature-card" data-reveal>
+        <span class="feature-n" aria-hidden="true">02</span>
+        <h3>Upload</h3>
+        <p class="feature-job">Drag and drop, with per-file progress, and meta
+          tags added to the whole batch so the files can be found later.</p>
+      </li>
+      <li class="feature-card" data-reveal>
+        <span class="feature-n" aria-hidden="true">03</span>
+        <h3>Folders &amp; files</h3>
+        <p class="feature-job">Folders above files, filtered by file type,
+          modification date and who a file is shared with. Search is in the top
+          bar on every screen.</p>
+      </li>
+      <li class="feature-card" data-reveal>
+        <span class="feature-n" aria-hidden="true">04</span>
+        <h3>Share file manager</h3>
+        <p class="feature-job">Every share in one table: who shared it, when,
+          with whom, and a Manage button to change it.</p>
+      </li>
+      <li class="feature-card" data-reveal>
+        <span class="feature-n" aria-hidden="true">05</span>
+        <h3>Reminders</h3>
+        <p class="feature-job">A reminder attached to a file or folder. Opening
+          the file from the reminder asks for a password first.</p>
+      </li>
+      <li class="feature-card" data-reveal>
+        <span class="feature-n" aria-hidden="true">06</span>
+        <h3>Users, roles &amp; permissions</h3>
+        <p class="feature-job">A user list with roles, and a permission screen
+          where each role gets eleven yes/no switches &mdash; upload, share,
+          versions, folders, storage and more.</p>
+      </li>
+    </ul>
+  </section>
+
+  <div class="wrap prose">
+    <section class="prose-section" data-reveal>
+      <h2 class="rule"><span class="n">04</span>Two things worth pointing at</h2>
+      <div class="body">
+        <p><strong>Permissions are switches, not a matrix.</strong> Editing a
+          role opens a plain list of eleven permissions, each with a yes/no
+          toggle. An administrator who is not technical can read exactly what a
+          role can do, and change it, without training.</p>
+        <p><strong>Storage is shown by file type.</strong> Documents, Word,
+          Excel, PDF, audio, images, video and archives each show their share of
+          the total. When space runs low, the admin can see what is using
+          it.</p>
+      </div>
+    </section>
+
+    <section class="prose-section" data-reveal>
+      <h2 class="rule"><span class="n">05</span>The system</h2>
+      <div class="body">
+        <p>Poppins in five weights, on a 12-column grid at 1440px with a fixed
+          220px sidebar. The palette is a grey scale plus a green scale built up
+          to <code>#15904C</code>, with a single amber reserved for the main
+          action on each screen &mdash; Upload File, New Folder, New User.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <figure data-reveal>
+      <img class="shot" src="../assets/parliament/parliament-system.jpg"
+           alt="The folders and files screen, the Poppins typeface in five weights, grey and green colour scales with hex values, the icon set and a 12-column grid layout."
+           width="1400" height="2290" loading="lazy">
+      <figcaption>Type, colour, icons and grid.</figcaption>
+    </figure>
+
+    <figure data-reveal>
+      <img class="shot" src="../assets/parliament/parliament-dashboard.jpg"
+           alt="The dashboard with totals for users, folders and files, recent folders and files, a monthly upload chart, new users and storage by file type, followed by the file upload screen with progress per file and a meta tag field."
+           width="1400" height="3140" loading="lazy">
+      <figcaption>Dashboard and file upload.</figcaption>
+    </figure>
+
+    <figure data-reveal>
+      <img class="shot" src="../assets/parliament/parliament-files.jpg"
+           alt="The folders and files screen with filters, and the share file manager table listing who shared each file, when and with whom."
+           width="1400" height="2100" loading="lazy">
+      <figcaption>Folders and files, and the share file manager.</figcaption>
+    </figure>
+
+    <figure data-reveal>
+      <img class="shot" src="../assets/parliament/parliament-storage.jpg"
+           alt="Storage space management by file type with folder and file totals, a reminder dialog asking for a password before opening a file, and the system user list."
+           width="1400" height="3100" loading="lazy">
+      <figcaption>Storage, a reminder, and the user list.</figcaption>
+    </figure>
+
+    <figure data-reveal>
+      <img class="shot" src="../assets/parliament/parliament-roles.jpg"
+           alt="The role and permission list, and the dialog for updating a role with eleven permissions each on a yes or no toggle."
+           width="1400" height="2027" loading="lazy">
+      <figcaption>Roles, and the eleven switches behind each one.</figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap prose">
+    <section class="prose-section" data-reveal>
+      <h2 class="rule"><span class="n">06</span>Credit</h2>
+      <div class="body">
+        <p>UX and UI for the Bangladesh Parliament Secretariat, with Mysoft
+          Heaven as design and development partner. Published on
+          <a href="https://www.behance.net/gallery/212633725/Parliament-Documentation-Internal-System"
+             target="_blank" rel="noopener">Behance</a>.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <div class="endcards">
+      <a class="endcard endcard-next" href="lsg.html">
+        <span class="endcard-label">Next</span>
+        <h2>Land Service Gateway</h2>
+        <p>Eight land services behind one login, redesigned around clearer
+          data.</p>
+        <span class="endcard-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <div class="endcard endcard-contact">
+        <span class="endcard-label">Get in touch</span>
+        <h2>Say hello</h2>
+        <p>Happy to walk through this project, or any of the others, on a call.</p>
+        <div class="actions">
+          <a class="btn" href="mailto:samirabintehamid46@gmail.com">Email me</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-inner">
+  <p>Samira Binte Hamid &middot; Dhaka, Bangladesh &middot;
+    <a href="https://www.linkedin.com/in/samira-binte-hamid-b3a1a0119/">LinkedIn</a> &middot;
+    <a href="https://www.behance.net/samira00100">Behance</a> &middot;
+    <a href="https://uiuxghost.blogspot.com/">Blog</a> &middot;
+    <a href="../cv.pdf" download="Samira-Binte-Hamid-CV.pdf">CV</a></p>
+  </div>
+</footer>
+<script src="../scripts/theme.js" defer></script>
+
+<button class="theme-fab" type="button" data-theme-toggle>
+  <span class="theme-fab-icons" aria-hidden="true">
+    <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+    <svg class="ico-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.7 14.6A8.7 8.7 0 0 1 9.4 3.3a8.7 8.7 0 1 0 11.3 11.3Z"/></svg>
+  </span>
+</button>
+
+</body>
+</html>

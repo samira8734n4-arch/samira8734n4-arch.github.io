@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LD-Tax System &amp; App — Samira Binte Hamid</title>
-<meta name="description" content="Land tax filing for Bangladeshi citizens. Research and prototyping for a government system used by people who cannot opt out.">
+<title>LD-Tax System &amp; App &mdash; Samira Binte Hamid</title>
+<meta name="description" content="Redesigning Bangladesh's online land development tax system: a heuristic audit, a prioritised plan, and a responsive web and mobile redesign for citizens of every digital skill level. UX case study.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Plus+Jakarta+Sans:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -20,83 +20,249 @@
     <a class="home" href="../index.html"><img class="avatar" src="../assets/samira.png" alt="" width="471" height="522" loading="eager"> Samira</a>
     <a href="../index.html#work" aria-current="page">Work</a>
     <a href="../about.html">About</a>
-    <a href="../cv.pdf">CV</a>
+    <a href="../cv.pdf" download="Samira-Binte-Hamid-CV.pdf">CV</a>
     <a href="mailto:samirabintehamid46@gmail.com" data-contact>Contact</a>
   </nav>
 </div>
 
+<div class="progress" aria-hidden="true"><span class="progress-bar" data-progress></span></div>
+
 <main id="main">
-  <!-- 1–3: scannable layer. Readable cold, forwarded on its own. -->
   <header class="wrap hero">
     <a class="back" href="../index.html#work"><svg class="back-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>Back to work</a>
-    <p class="eyebrow">Government · Tax · Mysoft Heaven</p>
+    <p class="client-logo is-square"><img src="../assets/ldtax/ldtax-logo.png" alt=""
+        width="210" height="210" loading="eager"></p>
+    <p class="eyebrow">Government &middot; Land tax &middot; Mysoft Heaven</p>
     <h1>LD-Tax System &amp; App</h1>
-    <p class="lede">Land tax filing for citizens who cannot opt out.
-      <span class="todo">[[TODO: the outcome, in one sentence, with a number]]</span></p>
+    <p class="lede">Bangladesh's online land development tax, redesigned so a
+      citizen with little digital experience can register a khotian, see what
+      they owe and pay it &mdash; on a laptop or a phone.</p>
   </header>
 
   <div class="wrap">
+    <figure data-reveal>
+      <img class="shot" src="../assets/ldtax/ldtax-cover.webp"
+           alt="The redesigned LD-Tax login page on a desktop browser and a phone, under the title Simplifying the LDTax user experience, with the Government of Bangladesh seal and the Land Ministry automation logo."
+           width="1400" height="896" loading="eager">
+    </figure>
+
     <dl class="summary">
-      <div><dt>Role</dt><dd>UI/UX Designer — led user research and prototyping</dd></div>
-      <div><dt>Team</dt><dd><span class="todo">[[TODO: size and make-up]]</span></dd></div>
-      <div><dt>Duration</dt><dd><span class="todo">[[TODO]]</span>, 2023–2024</dd></div>
-      <div><dt>Platform</dt><dd>Web system and mobile app</dd></div>
-      <div><dt>Constraint</dt><dd><span class="todo">[[TODO: the one thing that made this hard]]</span></dd></div>
-      <div><dt>Outcome</dt><dd><span class="todo">[[TODO: before → after, with the number]]</span></dd></div>
+      <div><dt>Role</dt><dd>UI/UX Designer &mdash; UX audit, user research, flows and UI</dd></div>
+      <div><dt>Duration</dt><dd>2023&ndash;2024</dd></div>
+      <div><dt>Platform</dt><dd>Responsive web system and mobile</dd></div>
+      <div><dt>Client</dt><dd>Ministry of Land, Government of Bangladesh</dd></div>
+      <div><dt>Tools</dt><dd>Figma, FigJam, Illustrator, Notion, Google Sheets</dd></div>
     </dl>
 
     <div class="stats">
-      <div><span class="stat-value todo">[[TODO]]</span><span class="stat-label"><span class="todo">[[TODO: what this number measures]]</span></span></div>
-      <div><span class="stat-value todo">[[TODO]]</span><span class="stat-label"><span class="todo">[[TODO: second number]]</span></span></div>
-      <div><span class="stat-value todo">[[TODO]]</span><span class="stat-label"><span class="todo">[[TODO: third number]]</span></span></div>
+      <div><span class="stat-value">5</span><span class="stat-label">Usability problems from the heuristic audit, each with a fix</span></div>
+      <div><span class="stat-value">7</span><span class="stat-label">High-impact changes prioritised on the impact&ndash;effort matrix</span></div>
+      <div><span class="stat-value">9</span><span class="stat-label">Core screens redesigned, each for desktop and mobile</span></div>
     </div>
-
   </div>
 
-  <!-- 4–7: deep layer. This is where the reasoning lives. -->
   <div class="wrap prose">
-    <h2 class="rule"><span class="n">01</span>The constraint</h2>
-    <p><span class="todo">[[TODO]]</span> — what made this genuinely hard. Not
-      "the client wanted a redesign". Name the real limit: the legal process that
-      could not change, the device the users actually had, the literacy range,
-      the legacy system it had to sit on top of.</p>
+    <section class="prose-section" data-reveal>
+      <h2 class="rule"><span class="n">01</span>The problem</h2>
+      <div class="body">
+        <p>LD-Tax is how landowners in Bangladesh pay land development tax
+          online. Nobody chooses to use it; if you own land, you have to.</p>
+        <p>The old system made that hard. Workflows were complicated, patterns
+          changed from screen to screen, and it barely worked on a phone. Key
+          features were hard to find, the instructions were a wall of Bangla
+          text, and there was little help when people got stuck. The result was
+          delayed payments and transactions left half-finished &mdash; worst for
+          the people with the least digital experience.</p>
+      </div>
+    </section>
 
-    <h2 class="rule"><span class="n">02</span>What I weighed</h2>
-    <p><span class="todo">[[TODO]]</span> — the options considered, and why the
-      rejected ones were rejected. This section is what produces confidence in
-      your judgement; a case study without it is a screenshot gallery.</p>
+    <section class="prose-section" data-reveal>
+      <h2 class="rule"><span class="n">02</span>What it had to do</h2>
+      <div class="body">
+        <ul class="points">
+          <li><strong>Simplify navigation</strong> &mdash; clear categories and
+            step-by-step processes, so the right form or payment is easy to find.</li>
+          <li><strong>Cut cognitive load</strong> &mdash; fewer fields, no jargon,
+            and tooltips and contextual help for first-time and low-literacy users.</li>
+          <li><strong>Work on mobile</strong> &mdash; many users reach the portal
+            on a phone or tablet, so it had to be touch-friendly and fast.</li>
+          <li><strong>Design for everyone who has to use it</strong> &mdash; older
+            citizens, rural users, government officials and people with
+            disabilities.</li>
+        </ul>
+      </div>
+    </section>
 
-    <h2 class="rule"><span class="n">03</span>The call I made</h2>
-    <p><span class="todo">[[TODO]]</span> — the decision, and the research that
-      backed it. You led user research here, so say what it told you and what you
-      changed because of it.</p>
-
-    <h2 class="rule"><span class="n">04</span>What happened</h2>
-    <p><span class="todo">[[TODO: the numbers]]</span> — before and after.
-      Completion rate, support tickets, time to file, error rate. If a number
-      does not exist, say what you observed instead, and say plainly that it was
-      not measured. Do not estimate.</p>
-
-    <h2 class="rule"><span class="n">05</span>What I would do differently</h2>
-    <p><span class="todo">[[TODO]]</span> — one honest thing. This section costs
-      nothing and buys more credibility than anything above it.</p>
+    <section class="prose-section" data-reveal>
+      <h2 class="rule"><span class="n">03</span>The audit</h2>
+      <div class="body">
+        <p>I started by auditing the live system against usability heuristics,
+          pairing every problem with a recommendation:</p>
+        <ul class="points">
+          <li><strong>Visibility of system status</strong> &mdash; sidebar labels
+            were unclear and placed inconsistently, so people lost track of where
+            they were in the tax process.</li>
+          <li><strong>Recognition rather than recall</strong> &mdash; important
+            information was scattered with weak visual cues, so users had to hunt
+            for it.</li>
+          <li><strong>Consistency and standards</strong> &mdash; unclear buttons,
+            mislabelled fields, and outlined and solid icon styles mixed
+            together.</li>
+          <li><strong>Aesthetic and minimalist design</strong> &mdash; screens
+            full of equal-weight buttons with no guidance on which to press.</li>
+        </ul>
+      </div>
+    </section>
   </div>
 
-  <section class="wrap cta">
-    <h2>Next: PropSoft.ai</h2>
-    <p class="prose">One product across three surfaces — system, app and
-      marketing site. <a href="propsoft.html">Read it →</a></p>
-    <a class="btn" href="mailto:samirabintehamid46@gmail.com">samirabintehamid46@gmail.com</a>
-  </section>
+  <div class="wrap">
+    <figure data-reveal>
+      <img class="shot" src="../assets/ldtax/ldtax-audit.webp"
+           alt="UX audit board: screenshots of the old purple LD-Tax system annotated with problems and recommendations for visibility of system status, recognition rather than recall, consistency and standards, and aesthetic and minimalist design."
+           width="1400" height="2134" loading="lazy">
+      <figcaption>The old system, annotated. Each problem is paired with a
+        recommendation.</figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap prose">
+    <section class="prose-section" data-reveal>
+      <h2 class="rule"><span class="n">04</span>Deciding what to fix first</h2>
+      <div class="body">
+        <p>Research ran from user feedback and interviews through a customer
+          journey map, jobs-to-be-done scenarios, information architecture and
+          user flows. The flow I designed for is short: register or log in with
+          a National ID, select the khotian, see the holding tax, pay, and get
+          the khotian back.</p>
+        <p>An impact&ndash;effort matrix decided the order. The quick wins
+          &mdash; tooltips on form fields, highlighting the current step, clearer
+          sidebar labels &mdash; went first. Next came the bigger, high-impact
+          work: a dashboard redesign, role-based access, a step-by-step payment
+          guide and a fully responsive build. Custom page transitions and complex
+          data filters were left out, because they cost a lot and helped nobody
+          pay their tax.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <figure data-reveal>
+      <img class="shot" src="../assets/ldtax/ldtax-process.webp"
+           alt="Process board: idea, research and design phases; a scope of work covering UX research, customer journey map, jobs to be done, impact effort matrix, information architecture and user flow; and the impact effort matrix placing each feature by impact and effort."
+           width="1400" height="2610" loading="lazy">
+      <figcaption>Process, scope and the impact&ndash;effort matrix that set the
+        order of work.</figcaption>
+    </figure>
+
+    <figure data-reveal>
+      <img class="shot" src="../assets/ldtax/ldtax-flow.webp"
+           alt="User flow: home page, then registration or login with name, National ID, email and mobile number, then user dashboard, select property or land khotian, view holding tax details, payment gateway, and access khotian."
+           width="1400" height="1056" loading="lazy">
+      <figcaption>The citizen's path, from the home page to a paid khotian.</figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap prose">
+    <section class="prose-section" data-reveal>
+      <h2 class="rule"><span class="n">05</span>The redesign</h2>
+      <div class="body">
+        <p><strong>A dashboard that answers &ldquo;what do I owe?&rdquo;</strong>
+          Holdings, pending khotians, dakhilas and demand sit in summary tiles at
+          the top, with payment history and a completion ring underneath. Profile
+          verification lives in the sidebar, so an unverified NID or mobile number
+          is visible on every screen.</p>
+        <p><strong>One pattern for every list.</strong> Khotian, dakhila and
+          complaint pages share the same table, status colours and
+          &ldquo;details&rdquo; link, so learning one screen teaches the rest.
+          Receipts download as PDF from the row.</p>
+        <p><strong>Forms that fill themselves.</strong> Adding a khotian or filing
+          a complaint uses cascading division, district, upazila and mouza
+          dropdowns, and the complaint form pre-fills the land details from the
+          chosen holding instead of asking for them again.</p>
+        <p><strong>Built on the national identity.</strong> Noto Serif Bengali
+          across five weights, and a palette taken from the flag: primary
+          <code>#12633D</code>, secondary <code>#198754</code>, on a light
+          <code>#F3F3F3</code> ground.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <figure data-reveal>
+      <img class="shot" src="../assets/ldtax/ldtax-before-after.webp"
+           alt="Before and after: the old purple dashboard, profile, holding and khotian screens beside the redesigned green versions with summary tiles, charts, a verification sidebar and structured tables."
+           width="1400" height="2233" loading="lazy">
+      <figcaption>Before and after, screen for screen.</figcaption>
+    </figure>
+
+    <figure data-reveal>
+      <img class="shot" src="../assets/ldtax/ldtax-solutions.webp"
+           alt="The redesigned login page, dashboard, khotian list and add-khotian form."
+           width="1400" height="4021" loading="lazy">
+      <figcaption>Login, dashboard, khotian list and khotian registration.</figcaption>
+    </figure>
+
+    <figure data-reveal>
+      <img class="shot" src="../assets/ldtax/ldtax-system.webp"
+           alt="Visual elements: the Noto Serif Bengali typeface in five weights, a draped Bangladesh flag, and the five colours used, from primary green #12633D to background #F3F3F3."
+           width="1400" height="1838" loading="lazy">
+      <figcaption>Type and colour, drawn from the flag.</figcaption>
+    </figure>
+
+    <figure data-reveal>
+      <img class="shot" src="../assets/ldtax/ldtax-mobile.webp"
+           alt="Grid of mobile screens: navigation drawer, profile, dashboard, password change with OTP, add khotian, dakhila list, complaints, khotian list and holding details."
+           width="1400" height="4311" loading="lazy">
+      <figcaption>Every core screen, reflowed for a phone.</figcaption>
+    </figure>
+
+    <figure data-reveal>
+      <img class="shot" src="../assets/ldtax/ldtax-mockup.webp"
+           alt="The redesigned dashboard on a laptop, and the add-khotian form on a phone."
+           width="1400" height="709" loading="lazy">
+    </figure>
+  </div>
+
+  <div class="wrap prose">
+    <section class="prose-section" data-reveal>
+      <h2 class="rule"><span class="n">06</span>Credit</h2>
+      <div class="body">
+        <p>UX and UI for the Land Ministry's land management automation project,
+          with Mysoft Heaven as technical partner. Published on
+          <a href="https://www.behance.net/gallery/229870827/LDTax-System-Modernizing-Profiles-with-UX-First-Design"
+             target="_blank" rel="noopener">Behance</a>.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <div class="endcards">
+      <a class="endcard endcard-next" href="ld-tax-portal.html">
+        <span class="endcard-label">The other half</span>
+        <h2>LD-Tax Portal</h2>
+        <p>The public front door of the same service &mdash; home page, login
+          and registration.</p>
+        <span class="endcard-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <div class="endcard endcard-contact">
+        <span class="endcard-label">Get in touch</span>
+        <h2>Say hello</h2>
+        <p>Happy to walk through this project, or any of the others, on a call.</p>
+        <div class="actions">
+          <a class="btn" href="mailto:samirabintehamid46@gmail.com">Email me</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
 
 <footer class="foot">
   <div class="wrap foot-inner">
-  <p>Samira Binte Hamid · Dhaka, Bangladesh ·
-    <a href="https://www.linkedin.com/in/samira-binte-hamid-b3a1a0119/">LinkedIn</a> ·
-    <a href="https://www.behance.net/samira00100">Behance</a> ·
-    <a href="https://uiuxghost.blogspot.com/">Blog</a> ·
-    <a href="../cv.pdf">CV</a></p>
+  <p>Samira Binte Hamid &middot; Dhaka, Bangladesh &middot;
+    <a href="https://www.linkedin.com/in/samira-binte-hamid-b3a1a0119/">LinkedIn</a> &middot;
+    <a href="https://www.behance.net/samira00100">Behance</a> &middot;
+    <a href="https://uiuxghost.blogspot.com/">Blog</a> &middot;
+    <a href="../cv.pdf" download="Samira-Binte-Hamid-CV.pdf">CV</a></p>
   </div>
 </footer>
 <script src="../scripts/theme.js" defer></script>

@@ -1076,6 +1076,70 @@ figcaption {
 .chips li:nth-child(5n+4) { background: var(--fill-butter); border-color: transparent; }
 .chips li:nth-child(5n+5) { background: var(--fill-sky); border-color: transparent; }
 
+/* SHIPPED — the other projects, grouped by employer, on one solid panel in
+   the action green so the section reads as a block rather than fading into the
+   page. Each employer is a row: count, name and years on the left, its
+   products as pastel pills on the right. Rows keep the columns from ending at
+   three different heights, which the earlier three-card layout did. */
+.shipped {
+  list-style: none;
+  margin: var(--space-8) 0 0;
+  padding: var(--space-4) var(--space-8);
+  background: var(--color-action);
+  color: var(--color-action-text);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-medium);
+}
+.shipped-group {
+  display: grid;
+  gap: var(--space-6);
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+}
+.shipped-group:last-child { border-bottom: 0; }
+@media (min-width: 48rem) {
+  .shipped { padding: var(--space-6) var(--space-12); }
+  .shipped-group { grid-template-columns: 17rem 1fr; align-items: center; gap: var(--space-8); }
+}
+.shipped-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: var(--space-4);
+}
+.shipped-count {
+  grid-row: 1 / span 2;
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-weight: var(--weight-black);
+  font-size: var(--text-2xl);
+  line-height: 1;
+  color: var(--color-text-primary);
+}
+.shipped-group.is-peach .shipped-count { background: var(--fill-peach); }
+.shipped-group.is-mint .shipped-count { background: var(--fill-mint); }
+.shipped-group.is-lavender .shipped-count { background: var(--fill-lavender); }
+.shipped-head h3 { font-size: var(--text-xl); margin: 0; color: var(--color-action-text); align-self: end; }
+.shipped-when { font-size: var(--text-sm); color: var(--color-action-text); opacity: 0.8; align-self: start; }
+.shipped-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.shipped-list li {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-full);
+  color: var(--color-text-primary);
+}
+.shipped-group.is-peach .shipped-list li { background: var(--fill-peach); }
+.shipped-group.is-mint .shipped-list li { background: var(--fill-mint); }
+.shipped-group.is-lavender .shipped-list li { background: var(--fill-lavender); }
+.shipped-name { font-weight: var(--weight-bold); }
+.shipped-type { font-size: var(--text-sm); color: var(--color-text-secondary); white-space: nowrap; }
+
 /* NOTE — the handwritten-letter block. */
 .note {
   background: var(--fill-butter);
@@ -3007,3 +3071,48 @@ html:not(.js) .work-more[hidden] { display: block !important; }
 /* The bot trap: present for form-filling scripts, invisible to people. */
 .contact-form-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { .contact-dialog[open] { animation: none; } }
+
+/* ---------------------------------------------------------------------------
+   CV preview, opened from any CV link. Reuses the contact dialog shell; adds a
+   title bar with the actions and a tall frame for the PDF itself.
+   --------------------------------------------------------------------------- */
+.cv-dialog { width: min(60rem, calc(100vw - 2rem)); overflow: hidden; }
+.cv-dialog[open] { display: flex; flex-direction: column; height: calc(100dvh - 2rem); }
+.cv-dialog-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+.cv-dialog-bar h2 { margin: 0; font-size: var(--text-xl); }
+.cv-dialog-actions { display: flex; align-items: center; gap: var(--space-4); }
+.cv-dialog-open { font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--color-text-primary); }
+.cv-dialog-download {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-action);
+  color: var(--color-action-text);
+}
+.cv-dialog-download:hover { background: var(--color-action-hover); }
+.cv-dialog-download svg { width: 1.1rem; height: 1.1rem; }
+.cv-dialog-close {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+.cv-dialog-close svg { width: 1.2rem; height: 1.2rem; }
+.cv-dialog-close:hover { background: var(--color-action-tint); }
+.cv-dialog-body { flex: 1; min-height: 0; background: var(--fill-sand); }
+.cv-dialog-frame { display: block; width: 100%; height: 100%; border: 0; }
+.cv-dialog-frame[hidden] { display: none; }
+.cv-dialog-fallback { margin: 0; padding: var(--space-12) var(--space-6); text-align: center; color: var(--color-text-primary); }

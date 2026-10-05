@@ -889,3 +889,57 @@ document.documentElement.classList.add('js');
       .then(function () { send.disabled = false; send.textContent = 'Send message'; });
   });
 })();
+
+// CV preview. Any link to cv.pdf opens the PDF in a dialog with Download and
+// Open-in-new-tab actions. The links keep their href and download attribute, so
+// without JS (or on a modified click) they still fetch the file directly.
+(function () {
+  var links = document.querySelectorAll('a[href$="cv.pdf"]');
+  if (!links.length || !window.HTMLDialogElement) return;
+
+  var FILE = 'Samira-Binte-Hamid-CV.pdf';
+  var X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+  var DOWN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/></svg>';
+  var dlg, frame, down, open;
+
+  function build() {
+    dlg = document.createElement('dialog');
+    dlg.className = 'contact-dialog cv-dialog';
+    dlg.setAttribute('aria-labelledby', 'cv-dialog-h');
+    dlg.innerHTML =
+      '<div class="cv-dialog-bar">' +
+        '<h2 id="cv-dialog-h">My CV</h2>' +
+        '<div class="cv-dialog-actions">' +
+          '<a class="cv-dialog-open" target="_blank" rel="noopener">Open in new tab</a>' +
+          '<a class="btn cv-dialog-download" download="' + FILE + '">' + DOWN + 'Download PDF</a>' +
+          '<button class="cv-dialog-close" type="button" aria-label="Close">' + X + '</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="cv-dialog-body">' +
+        '<iframe class="cv-dialog-frame" title="CV preview"></iframe>' +
+        '<p class="cv-dialog-fallback" hidden>This browser cannot preview PDFs here. Use Download PDF or Open in new tab above.</p>' +
+      '</div>';
+    document.body.appendChild(dlg);
+    frame = dlg.querySelector('.cv-dialog-frame');
+    down = dlg.querySelector('.cv-dialog-download');
+    open = dlg.querySelector('.cv-dialog-open');
+    // Mobile browsers mostly cannot render a PDF inside an iframe.
+    if (navigator.pdfViewerEnabled === false) {
+      frame.hidden = true;
+      dlg.querySelector('.cv-dialog-fallback').hidden = false;
+    }
+    dlg.querySelector('.cv-dialog-close').addEventListener('click', function () { dlg.close(); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+  }
+
+  links.forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;
+      e.preventDefault();
+      if (!dlg) build();
+      down.href = open.href = a.href;
+      if (!frame.hidden && !frame.src) frame.src = a.href + '#view=FitH&toolbar=0';
+      dlg.showModal();
+    });
+  });
+})();
