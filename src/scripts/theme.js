@@ -943,3 +943,57 @@ document.documentElement.classList.add('js');
     });
   });
 })();
+
+// Working-process timeline. Panels are all visible in the markup; with JS only
+// the selected one shows. The --p custom property (0 to 1) drives the filled
+// part of the line. Arrow keys move between steps, as the tab pattern expects.
+(function () {
+  var box = document.querySelector('[data-process]');
+  if (!box) return;
+  var tabs = Array.prototype.slice.call(box.querySelectorAll('[role="tab"]'));
+  var panels = Array.prototype.slice.call(box.querySelectorAll('[role="tabpanel"]'));
+  var nav = box.querySelector('.process-nav');
+  var prev = box.querySelector('[data-process-prev]');
+  var next = box.querySelector('[data-process-next]');
+  var count = box.querySelector('[data-process-count]');
+  var current = 0;
+
+  function select(i, focus) {
+    current = i;
+    tabs.forEach(function (t, n) {
+      var on = n === i;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.classList.toggle('is-done', n < i);
+      t.tabIndex = on ? 0 : -1;
+      panels[n].hidden = !on;
+    });
+    box.style.setProperty('--p', tabs.length > 1 ? i / (tabs.length - 1) : 0);
+    if (prev) prev.disabled = i === 0;
+    if (next) next.disabled = i === tabs.length - 1;
+    if (count) count.textContent = (i + 1) + ' / ' + tabs.length;
+    if (focus) tabs[i].focus();
+    // Keep the selected stop in view when the rail scrolls sideways on phones.
+    var rail = box.querySelector('.process-rail');
+    if (rail && rail.scrollWidth > rail.clientWidth) {
+      rail.scrollTo({ left: tabs[i].offsetLeft - (rail.clientWidth - tabs[i].offsetWidth) / 2, behavior: 'smooth' });
+    }
+  }
+
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { select(i, false); });
+    t.addEventListener('keydown', function (e) {
+      var k = e.key, n = -1;
+      if (k === 'ArrowDown' || k === 'ArrowRight') n = (i + 1) % tabs.length;
+      else if (k === 'ArrowUp' || k === 'ArrowLeft') n = (i - 1 + tabs.length) % tabs.length;
+      else if (k === 'Home') n = 0;
+      else if (k === 'End') n = tabs.length - 1;
+      if (n < 0) return;
+      e.preventDefault();
+      select(n, true);
+    });
+  });
+  if (prev) prev.addEventListener('click', function () { if (current > 0) select(current - 1, false); });
+  if (next) next.addEventListener('click', function () { if (current < tabs.length - 1) select(current + 1, false); });
+  if (nav) nav.hidden = false;
+  select(0, false);
+})();

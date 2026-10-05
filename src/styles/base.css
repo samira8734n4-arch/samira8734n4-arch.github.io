@@ -403,14 +403,19 @@ body > .wrap:has(> .nav)::before {
 }
 .theme-toggle:hover { color: var(--color-text-primary); border-color: var(--color-border-strong); }
 
-/* Narrow: the name takes its own row, then the links and the toggle share the
-   next one rather than the toggle stranding on a third. */
+/* Narrow: keep the bar to a single row so it does not eat a fifth of a phone
+   screen. Tight pills fit the four links beside the name; on the smallest
+   phones the avatar stands in for the name (font-size 0 hides the text
+   visually but leaves it for screen readers). */
 @media (max-width: 40rem) {
-  /* Tight column gap and pills so five links (with Contact) fit on one row. */
-  .nav { border-radius: var(--radius-lg); gap: var(--space-2) var(--space-1); }
-  .nav .home { flex: 1 0 100%; margin-inline-end: 0; }
-  .nav a { padding: var(--space-2) 0.4rem; }
+  .nav { flex-wrap: nowrap; gap: var(--space-1); margin-block: var(--space-3); padding: var(--space-2) var(--space-3); }
+  .nav .home { font-size: var(--text-base); gap: var(--space-2); padding-inline: 0; }
+  .nav a { padding: var(--space-3) 0.5rem; white-space: nowrap; }
+  .avatar { width: 36px; height: 36px; }
   .theme-toggle { padding: var(--space-2) var(--space-3); }
+}
+@media (max-width: 26rem) {
+  .nav .home { font-size: 0; }
 }
 
 /* Screen-reader-only text. Used to give the rotating headline a stable,
@@ -644,6 +649,7 @@ body > .wrap:has(> .nav)::before {
 /* Photo card — image fills it edge to edge. Its job is to break up a row of
    text blocks. */
 .promo-photo { padding: 0; overflow: hidden; background: var(--fill-mint); }
+.promo-photo a { display: block; width: 100%; height: 100%; }
 .promo-photo img { width: 100%; height: 100%; object-fit: cover; }
 
 /* Thumbnails tucked behind a card, rising and fanning out on hover.
@@ -1141,17 +1147,200 @@ figcaption {
 .shipped-type { font-size: var(--text-sm); color: var(--color-text-secondary); white-space: nowrap; }
 
 /* NOTE — the handwritten-letter block. */
-.note {
-  background: var(--fill-butter);
-  border-radius: var(--radius-lg);
-  padding: var(--space-12);
-  max-width: var(--measure);
-  box-shadow: var(--shadow-medium);
-  transform: rotate(-1deg);
+/* PROCESS — the six working steps as a timeline. A row of numbered stops,
+   joined by a line that fills as far as the selected step, sits above one
+   large panel. Each step has its own tint and a giant numeral, and Back/Next
+   walk through in order. Without JS every panel shows, one after another. */
+.process-intro { margin-bottom: var(--space-8); }
+.process { --p: 0; display: grid; gap: var(--space-6); }
+
+.process-rail { overflow-x: auto; scrollbar-width: none; padding: var(--space-2) 0; }
+.process-rail::-webkit-scrollbar { display: none; }
+.process-tabs {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(6.5rem, 1fr));
+  min-width: 42rem;
 }
-.note p { color: var(--color-text-primary); }
-.note p:last-child { margin-bottom: 0; }
-.note .sign { font-family: var(--font-display); font-weight: var(--weight-bold); }
+/* The track, and the filled part up to the selected stop. Both run between the
+   centres of the first and last stop: one twelfth in from each edge. */
+.process-tabs::before,
+.process-tabs::after {
+  content: "";
+  position: absolute;
+  top: 1.5rem;
+  left: calc(100% / 12);
+  height: 4px;
+  border-radius: var(--radius-full);
+  transform: translateY(-50%);
+}
+.process-tabs::before { right: calc(100% / 12); background: var(--color-border); }
+.process-tabs::after {
+  width: calc((100% - 100% / 6) * var(--p));
+  background: var(--color-action);
+  transition: width 420ms var(--ease-smooth);
+}
+.process-tab {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-1);
+  border: 0;
+  background: none;
+  color: var(--color-text-secondary);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  cursor: pointer;
+}
+.process-n {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  border: 3px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-family: var(--font-display);
+  transition: transform var(--duration-base) var(--ease), background var(--duration-base) ease,
+    border-color var(--duration-base) ease, color var(--duration-base) ease;
+}
+.process-tab:hover .process-n { border-color: var(--color-action); color: var(--color-text-primary); }
+/* Stops already passed stay filled; the current one is larger. */
+.process-tab.is-done .process-n {
+  background: var(--color-action);
+  border-color: var(--color-action);
+  color: var(--color-action-text);
+}
+.process-tab[aria-selected="true"] { color: var(--color-text-primary); }
+.process-tab[aria-selected="true"] .process-n {
+  background: var(--color-action);
+  border-color: var(--color-action);
+  color: var(--color-action-text);
+  transform: scale(1.2);
+  box-shadow: 0 0 0 6px var(--color-action-tint);
+}
+.process-t { text-align: center; line-height: var(--leading-snug); }
+
+.process-panel {
+  position: relative;
+  display: grid;
+  gap: var(--space-4);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-medium);
+  overflow: hidden;
+}
+@media (min-width: 56rem) {
+  .process-panel { grid-template-columns: 14rem minmax(0, 1fr); align-items: center; gap: var(--space-12); padding: var(--space-12); }
+}
+.process-panel + .process-panel { margin-top: var(--space-4); }
+.process-panel[hidden] { display: none; }
+.process-panel.is-butter { background: var(--fill-butter); }
+.process-panel.is-mint { background: var(--fill-mint); }
+.process-panel.is-peach { background: var(--fill-peach); }
+.process-panel.is-lavender { background: var(--fill-lavender); }
+.process-panel.is-sky { background: var(--fill-sky); }
+.process-panel.is-rose { background: var(--fill-rose); }
+.js .process-panel:not([hidden]) { animation: process-in 320ms var(--ease-smooth); }
+@keyframes process-in { from { opacity: 0; transform: translateX(16px); } }
+.process-big {
+  font-family: var(--font-display);
+  font-weight: var(--weight-black);
+  font-size: clamp(4.5rem, 3rem + 9vw, 10rem);
+  line-height: 0.85;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
+  opacity: 0.14;
+}
+.process-kicker {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+.process-panel h3 { font-size: var(--text-3xl); line-height: 1; margin: 0 0 var(--space-4); }
+.process-panel p { color: var(--color-text-primary); font-size: var(--text-lg); max-width: 50ch; margin: 0; }
+.process-panel .process-out-label {
+  margin: var(--space-6) 0 var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-secondary);
+}
+.process-out { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.process-out li {
+  background: var(--color-surface);
+  border-radius: var(--radius-full);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  box-shadow: var(--shadow-subtle);
+}
+.process-link {
+  display: inline-block;
+  margin-top: var(--space-6);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+.process-nav { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.process-nav[hidden] { display: none; }
+.process-prev, .process-next {
+  min-height: 2.75rem;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-full);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  cursor: pointer;
+}
+.process-prev { background: var(--color-surface); color: var(--color-text-primary); border: 1px solid var(--color-border-strong); }
+.process-next { background: var(--color-action); color: var(--color-action-text); border: 1px solid transparent; }
+.process-next:hover { background: var(--color-action-hover); }
+.process-prev:disabled, .process-next:disabled { opacity: 0.4; cursor: default; }
+.process-count { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-text-secondary); }
+@media (prefers-reduced-motion: reduce) {
+  .js .process-panel:not([hidden]) { animation: none; }
+  .process-tabs::after, .process-n { transition: none; }
+}
+
+.note-card {
+  display: grid;
+  gap: var(--space-4) var(--space-6);
+  justify-items: center;
+  text-align: center;
+  margin-top: var(--space-12);
+  background: var(--color-action);
+  color: var(--color-action-text);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-medium);
+}
+@media (min-width: 56rem) {
+  .note-card { grid-template-columns: auto 1fr auto; align-items: center; justify-items: start; text-align: left; }
+}
+.note-card img {
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
+  object-position: top;
+  border-radius: var(--radius-full);
+  background: var(--fill-mint);
+  border: 3px solid var(--color-action-text);
+  display: block;
+}
+.note-card p { margin: 0; color: var(--color-action-text); }
+.note-card-name { font-family: var(--font-display); font-weight: var(--weight-bold); font-size: var(--text-xl); line-height: var(--leading-snug); }
+.note-card-role { font-size: var(--text-sm); opacity: 0.85; margin-top: var(--space-2); }
+.note-card-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-3); }
+.note-card .note-card-primary { background: var(--fill-butter); }
+@media (prefers-reduced-motion: reduce) {
+}
 
 /* CTA */
 .cta {
@@ -3116,3 +3305,65 @@ html:not(.js) .work-more[hidden] { display: block !important; }
 .cv-dialog-frame { display: block; width: 100%; height: 100%; border: 0; }
 .cv-dialog-frame[hidden] { display: none; }
 .cv-dialog-fallback { margin: 0; padding: var(--space-12) var(--space-6); text-align: center; color: var(--color-text-primary); }
+
+/* ---------------------------------------------------------------------------
+   Touch screens. Several decorations are positioned to pop out on hover; with
+   no hover they are always visible, and as overlays they covered the text
+   beneath them. Here they take their place in the normal flow instead.
+   --------------------------------------------------------------------------- */
+@media (hover: none) {
+  /* Home promo cards: thumbnails and social icons sit above the title. */
+  .promo .peek {
+    position: static;
+    justify-content: flex-start;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+  .promo .peek img { flex: 1 1 0; width: auto; min-width: 0; border-width: 2px; }
+  .promo .peek img:nth-child(1) { transform: rotate(-3deg); }
+  .promo .peek img:nth-child(3) { transform: rotate(3deg); }
+
+  /* Work cards: the client logo sits above the tag instead of over the title. */
+  .card-logo {
+    position: static;
+    width: fit-content;
+    transform: none;
+    box-shadow: var(--shadow-subtle);
+    margin-bottom: var(--space-1);
+  }
+}
+
+/* Comfortable tap targets for the small text links. */
+.back { min-height: 2.75rem; }
+.feature-open { min-height: 2.75rem; padding-top: 0; }
+
+/* On narrow screens the theme toggle floated over body text at mid-height.
+   Park it in the bottom corner, clear of the reading column. */
+@media (max-width: 47.99rem) {
+  .theme-fab {
+    top: auto;
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    transform: none;
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+  .theme-fab:hover { transform: scale(1.07); }
+}
+
+/* Guard against sideways scroll from decorative overflow (hover tooltips near
+   the screen edge, rotated cards). clip, unlike hidden, does not create a
+   scroll container, so sticky elements keep working. */
+html, body { overflow-x: clip; }
+
+/* Shipped panel on the narrowest phones: let the grid tracks shrink and long
+   product names wrap inside their pill instead of pushing the panel wider. */
+.shipped-group { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 48rem) { .shipped-group { grid-template-columns: 17rem minmax(0, 1fr); } }
+.shipped-list li { flex-wrap: wrap; max-width: 100%; border-radius: var(--radius-md); }
+@media (max-width: 26rem) {
+  .shipped { padding-inline: var(--space-6); }
+  .nav a { padding-inline: 0.35rem; }
+}
+
+/* Count badges removed from the shipped panel: the head is just name + years. */
+.shipped-head { display: block; }
