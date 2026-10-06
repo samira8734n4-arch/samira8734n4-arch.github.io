@@ -997,3 +997,52 @@ document.documentElement.classList.add('js');
   if (nav) nav.hidden = false;
   select(0, false);
 })();
+
+// Phone menu. On narrow screens the nav links hide behind a menu button that
+// opens a drawer. The drawer's links are copies; tapping one closes the drawer
+// and clicks the original, so Contact and CV keep their panel behaviour.
+(function () {
+  var nav = document.querySelector('.nav');
+  if (!nav || !window.HTMLDialogElement) return;
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a:not(.home)'));
+  if (!links.length) return;
+
+  var btn = document.createElement('button');
+  btn.className = 'nav-menu';
+  btn.type = 'button';
+  btn.setAttribute('aria-label', 'Open menu');
+  btn.setAttribute('aria-haspopup', 'dialog');
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+  nav.appendChild(btn);
+
+  var dlg = document.createElement('dialog');
+  dlg.className = 'nav-drawer';
+  dlg.setAttribute('aria-label', 'Menu');
+  var home = nav.querySelector('.home');
+  dlg.innerHTML =
+    '<div class="nav-drawer-head">' +
+      (home ? '<span class="nav-drawer-home">' + home.innerHTML + '</span>' : '') +
+      '<button class="nav-drawer-close" type="button" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>' +
+    '</div>' +
+    '<ul class="nav-drawer-list"></ul>';
+  var list = dlg.querySelector('.nav-drawer-list');
+  links.forEach(function (a) {
+    var li = document.createElement('li');
+    var c = document.createElement('a');
+    c.href = a.getAttribute('href');
+    c.textContent = a.textContent;
+    if (a.hasAttribute('aria-current')) c.setAttribute('aria-current', 'page');
+    c.addEventListener('click', function (e) {
+      e.preventDefault();
+      dlg.close();
+      a.click();
+    });
+    li.appendChild(c);
+    list.appendChild(li);
+  });
+  document.body.appendChild(dlg);
+
+  btn.addEventListener('click', function () { dlg.showModal(); });
+  dlg.querySelector('.nav-drawer-close').addEventListener('click', function () { dlg.close(); });
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+})();

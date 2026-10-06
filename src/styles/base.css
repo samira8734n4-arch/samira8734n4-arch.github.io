@@ -3422,3 +3422,214 @@ html, body { overflow-x: clip; }
 
 /* Contact band photo: a real photograph needs more room than the avatar did. */
 .note-card img { width: 6.5rem; height: 6.5rem; object-position: center; }
+
+/* ---------------------------------------------------------------------------
+   Phone layout, second pass: denser where things were stacking one per row.
+   --------------------------------------------------------------------------- */
+@media (max-width: 40rem) {
+  /* Hero numbers: three across in one row instead of two plus an orphan. */
+  .hero-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); margin-top: var(--space-8); }
+  .hero-stats .n { font-size: var(--text-2xl); }
+  .hero-stats .l { margin-top: var(--space-2); font-size: var(--text-xs); }
+
+  /* Shipped pills: smaller, so two fit side by side. */
+  .shipped { padding: var(--space-2) 1.25rem; }
+  .shipped-group { padding: var(--space-6) 0; gap: var(--space-4); }
+  .shipped-list { gap: var(--space-2); }
+  .shipped-list li { padding: var(--space-2) var(--space-3); font-size: var(--text-sm); gap: var(--space-1); }
+  .shipped-type { font-size: var(--text-xs); }
+}
+
+/* Process timeline: all six stops fit the screen, so nothing needs scrolling. */
+@media (max-width: 56rem) {
+  .process-tabs { min-width: 0; grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .process-tabs::before, .process-tabs::after { top: 1.125rem; }
+  .process-n { width: 2.25rem; height: 2.25rem; border-width: 2px; font-size: var(--text-xs); }
+  .process-tab { padding: 0; gap: var(--space-1); }
+  .process-t { font-size: 0.68rem; letter-spacing: -0.01em; }
+  .process-tab[aria-selected="true"] .process-n { transform: scale(1.12); box-shadow: 0 0 0 4px var(--color-action-tint); }
+  .process-panel { padding: var(--space-6); }
+  .process-big { font-size: 3.5rem; opacity: 0.18; }
+  .process-panel h3 { font-size: var(--text-2xl); }
+  .process-panel p { font-size: var(--text-base); }
+}
+
+/* Sticker board: shorter on phones, where 18rem of green read as an empty
+   block before the stickers popped in. */
+@media (max-width: 40rem) {
+  .cta-stickers { height: 13rem; }
+}
+
+/* CV dialog on phones: a compact single-row bar, so the preview gets the
+   screen. The buttons shrink and the labels drop to one word each. */
+@media (max-width: 40rem) {
+  .cv-dialog { width: calc(100vw - 1rem); height: calc(100dvh - 1rem); border-radius: var(--radius-lg); }
+  .cv-dialog-bar { flex-wrap: nowrap; gap: var(--space-2); padding: var(--space-3); }
+  .cv-dialog-bar h2 { font-size: var(--text-base); flex: 1; min-width: 0; white-space: nowrap; }
+  .cv-dialog-actions { gap: var(--space-2); flex: none; }
+  .cv-dialog-open { font-size: var(--text-xs); white-space: nowrap; }
+  .cv-dialog-download { padding: var(--space-2) var(--space-3); font-size: var(--text-xs); white-space: nowrap; }
+  .cv-dialog-download svg { width: 1rem; height: 1rem; }
+  .cv-dialog-close { width: 2.25rem; height: 2.25rem; }
+  .cv-dialog-fallback { padding: var(--space-8) var(--space-4); font-size: var(--text-sm); }
+}
+
+/* Phone nav: the name stays beside the avatar, and the four links become a
+   segmented control, a single tinted track with the current page as a filled
+   pill, so the bar reads as one control rather than loose words. */
+@media (max-width: 40rem) {
+  .nav { padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3); gap: var(--space-2); }
+  .nav .home { font-size: var(--text-base); gap: var(--space-2); flex: 1; min-width: 0; }
+  .nav .home span, .nav .home { white-space: nowrap; }
+  .nav-links,
+  .nav > a:not(.home) { font-size: var(--text-xs); }
+  /* The links share one track. Without a wrapper element, the track is drawn
+     by giving the first link the left cap and the last the right cap. */
+  .nav > a:not(.home) {
+    padding: var(--space-2) 0.55rem;
+    margin: 0;
+    border-radius: 0;
+    background: var(--color-action-tint);
+    color: var(--color-text-primary);
+  }
+  .nav > a:not(.home):nth-child(2) { border-radius: var(--radius-full) 0 0 var(--radius-full); padding-left: 0.75rem; }
+  .nav > a:not(.home):last-child { border-radius: 0 var(--radius-full) var(--radius-full) 0; padding-right: 0.75rem; }
+  .nav > a[aria-current] { border-radius: var(--radius-full); background: var(--color-action); color: var(--color-action-text); }
+  .nav { gap: 0; }
+  .nav .home { margin-inline-end: var(--space-3); }
+}
+@media (max-width: 26rem) {
+  .nav .home { font-size: var(--text-sm); }
+  .avatar { width: 32px; height: 32px; }
+}
+
+/* Shipped panel on phones: lighter, smaller type so the pills read as a list
+   rather than a wall of bold labels. */
+@media (max-width: 40rem) {
+  .shipped-head h3 { font-size: var(--text-lg); }
+  .shipped-when { font-size: var(--text-xs); }
+  .shipped-list li { padding: 0.35rem 0.65rem; font-size: var(--text-xs); }
+  .shipped-name { font-weight: var(--weight-medium); }
+  .shipped-type { font-size: 0.68rem; }
+}
+
+
+/* ---------------------------------------------------------------------------
+   Phone menu: a menu button in the bar, and a drawer that slides in from the
+   right with the links at full tap size. Wide screens never see either.
+   --------------------------------------------------------------------------- */
+.nav-menu { display: none; }
+@media (max-width: 40rem) {
+  .js .nav > a:not(.home) { display: none; }
+  .js .nav-menu {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-left: auto;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    background: var(--color-surface);
+    color: var(--color-text-primary);
+    cursor: pointer;
+  }
+  .nav-menu svg { width: 1.35rem; height: 1.35rem; }
+  .js .nav .home { margin-inline-end: auto; }
+}
+.nav-drawer {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: min(20rem, 85vw);
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: var(--space-6);
+  border: 0;
+  border-left: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-high);
+}
+.nav-drawer::backdrop { background: rgb(10 12 11 / 0.5); backdrop-filter: blur(3px); }
+.nav-drawer[open] { animation: nav-drawer-in 260ms var(--ease-smooth); }
+@keyframes nav-drawer-in { from { transform: translateX(100%); } }
+.nav-drawer-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-6); }
+.nav-drawer-home {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-lg);
+}
+.nav-drawer-home .avatar { width: 40px; height: 40px; }
+.nav-drawer-close {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+.nav-drawer-close svg { width: 1.25rem; height: 1.25rem; }
+.nav-drawer-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+.nav-drawer-list a {
+  display: block;
+  padding: var(--space-4) 1.25rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+.nav-drawer-list a:hover { background: var(--color-action-tint); }
+.nav-drawer-list a[aria-current] { color: var(--color-action); }
+@media (prefers-reduced-motion: reduce) { .nav-drawer[open] { animation: none; } }
+
+/* About facts on phones: three tall columns squeezed the text, so each fact
+   becomes a row: the number in a tinted badge on the left, title and note
+   beside it, with a thin rule between rows. One quiet card instead of three. */
+@media (max-width: 40rem) {
+  .about-facts {
+    display: block;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2) var(--space-4);
+  }
+  .about-facts li {
+    display: grid;
+    grid-template-columns: 5.25rem minmax(0, 1fr);
+    column-gap: var(--space-4);
+    align-items: center;
+    padding: var(--space-3) 0;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--color-border);
+    border-radius: 0;
+  }
+  .about-facts li:last-child { border-bottom: 0; }
+  .fact-num {
+    grid-row: 1 / span 2;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0.05em;
+    padding: var(--space-3) var(--space-2);
+    background: var(--fact-bg);
+    border-radius: var(--radius-md);
+    font-size: var(--text-2xl);
+  }
+  .fact-unit { margin-top: 0; font-size: 0.45em; }
+  .about-facts .fact-title { margin-top: 0; font-size: var(--text-base); }
+  .about-facts .fact-note { margin-top: 0.15rem; }
+}
+
+/* About portrait: centred with its caption when it sits in a single column
+   (phones and tablets), rather than hugging the left edge. */
+@media (max-width: 63.99rem) {
+  .about-portrait { display: grid; justify-items: center; text-align: center; margin-top: var(--space-8); }
+}
